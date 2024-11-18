@@ -5,7 +5,7 @@
     <?php echo CHtml::beginForm(); ?>
         <div class="row d-print-none">
             <div class="col d-flex justify-content-start">
-                <h3>Welcome to RAPERIND</h3>
+                <h3>Welcome to RAPERIND Motor</h3>
             </div>
             <div class="col d-flex justify-content-end">
                 <div class="d-gap">
