@@ -41,9 +41,9 @@ class SiteController extends Controller {
         
         $branches = Branch::model()->findAll();
 
-        $vehicleDataProvider->criteria->with = array(
-            'customer',
-        );
+//        $vehicleDataProvider->criteria->with = array(
+//            'customer',
+//        );
 
         if (isset($_GET['Vehicle'])) {
             $vehicle->attributes = $_GET['Vehicle'];

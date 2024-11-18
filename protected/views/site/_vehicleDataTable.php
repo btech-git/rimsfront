@@ -1,5 +1,5 @@
 <div style="text-align: right">
-    <?php //echo ReportHelper::summaryText($vehicleDataProvider); ?>
+    <?php echo ReportHelper::summaryText($vehicleDataProvider); ?>
 </div>
 
 <div class="table-responsive" id="vehicle-data-grid">
