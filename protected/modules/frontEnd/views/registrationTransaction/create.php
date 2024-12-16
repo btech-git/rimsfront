@@ -11,6 +11,8 @@ $this->breadcrumbs=array(
     <?php echo $this->renderPartial('_form', array(
         'registrationTransaction' => $registrationTransaction,
         'customer' => $customer,
+        'vehicleData' => $vehicleData,
         'vehicle' => $vehicle,
+        'vehicleDataProvider' => $vehicleDataProvider,
     )); ?>
 </div>

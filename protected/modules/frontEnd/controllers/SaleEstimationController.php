@@ -47,8 +47,8 @@ class SaleEstimationController extends Controller {
         $saleEstimation->header->transaction_date = date('Y-m-d');
         $saleEstimation->header->transaction_time = date('H:i:s');
         $saleEstimation->header->created_datetime = date('Y-m-d H:i:s');
-        $saleEstimation->header->user_id_created = 1; //Yii::app()->user->id;
-        $saleEstimation->header->branch_id = 1; //Yii::app()->user->branch_id;
+        $saleEstimation->header->user_id_created = Yii::app()->user->id;
+        $saleEstimation->header->branch_id = Yii::app()->user->branch_id;
         $saleEstimation->header->status = 'Draft';
         $saleEstimation->header->repair_type = 'GR/BR';
 

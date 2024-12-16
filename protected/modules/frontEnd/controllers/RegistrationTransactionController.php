@@ -54,15 +54,21 @@ class RegistrationTransactionController extends Controller {
     public function actionCreate($estimationId) {
         $registrationTransaction = $this->instantiate(null);
         $saleEstimationHeader = SaleEstimationHeader::model()->findByPk($estimationId);
-        $customer = Customer::model()->findByPk($saleEstimationHeader->customer_id);
-        $vehicle = Vehicle::model()->findByPk($saleEstimationHeader->vehicle_id);
+        
+//        if (empty($saleEstimationHeader->customer_id && $saleEstimationHeader->vehicle_id)) {
+            $vehicle = Search::bind(new Vehicle('search'), isset($_GET['Vehicle']) ? $_GET['Vehicle'] : '');
+            $vehicleDataProvider = $vehicle->search();
+//        } else {
+            $customer = Customer::model()->findByPk($saleEstimationHeader->customer_id);
+            $vehicleData = Vehicle::model()->findByPk($saleEstimationHeader->vehicle_id);
+//        }
 
         $registrationTransaction->header->transaction_date = date('Y-m-d H:i:s');
         $registrationTransaction->header->work_order_time = null;
         $registrationTransaction->header->created_datetime = date('Y-m-d H:i:s');
-        $registrationTransaction->header->user_id = 1; //Yii::app()->user->id;
-        $registrationTransaction->header->vehicle_id = $saleEstimationHeader->vehicle_id;
-        $registrationTransaction->header->customer_id = $saleEstimationHeader->customer_id;
+        $registrationTransaction->header->user_id = Yii::app()->user->id;
+        $registrationTransaction->header->vehicle_id = empty($saleEstimationHeader->vehicle_id) ? null : $saleEstimationHeader->vehicle_id;
+        $registrationTransaction->header->customer_id = empty($saleEstimationHeader->customer_id) ? null :$saleEstimationHeader->customer_id;
         $registrationTransaction->header->branch_id = 1; //Yii::app()->user->branch_id;
         $registrationTransaction->header->sale_estimation_header_id = $estimationId;
         
@@ -80,7 +86,9 @@ class RegistrationTransactionController extends Controller {
         $this->render('create', array(
             'registrationTransaction' => $registrationTransaction,
             'customer' => $customer,
+            'vehicleData' => $vehicleData,
             'vehicle' => $vehicle,
+            'vehicleDataProvider' => $vehicleDataProvider,
         ));
     }
 
@@ -243,6 +251,26 @@ class RegistrationTransactionController extends Controller {
         }
 
         $this->redirect(array('admin'));
+    }
+
+    public function actionAjaxJsonVehicle($id) {
+        if (Yii::app()->request->isAjaxRequest) {
+
+            $registrationTransaction = $this->instantiate($id);
+            $this->loadState($registrationTransaction);
+
+            $vehicle = $registrationTransaction->header->vehicle(array('scopes' => 'resetScope', 'with' => 'customer:resetScope'));
+
+            $object = array(
+                'vehicle_name' => CHtml::value($vehicle, 'carMakeModelSubCombination'),
+                'customer_name' => CHtml::value($vehicle, 'customer.name'),
+                'customer_id' => CHtml::value($vehicle, 'customer_id'),
+                'vehicle_plate_number' => CHtml::value($vehicle, 'plate_number'),
+                'vehicle_frame_number' => CHtml::value($vehicle, 'frame_number'),
+            );
+
+            echo CJSON::encode($object);
+        }
     }
 
     public function actionAjaxJsonTotalService($id) {

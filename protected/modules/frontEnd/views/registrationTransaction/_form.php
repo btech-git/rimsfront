@@ -4,18 +4,26 @@
     <div class="form">
         <?php echo CHtml::errorSummary($registrationTransaction->header); ?>
 
-        <fieldset class="border border-secondary rounded mb-3 p-3">
-            <legend class="float-none w-auto text-dark px-1">Customer Vehicle Data</legend>
-            <div class="row">
-                <div class="col">
-                    <?php $this->renderPartial('_infoCustomerVehicle', array(
-                        'registrationTransaction' => $registrationTransaction, 
-                        'customer' => $customer,
-                        'vehicle' => $vehicle,
-                    )); ?>  
+            <fieldset class="border border-secondary rounded mb-3 p-3">
+                <legend class="float-none w-auto text-dark px-1">Customer Vehicle Data</legend>
+                <div class="row">
+                    <div class="col">
+                        <?php if (!empty($customer)): ?>
+                            <?php $this->renderPartial('_infoCustomerVehicle', array(
+                                'registrationTransaction' => $registrationTransaction, 
+                                'customer' => $customer,
+                                'vehicleData' => $vehicleData,
+                            )); ?>  
+                        <?php else: ?>
+                            <?php $this->renderPartial('_formCustomerVehicle', array(
+                                'registrationTransaction' => $registrationTransaction, 
+                                'vehicle' => $vehicle,
+                                'vehicleDataProvider' => $vehicleDataProvider,
+                            )); ?>  
+                        <?php endif; ?>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
+            </fieldset>
         
         <fieldset class="border border-secondary rounded mb-3 p-3">
             <legend class="float-none w-auto text-dark px-1">FORM REGISTRASI</legend>

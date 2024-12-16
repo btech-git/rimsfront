@@ -78,8 +78,13 @@ class LoginForm extends CFormModel {
             $this->_identity->authenticate();
         }
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE) {
-            $duration = 36000;
-            Yii::app()->user->login($this->_identity, $duration);
+            $userBranches = UserBranch::model()->findAllByAttributes(array('users_id' => $this->_identity->getId()));
+            $branchIds = array_map(function ($userBranch) {
+                return $userBranch->branch_id;
+            }, $userBranches);
+            $this->_identity->setState('branch_ids', $branchIds);
+            $this->_identity->setState('branch_id', $this->branchId);
+            Yii::app()->user->login($this->_identity, 36000);
             return true;
         } else {
             return false;

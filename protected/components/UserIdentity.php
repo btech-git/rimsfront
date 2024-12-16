@@ -8,7 +8,7 @@
 class UserIdentity extends CUserIdentity {
 
     private $_id;
-    private $_branchId;
+//    private $_branchId;
 
     /**
      * Authenticates a user.
@@ -26,12 +26,6 @@ class UserIdentity extends CUserIdentity {
         } else if ($user->password !== md5($this->password)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         } else {
-            $userBranches = UserBranch::model()->findAllByAttributes(array('users_id' => $user->id));
-            $branchIds = array_map(function ($userBranch) {
-                return $userBranch->branch_id;
-            }, $userBranches);
-            $this->setState('branch_ids', $branchIds);
-            $this->setState('branch_id', $this->_branchId);
             $this->_id = $user->id;
             $this->username = $user->username;
             $this->errorCode = self::ERROR_NONE;
@@ -47,9 +41,9 @@ class UserIdentity extends CUserIdentity {
         return $this->_id;
     }
 
-    public function setBranchId($branchId) {
-        $this->_branchId = $branchId;
-    }
+//    public function setBranchId($branchId) {
+//        $this->_branchId = $branchId;
+//    }
 
     private function checkRoles($roles, $user) {
         $rolesValid = array_map(function($userRole) use ($roles) { return in_array($userRole, $roles); }, $user->roles);
