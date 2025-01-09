@@ -32,7 +32,11 @@
                     <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0.00", CHtml::value($invoice, 'payment_left'))); ?></td>
                     <td>
                         <?php echo CHtml::link('<i class="bi-currency-dollar"></i>', array("create", "invoiceId" => $invoice->id), array('class' => 'btn btn-primary btn-sm')); ?>
-                        <?php //echo CHtml::link('<i class="bi-printer"></i>', array("memo", "id" => $invoice->id), array('class' => 'btn btn-success btn-sm')); ?>
+                        <?php if ($invoice->payment_left > 100): ?>
+                            <?php echo CHtml::link('<i class="bi-printer"></i> Invoice', array("pdf", "id" => $invoice->id), array('class' => 'btn btn-success btn-sm')); ?>
+                        <?php else: ?>
+                            <?php echo CHtml::link('<i class="bi-printer"></i> TT', array("pdfPayment", "id" => $invoice->id), array('class' => 'btn btn-success btn-sm')); ?>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -39,7 +39,7 @@ $this->breadcrumbs = array(
             <?php endif; ?>
 
             <?php if (count($model->registrationServices) > 0 && empty($model->work_order_number)): ?>
-                <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Work Order', Yii::app()->baseUrl . '/frontDesk/generalRepairRegistration/generateWorkOrder?id=' . $model->id, array(
+                <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Work Order', Yii::app()->baseUrl . '/frontEnd/registrationTransaction/generateWorkOrder?id=' . $model->id, array(
                     'class' => 'button success left', 
                     'style' => 'margin-right:10px'
                 )); ?>
@@ -47,23 +47,29 @@ $this->breadcrumbs = array(
 
             <?php if (empty($invoices)): ?>
                 <?php if (!empty($model->registrationServices) && (!empty($model->registrationProducts) && $model->getTotalQuantityMovementLeft() == 0)): ?>
-                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/transaction/invoiceHeader/create?registrationId=' . $model->id, array(
+                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/frontEnd/invoice/create?registrationId=' . $model->id, array(
                         'class' => 'button success left', 
                         'style' => 'margin-right:10px'
                     )); ?>
                 <?php elseif (!empty($model->registrationServices) && empty($model->registrationProducts)): ?>
-                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/transaction/invoiceHeader/create?registrationId=' . $model->id, array(
+                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/frontEnd/invoice/create?registrationId=' . $model->id, array(
                         'class' => 'button success left', 
                         'style' => 'margin-right:10px'
                     )); ?>
                 <?php elseif (empty($model->registrationServices) && !empty($model->registrationProducts) && $model->getTotalQuantityMovementLeft() == 0): ?>
-                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/transaction/invoiceHeader/create?registrationId=' . $model->id, array(
+                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/frontEnd/invoice/create?registrationId=' . $model->id, array(
                         'class' => 'button success left', 
                         'style' => 'margin-right:10px'
                     )); ?>
                 <?php endif; ?>
             <?php endif; ?>
 
+            <?php if (!empty($model->work_order_number) && $model->total_service > 0): ?>
+                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Work Order', Yii::app()->baseUrl.'/frontEnd/registrationTransaction/pdfWorkOrder?id=' . $model->id, array('class'=>'button warning right', 'style' => 'margin-right:10px', 'target' =>'_blank')) ?>
+            <?php endif; ?>
+            <?php if (!empty($model->sales_order_number) && $model->status !== 'Finished'): ?>
+                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Sales Order', Yii::app()->baseUrl.'/frontEnd/registrationTransaction/pdfSaleOrder?id=' . $model->id, array('class'=>'button warning right', 'style' => 'margin-right:10px', 'target' =>'_blank')) ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>

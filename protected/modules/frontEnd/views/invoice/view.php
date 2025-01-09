@@ -16,6 +16,18 @@ $this->breadcrumbs = array(
         <div class="d-gap">
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
+            <?php if ($model->status != 'PAID'): ?> 
+                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Invoice', array("pdf", "id" => $model->id), array(
+                    'class' => 'button warning right', 
+                    'style' => 'margin-right:10px', 
+                )); ?>
+            <?php else: ?>
+                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Tanda Terima', array("pdfPayment", "id" => $model->id), array(
+                        'class' => 'button warning right', 
+                        'style' => 'margin-right:10px', 
+                    )); ?>
+            <?php endif; ?>
+
         </div>
     </div>
 </div>

@@ -16,6 +16,7 @@ $this->breadcrumbs = array(
         <div class="d-gap">
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
+            <?php echo CHtml::link('<span class="fa fa-print"></span>Print Estimasi', Yii::app()->baseUrl.'/frontEnd/saleEstimation/pdf?id=' . $model->id, array('class'=>'button warning right', 'style' => 'margin-right:10px', 'target' =>'_blank')) ?>
         </div>
     </div>
 </div>

@@ -253,6 +253,44 @@ class RegistrationTransactionController extends Controller {
         $this->redirect(array('admin'));
     }
 
+    public function actionPdfSaleOrder($id) {
+        $generalRepairRegistration = RegistrationTransaction::model()->find('id=:id', array(':id' => $id));
+        $customer = Customer::model()->findByPk($generalRepairRegistration->customer_id);
+        $vehicle = Vehicle::model()->findByPk($generalRepairRegistration->vehicle_id);
+        $branch = Branch::model()->findByPk($generalRepairRegistration->branch_id);
+        $mPDF1 = Yii::app()->ePdf->mpdf('', 'A4-L');
+
+        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot') . '/css/pdf.css');
+        $mPDF1->SetTitle('Sales Order');
+        $mPDF1->WriteHTML($stylesheet, 1);
+        $mPDF1->WriteHTML($this->renderPartial('pdfSaleOrder', array(
+            'generalRepairRegistration' => $generalRepairRegistration,
+            'customer' => $customer,
+            'vehicle' => $vehicle,
+            'branch' => $branch,
+        ), true));
+        $mPDF1->Output('SO ' . $generalRepairRegistration->sales_order_number . '.pdf', 'I');
+    }
+
+    public function actionPdfWorkOrder($id) {
+        $generalRepairRegistration = RegistrationTransaction::model()->findByPk($id);
+        $customer = Customer::model()->findByPk($generalRepairRegistration->customer_id);
+        $vehicle = Vehicle::model()->findByPk($generalRepairRegistration->vehicle_id);
+        $branch = Branch::model()->findByPk($generalRepairRegistration->branch_id);
+        $mPDF1 = Yii::app()->ePdf->mpdf('', 'A4-L');
+
+        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot') . '/css/pdf.css');
+        $mPDF1->SetTitle('Work Order');
+        $mPDF1->WriteHTML($stylesheet, 1);
+        $mPDF1->WriteHTML($this->renderPartial('pdfWorkOrder', array(
+            'generalRepairRegistration' => $generalRepairRegistration,
+            'customer' => $customer,
+            'vehicle' => $vehicle,
+            'branch' => $branch,
+        ), true));
+        $mPDF1->Output('WO ' . $generalRepairRegistration->work_order_number . '.pdf', 'I');
+    }
+
     public function actionAjaxJsonVehicle($id) {
         if (Yii::app()->request->isAjaxRequest) {
 
