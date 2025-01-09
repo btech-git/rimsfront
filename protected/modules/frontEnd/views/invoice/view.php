@@ -17,15 +17,9 @@ $this->breadcrumbs = array(
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
             <?php if ($model->status != 'PAID'): ?> 
-                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Invoice', array("pdf", "id" => $model->id), array(
-                    'class' => 'button warning right', 
-                    'style' => 'margin-right:10px', 
-                )); ?>
+                <?php echo CHtml::link('<i class="bi-printer"></i>Print Invoice', array("pdf", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
             <?php else: ?>
-                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Tanda Terima', array("pdfPayment", "id" => $model->id), array(
-                        'class' => 'button warning right', 
-                        'style' => 'margin-right:10px', 
-                    )); ?>
+                <?php echo CHtml::link('<i class="bi-printer"></i>Print Tanda Terima', array("pdfPayment", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
             <?php endif; ?>
 
         </div>
