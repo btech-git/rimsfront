@@ -311,17 +311,21 @@ class RegistrationTransactionController extends Controller {
         }
     }
 
-    public function actionAjaxJsonTotalService($id) {
+    public function actionAjaxJsonTotalService($id, $index) {
         if (Yii::app()->request->isAjaxRequest) {
             $registrationTransaction = $this->instantiate($id);
             $this->loadState($registrationTransaction);
 
+            $totalPriceService = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($registrationTransaction->serviceDetails[$index], 'totalAmount')));
+            $totalDiscount = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->totalDiscount));
             $subTotalService = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->subTotalService));
             $subTotalTransaction = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->subTotalTransaction));
             $taxTotalTransaction = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->taxItemAmount));
             $grandTotalTransaction = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->grandTotalTransaction));
 
             echo CJSON::encode(array(
+                'totalPriceService' => $totalPriceService,
+                'totalDiscount' => $totalDiscount,
                 'subTotalService' => $subTotalService,
                 'subTotalTransaction' => $subTotalTransaction,
                 'taxTotalTransaction' => $taxTotalTransaction,
@@ -336,6 +340,7 @@ class RegistrationTransactionController extends Controller {
             $this->loadState($registrationTransaction);
 
             $totalPriceProduct = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($registrationTransaction->productDetails[$index], 'totalPrice')));
+            $totalDiscount = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->totalDiscount));
             $totalQuantityProduct = CHtml::encode(Yii::app()->numberFormatter->format('#,##0', $registrationTransaction->totalQuantityProduct));
             $subTotalProduct = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->subTotalProduct));
             $subTotalTransaction = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $registrationTransaction->subTotalTransaction));
@@ -345,6 +350,7 @@ class RegistrationTransactionController extends Controller {
             echo CJSON::encode(array(
                 'totalPriceProduct' => $totalPriceProduct,
                 'totalQuantityProduct' => $totalQuantityProduct,
+                'totalDiscount' => $totalDiscount,
                 'subTotalProduct' => $subTotalProduct,
                 'subTotalTransaction' => $subTotalTransaction,
                 'taxTotalTransaction' => $taxTotalTransaction,

@@ -100,7 +100,7 @@ function tanggal($date) {
                 <th style="width: 15%">Code</th>
                 <th>Item Name</th>
                 <th style="width: 20%">Brand Name</th>
-                <th style="width: 5%">Qty</th>
+                <th style="width: 10%">Qty</th>
                 <th style="width: 5%">Unit</th>
             </tr>
             <?php $no = 1;?>
@@ -110,9 +110,10 @@ function tanggal($date) {
                     <td>&nbsp; <?php echo CHtml::encode(CHtml::value($registrationProduct, 'product.manufacturer_code')); ?></td>
                     <td>&nbsp; <?php echo CHtml::encode(CHtml::value($registrationProduct, 'product.name')); ?></td>
                     <td>&nbsp; <?php echo CHtml::encode(CHtml::value($registrationProduct, 'product.brand.name')); ?></td>
-                    <td>&nbsp; <?php echo CHtml::encode(CHtml::value($registrationProduct, 'quantity')); ?></td>
+                    <td style="text-align: center">&nbsp; <?php echo CHtml::encode(CHtml::value($registrationProduct, 'quantity')); ?></td>
                     <td>&nbsp; <?php echo CHtml::encode(CHtml::value($registrationProduct, 'product.unit.name')); ?></td>
                 </tr>
+                <?php $no++; ?>
             <?php endforeach; ?>
         </table>
     </div>

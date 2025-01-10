@@ -128,5 +128,11 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <div class="text-end">
+        <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
+            'pages' => $registrationTransactionDataProvider->pagination,
+        )); ?>
+    </div>
     <?php echo CHtml::endForm(); ?>
 </div>

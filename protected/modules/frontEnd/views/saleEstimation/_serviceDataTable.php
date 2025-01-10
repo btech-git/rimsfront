@@ -25,12 +25,12 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+</div>
 
-    <div class="text-end">
-        <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
-            'pages' => $serviceDataProvider->pagination,
-        )); ?>
-    </div>
+<div class="text-end">
+    <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
+        'pages' => $serviceDataProvider->pagination,
+    )); ?>
 </div>
 
 <script>

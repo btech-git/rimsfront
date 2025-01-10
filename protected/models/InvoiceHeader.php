@@ -210,6 +210,12 @@ class InvoiceHeader extends MonthlyTransactionActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'invoice_date DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
         ));
     }
 
@@ -341,6 +347,24 @@ class InvoiceHeader extends MonthlyTransactionActiveRecord {
         return $this->total_price - $this->payment_amount;
     }
 
+    public function getTotalDiscountProductService() {
+        $total = 0; 
+        
+        foreach ($this->invoiceDetails as $detail) {
+            if (!empty($detail->product_id)) {
+                $total += $detail->discount;
+            }
+        }
+        
+        foreach ($this->invoiceDetails as $detail) {
+            if (!empty($detail->service_id)) {
+                $total += $detail->discount;
+            }
+        }
+        
+        return $total;
+    }
+    
     public function getRemainingDueDate() {
         $date = date('Y-m-d');
 

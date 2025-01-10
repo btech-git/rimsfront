@@ -47,31 +47,27 @@
             <thead>
                 <tr class="table-primary">
                     <th>Service name</th>
-                    <th>Claim</th>
-                    <th>Hour</th>
                     <th>Price</th>
-<!--                    <th>Discount Type</th>
-                    <th>Discount Price</th>
-                    <th>Total Price</th>-->
+                    <th>Disc Type</th>
+                    <th>Disc</th>
+                    <th>Total Price</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($services as $i => $service): ?>
                     <tr class="table-light">
                         <td><?php echo $service->service->name; ?></td>
-                        <td><?php echo $service->claim; ?></td>
-                        <td><?php echo $service->hour; ?></td>
                         <td class="text-end"><?php echo number_format($service->price, 2); ?></td>
-<!--                        <td><?php /*echo $service->discount_type; ?></td>
+                        <td><?php echo $service->discount_type; ?></td>
                         <td><?php echo $service->discount_type == 'Percent' ? $service->discount_price : number_format($service->discount_price, 2); ?></td>
-                        <td class="text-end"><?php echo number_format($service->total_price, 2); */?></td>-->
+                        <td class="text-end"><?php echo number_format($service->total_price, 2); ?></td>
 
                     </tr>
                 <?php endforeach; ?>
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="text-end" colspan="3">Total Jasa</td>
+                    <td class="text-end" colspan="4">Total Jasa</td>
                     <td class="text-end"><?php echo number_format($model->subtotal_service, 2); ?></td>
                 </tr>
             </tfoot>

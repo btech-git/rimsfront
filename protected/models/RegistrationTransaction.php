@@ -281,6 +281,12 @@ class RegistrationTransaction extends MonthlyTransactionActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'transaction_date DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
         ));
     }
 
@@ -375,6 +381,12 @@ class RegistrationTransaction extends MonthlyTransactionActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'transaction_date DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
         ));
     }
 
@@ -448,4 +460,17 @@ class RegistrationTransaction extends MonthlyTransactionActiveRecord {
         return $total;
     }
 
+    public function getTotalDiscount() {
+        $total = 0;
+        
+        foreach ($this->registrationProducts as $registrationProduct) {
+            $total+= $registrationProduct->discountAmount;
+        }
+        
+        foreach ($this->registrationServices as $registrationService) {
+            $total+= $registrationService->discountAmount;
+        }
+        
+        return $total;        
+    }
 }

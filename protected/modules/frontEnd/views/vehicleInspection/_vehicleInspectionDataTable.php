@@ -112,3 +112,9 @@
     </table>
 <?php echo CHtml::endForm(); ?>
 </div>
+
+<div class="text-end">
+    <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
+        'pages' => $registrationTransactionDataProvider->pagination,
+    )); ?>
+</div>

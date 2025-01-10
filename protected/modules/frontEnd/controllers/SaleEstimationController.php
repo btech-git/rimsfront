@@ -255,22 +255,20 @@ class SaleEstimationController extends Controller {
     }
 
     public function actionPdf($id) {
-        $generalRepairRegistration = RegistrationTransaction::model()->find('id=:id', array(':id' => $id));
-        $customer = Customer::model()->findByPk($generalRepairRegistration->customer_id);
-        $vehicle = Vehicle::model()->findByPk($generalRepairRegistration->vehicle_id);
-        $branch = Branch::model()->findByPk($generalRepairRegistration->branch_id);
+        $saleEstimationHeader = SaleEstimationHeader::model()->findByPk($id);
+        $customer = Customer::model()->findByPk($saleEstimationHeader->customer_id);
+        $vehicle = Vehicle::model()->findByPk($saleEstimationHeader->vehicle_id);
         $mPDF1 = Yii::app()->ePdf->mpdf('', 'A4-L');
 
         $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot') . '/css/pdf.css');
         $mPDF1->SetTitle('Estimasi');
         $mPDF1->WriteHTML($stylesheet, 1);
         $mPDF1->WriteHTML($this->renderPartial('pdf', array(
-            'generalRepairRegistration' => $generalRepairRegistration,
+            'saleEstimationHeader' => $saleEstimationHeader,
             'customer' => $customer,
             'vehicle' => $vehicle,
-            'branch' => $branch,
         ), true));
-        $mPDF1->Output('Estimasi ' . $generalRepairRegistration->transaction_number . '.pdf', 'I');
+        $mPDF1->Output('Estimasi ' . $saleEstimationHeader->transaction_number . '.pdf', 'I');
     }
 
     public function actionMemo($id) {
@@ -378,17 +376,19 @@ class SaleEstimationController extends Controller {
         }
     }
 
-    public function actionAjaxJsonTotalService($id) {
+    public function actionAjaxJsonTotalService($id, $index) {
         if (Yii::app()->request->isAjaxRequest) {
             $saleEstimation = $this->instantiate($id);
             $this->loadState($saleEstimation);
 
+            $totalPriceService = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($saleEstimation->serviceDetails[$index], 'totalAmount')));
             $subTotalService = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $saleEstimation->subTotalService));
             $subTotalTransaction = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $saleEstimation->subTotalTransaction));
             $taxTotalTransaction = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $saleEstimation->taxItemAmount));
             $grandTotalTransaction = CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', $saleEstimation->grandTotalTransaction));
 
             echo CJSON::encode(array(
+                'totalPriceService' => $totalPriceService,
                 'subTotalService' => $subTotalService,
                 'subTotalTransaction' => $subTotalTransaction,
                 'taxTotalTransaction' => $taxTotalTransaction,

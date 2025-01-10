@@ -16,7 +16,6 @@ $this->breadcrumbs = array(
         <div class="d-gap">
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
-            <?php echo CHtml::link('<span class="fa fa-print"></span>Print Estimasi', Yii::app()->baseUrl.'/frontEnd/saleEstimation/pdf?id=' . $model->id, array('class'=>'button warning right', 'style' => 'margin-right:10px', 'target' =>'_blank')) ?>
         </div>
     </div>
 </div>
@@ -85,6 +84,8 @@ $this->breadcrumbs = array(
                         <th style="width: 10%">Quantity</th>
                         <th style="width: 5%">Satuan</th>
                         <th style="width: 15%">Harga Satuan</th>
+                        <th style="width: 10%">Discount Type</th>
+                        <th style="width: 10%">Discount</th>
                         <th style="width: 15%">Total</th>
                     </tr>
                 </thead>
@@ -95,6 +96,8 @@ $this->breadcrumbs = array(
                             <td class="text-center"><?php echo CHtml::encode(CHtml::value($productDetail, "quantity")); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($productDetail, "product.unit.name")); ?></td>
                             <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($productDetail, "sale_price"))); ?></td>
+                            <td><?php echo CHtml::encode(CHtml::value($productDetail, "discount_type")); ?></td>
+                            <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($productDetail, "discount_value"))); ?></td>
                             <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($productDetail, "total_price"))); ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -103,7 +106,7 @@ $this->breadcrumbs = array(
                     <tr>
                         <td class="text-end fw-bold">Total Qty</td>
                         <td class="text-center fw-bold"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($model, "total_quantity_product"))); ?></td>
-                        <td class="text-end fw-bold" colspan="2">Sub Total Produk</td>
+                        <td class="text-end fw-bold" colspan="4">Sub Total Produk</td>
                         <td class="text-end fw-bold"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($model, "sub_total_product"))); ?></td>
                     </tr>
                 </tfoot>
@@ -119,6 +122,9 @@ $this->breadcrumbs = array(
                     <tr class="table-info">
                         <th>Deskripsi</th>
                         <th style="width: 15%">Harga Satuan</th>
+                        <th style="width: 10%">Discount Type</th>
+                        <th style="width: 10%">Discount</th>
+                        <th style="width: 15%">Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,12 +132,15 @@ $this->breadcrumbs = array(
                         <tr>
                             <td><?php echo CHtml::encode(CHtml::value($serviceDetail, "service.name")); ?></td>
                             <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($serviceDetail, "price"))); ?></td>
+                            <td><?php echo CHtml::encode(CHtml::value($serviceDetail, "discount_type")); ?></td>
+                            <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($serviceDetail, "discount_value"))); ?></td>
+                            <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($serviceDetail, "total_price"))); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="text-end fw-bold">Sub Total Jasa</td>
+                        <td class="text-end fw-bold" colspan="4">Sub Total Jasa</td>
                         <td class="text-end fw-bold"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($model, "sub_total_service"))); ?></td>
                     </tr>
                 </tfoot>
@@ -146,6 +155,10 @@ $this->breadcrumbs = array(
                 <tr class="table-info">
                     <th class="text-end fw-bold">Sub Total</th>
                     <th class="text-end fw-bold" style="width: 15%"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($model, "sub_total"))); ?></th>
+                </tr>
+                <tr class="table-info">
+                    <th class="text-end fw-bold">Total Discount</th>
+                    <th class="text-end fw-bold" style="width: 15%"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($model, "totalDiscount"))); ?></th>
                 </tr>
                 <tr class="table-info">
                     <th class="text-end fw-bold">PPn</th>
@@ -163,7 +176,10 @@ $this->breadcrumbs = array(
         </table>
     </fieldset>
 
-    <?php echo CHtml::link('<i class="bi-printer"></i> Print Estimasi', array("memo", 'id' => $model->id), array('class' => 'btn btn-secondary btn-sm', 'target' => '_blank')); ?>
+    <?php echo CHtml::link('<i class="bi-printer"></i> Print Estimasi', array("pdf", 'id' => $model->id), array(
+        'class' => 'btn btn-secondary btn-sm', 
+        'target' => '_blank'
+    )); ?>
     
 <?php echo CHtml::endForm(); ?>
 

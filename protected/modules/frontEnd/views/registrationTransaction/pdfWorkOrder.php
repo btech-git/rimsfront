@@ -71,7 +71,7 @@ function tanggal($date) {
                 <td><?php echo $generalRepairRegistration->customer->address; ?></td>
                 <td>NO. POLISI</td>
                 <td>:</td>
-                <td><?php echo $generalRepairRegistration->vehicle->plateNumberCombination; ?></td>
+                <td><?php echo $generalRepairRegistration->vehicle->plate_number; ?></td>
             </tr>
             <tr>
                 <td>TELP / HP</td>
@@ -196,7 +196,7 @@ function tanggal($date) {
         </div>
     <?php endif; ?>
                 
-    <?php if (count($generalRepairRegistration->registrationQuickServices) > 0 || count($generalRepairRegistration->registrationServices) > 0): ?>
+    <?php if (count($generalRepairRegistration->registrationServices) > 0): ?>
         <div class="purchase-order">
             <table>
                 <tr style="background-color: skyblue">
@@ -207,13 +207,6 @@ function tanggal($date) {
                     <th>Service</th>
                 </tr>
                 <?php $no = 1;?>
-                <?php foreach ($generalRepairRegistration->registrationQuickServices as $quickService): ?>
-                    <tr class="isi">
-                        <td class="noo"><?php echo $no; ?></td>
-                        <td>&nbsp; <?php echo CHtml::encode(CHtml::value($quickService, 'quickService.name')); ?></td>
-                    </tr>
-                    <?php $no++; ?>
-                <?php endforeach; ?>
                 <?php foreach ($generalRepairRegistration->registrationServices as $service): ?>
                     <tr class="isi">
                         <td class="noo"><?php echo $no; ?></td>

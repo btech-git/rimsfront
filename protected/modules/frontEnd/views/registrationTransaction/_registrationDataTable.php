@@ -120,7 +120,7 @@
             <?php foreach ($dataProvider->data as $data): ?>
                 <tr>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'transaction_number')); ?></td>
-                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMMM yyyy", CHtml::value($data, 'transaction_date'))); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($data, 'transaction_date'))); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'vehicle.plate_number')); ?></td>
                     <td>
@@ -150,4 +150,10 @@
         </tbody>
     </table>
     <?php echo CHtml::endForm(); ?>
+</div>
+
+<div class="text-end">
+    <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
+        'pages' => $dataProvider->pagination,
+    )); ?>
 </div>

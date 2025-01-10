@@ -16,6 +16,10 @@ $this->breadcrumbs = array(
 
 <hr />
 
+<div style="text-align: right">
+    <?php echo ReportHelper::summaryText($dataProvider); ?>
+</div>
+
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead>
@@ -79,10 +83,10 @@ $this->breadcrumbs = array(
             <?php endforeach; ?>
         </tbody>
     </table>
+</div>
 
-    <div class="text-end">
-        <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
-            'pages' => $dataProvider->pagination,
-        )); ?>
-    </div>
+<div class="text-end">
+    <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
+        'pages' => $dataProvider->pagination,
+    )); ?>
 </div>

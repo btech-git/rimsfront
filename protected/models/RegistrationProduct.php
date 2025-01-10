@@ -141,9 +141,19 @@ class RegistrationProduct extends CActiveRecord {
         return parent::model($className);
     }
 
+    public function getTotalBeforeDiscount() {
+        
+        return $this->quantity * $this->sale_price;
+    }
+
+    public function getDiscountAmount() {
+
+        return ($this->discount_type == 'Nominal') ? $this->discount : $this->quantity * $this->sale_price * $this->discount / 100;
+    }
+
     public function getTotalPrice() {
 
-        return $this->quantity * $this->sale_price;
+        return $this->quantity * $this->sale_price - $this->discountAmount;
     }
     
 }

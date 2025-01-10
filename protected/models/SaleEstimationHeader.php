@@ -184,6 +184,12 @@ class SaleEstimationHeader extends MonthlyTransactionActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'transaction_date DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
         ));
     }
 
@@ -235,7 +241,26 @@ class SaleEstimationHeader extends MonthlyTransactionActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'transaction_date DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
         ));
     }
 
+    public function getTotalDiscount() {
+        $total = 0;
+        
+        foreach ($this->saleEstimationProductDetails as $detail) {
+            $total += $detail->discountAmount;
+        }
+        
+        foreach ($this->saleEstimationServiceDetails as $detail) {
+            $total += $detail->discountAmount;
+        }
+        
+        return $total;
+    }
 }

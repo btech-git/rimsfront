@@ -179,7 +179,7 @@ function tanggal($date) {
                 <table style="width: 100%">
                     <tr>
                         <td style="font-size: 11px">Printed by : <?php echo Yii::app()->user->getName(); ?></td>
-                        <td style="text-align:right; width: 20%; font-size: 11px">TOTAL PRODUCT & SERVICE</td>
+                        <td style="text-align:right; width: 20%; font-size: 11px">TOTAL PARTS & JASA</td>
                         <td style="text-align:right; width: 20%; font-size: 11px">Rp. <?php echo number_format($invoiceHeader->subTotal, 2, ',', '.') ?> &nbsp; </td>
                     </tr>
 

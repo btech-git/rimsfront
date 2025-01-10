@@ -52,12 +52,12 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+</div>
 
-    <div class="text-end">
-        <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
-            'pages' => $productDataProvider->pagination,
-        )); ?>
-    </div>
+<div class="text-end">
+    <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
+        'pages' => $productDataProvider->pagination,
+    )); ?>
 </div>
 
 <script>

@@ -33,21 +33,27 @@
                     <td>
                         <?php echo CHtml::link('<i class="bi-currency-dollar"></i>', array("create", "invoiceId" => $invoice->id), array('class' => 'btn btn-primary btn-sm')); ?>
                         <?php if ($invoice->payment_left > 100): ?>
-                            <?php echo CHtml::link('<i class="bi-printer"></i> Invoice', array("pdf", "id" => $invoice->id), array('class' => 'btn btn-success btn-sm')); ?>
+                            <?php echo CHtml::link('<i class="bi-printer"></i> Invoice', array("pdf", "id" => $invoice->id), array(
+                                'class' => 'btn btn-success btn-sm',
+                                'target' => '_blank'
+                            )); ?>
                         <?php else: ?>
-                            <?php echo CHtml::link('<i class="bi-printer"></i> TT', array("pdfPayment", "id" => $invoice->id), array('class' => 'btn btn-success btn-sm')); ?>
+                            <?php echo CHtml::link('<i class="bi-printer"></i> TT', array("pdfPayment", "id" => $invoice->id), array(
+                                'class' => 'btn btn-success btn-sm',
+                                'target' => '_blank'
+                            )); ?>
                         <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+</div>
 
-    <div class="text-end">
-        <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
-            'pages' => $invoiceDataProvider->pagination,
-        )); ?>
-    </div>
+<div class="text-end">
+    <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
+        'pages' => $invoiceDataProvider->pagination,
+    )); ?>
 </div>
 
 <script>

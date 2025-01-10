@@ -130,6 +130,7 @@ class SaleEstimation extends CComponent {
         if (count($this->serviceDetails) > 0) {
             foreach ($this->serviceDetails as $serviceDetail) {
                 $serviceDetail->sale_estimation_header_id = $this->header->id;
+                $serviceDetail->total_price = $serviceDetail->totalAmount;
                 $valid = $serviceDetail->save(false) && $valid;
             }
         }
@@ -137,11 +138,31 @@ class SaleEstimation extends CComponent {
         return $valid;
     }
 
-    public function getSubTotalService() {
+    public function getSubTotalServiceBeforeDiscount() {
         $total = 0.00;
 
         foreach ($this->serviceDetails as $detail) {
             $total += $detail->price;
+        }
+
+        return $total;
+    }
+
+    public function getSubTotalService() {
+        $total = 0.00;
+
+        foreach ($this->serviceDetails as $detail) {
+            $total += $detail->totalAmount;
+        }
+
+        return $total;
+    }
+
+    public function getSubTotalProductBeforeDiscount() {
+        $total = 0.00;
+
+        foreach ($this->productDetails as $detail) {
+            $total += $detail->totalBeforeDiscount;
         }
 
         return $total;
@@ -168,7 +189,7 @@ class SaleEstimation extends CComponent {
     }
     
     public function getSubTotalTransaction() {
-        return $this->subTotalProduct + $this->subTotalService; 
+        return $this->subTotalProductBeforeDiscount + $this->subTotalServiceBeforeDiscount; 
     }
     
     public function getTaxItemAmount() {
@@ -176,6 +197,6 @@ class SaleEstimation extends CComponent {
     }
     
     public function getGrandTotalTransaction() {
-        return $this->subTotalTransaction + $this->taxItemAmount;
+        return $this->subTotalProduct + $this->subTotalServicedet + $this->taxItemAmount;
     }
 }

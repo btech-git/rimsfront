@@ -4,8 +4,10 @@
             <tr>
                 <th style="width: 15%">Code</th>
                 <th>Product</th>
-                <th style="width: 5%">Quantity</th>
+                <th style="width: 10%">Quantity</th>
                 <th style="width: 15%">Harga Satuan</th>
+                <th style="width: 10%">Disc Type</th>
+                <th style="width: 10%">Discount</th>
                 <th style="width: 15%">Total</th>
                 <th style="width: 5%">Action</th>
             </tr>
@@ -33,6 +35,7 @@
                                 'success' => 'function(data) {
                                     $("#total_price_product_' . $i . '").html(data.totalPriceProduct);
                                     $("#total_quantity_product").html(data.totalQuantityProduct);
+                                    $("#total_discount").html(data.totalDiscount);
                                     $("#sub_total_product").html(data.subTotalProduct);
                                     $("#sub_total_transaction").html(data.subTotalTransaction);
                                     $("#tax_total_transaction").html(data.taxTotalTransaction);
@@ -51,6 +54,32 @@
                                 'success' => 'function(data) {
                                     $("#total_price_product_' . $i . '").html(data.totalPriceProduct);
                                     $("#total_quantity_product").html(data.totalQuantityProduct);
+                                    $("#total_discount").html(data.totalDiscount);
+                                    $("#sub_total_product").html(data.subTotalProduct);
+                                    $("#sub_total_transaction").html(data.subTotalTransaction);
+                                    $("#tax_total_transaction").html(data.taxTotalTransaction);
+                                    $("#grand_total_transaction").html(data.grandTotalTransaction);
+                                }',
+                            )),
+                            'class' => "form-control",
+                        )); ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::activeDropDownList($productDetail, "[$i]discount_type", array(
+                            'Nominal' => 'Nominal',
+                            'Percent' => '%'
+                        ), array('prompt' => '[--Select Discount Type --]')); ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::activeTextField($productDetail, "[$i]discount", array(
+                            'onchange' => CHtml::ajax(array(
+                                'type' => 'POST',
+                                'dataType' => 'JSON',
+                                'url' => CController::createUrl('ajaxJsonTotalProduct', array('id' => $registrationTransaction->header->id, 'index' => $i)),
+                                'success' => 'function(data) {
+                                    $("#total_price_product_' . $i . '").html(data.totalPriceProduct);
+                                    $("#total_quantity_product").html(data.totalQuantityProduct);
+                                    $("#total_discount").html(data.totalDiscount);
                                     $("#sub_total_product").html(data.subTotalProduct);
                                     $("#sub_total_transaction").html(data.subTotalTransaction);
                                     $("#tax_total_transaction").html(data.taxTotalTransaction);
@@ -89,7 +118,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         Kategori: <?php echo CHtml::encode(CHtml::value($productInfo, "masterSubCategoryCode")); ?> ||
                         Brand: <?php echo CHtml::encode(CHtml::value($productInfo, "brand.name")); ?> ||
                         Sub Brand: <?php echo CHtml::encode(CHtml::value($productInfo, "subBrand.name")); ?> ||
@@ -101,15 +130,15 @@
         <tfoot>
             <tr>
                 <td class="text-end fw-bold" colspan="2">Total Quantity</td>
-                <td class="text-end fw-bold">
+                <td class="text-center fw-bold">
                     <span id="total_quantity_product">
-                        <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0", CHtml::value($registrationTransaction->header,'total_product'))); ?>                                                
+                        <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0.00", CHtml::value($registrationTransaction->header,'total_product'))); ?>                                                
                     </span>
                 </td>
-                <td class="text-end fw-bold">Total Produk</td>
+                <td class="text-end fw-bold" colspan="3">Total Produk</td>
                 <td class="text-end fw-bold">
                     <span id="sub_total_product">
-                        <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0", CHtml::value($registrationTransaction->header, 'subtotal_product'))); ?>                                                
+                        <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0.00", CHtml::value($registrationTransaction->header, 'subtotal_product'))); ?>                                                
                     </span>
                 </td>
                 <td></td>

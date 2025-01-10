@@ -3,9 +3,17 @@
         <thead class="table-light">
             <tr>
                 <th class="text-end fw-bold">Sub Total</th>
-                <th class="text-end fw-bold">
+                <th class="text-end fw-bold" style="width: 15%">
                     <span id="sub_total_transaction">
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0", CHtml::value($registrationTransaction->header, 'subtotal'))); ?>                                                
+                    </span>
+                </th>
+            </tr> 
+            <tr>
+                <th class="text-end fw-bold">Total Diskon</th>
+                <th class="text-end fw-bold" style="width: 15%">
+                    <span id="total_discount">
+                        <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0", CHtml::value($registrationTransaction->header, 'totalDiscount'))); ?>                                                
                     </span>
                 </th>
             </tr> 

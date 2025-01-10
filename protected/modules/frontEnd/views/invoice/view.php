@@ -16,12 +16,6 @@ $this->breadcrumbs = array(
         <div class="d-gap">
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
-            <?php if ($model->status != 'PAID'): ?> 
-                <?php echo CHtml::link('<i class="bi-printer"></i>Print Invoice', array("pdf", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
-            <?php else: ?>
-                <?php echo CHtml::link('<i class="bi-printer"></i>Print Tanda Terima', array("pdfPayment", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
-            <?php endif; ?>
-
         </div>
     </div>
 </div>
@@ -131,5 +125,16 @@ $this->breadcrumbs = array(
             </table>
         </fieldset>
     <?php endif; ?>
-    <?php echo CHtml::link('<i class="bi-printer"></i> Print Invoice', array("memo", 'id' => $model->id), array('class' => 'btn btn-secondary btn-sm')); ?>
+    <?php if ($model->status != 'PAID'): ?> 
+        <?php echo CHtml::link('<i class="bi-printer"></i> Print Invoice', array("pdf", "id" => $model->id), array(
+            'class' => 'btn btn-success btn-sm',
+            'target' => '_blank'
+        )); ?>
+    <?php else: ?>
+        <?php echo CHtml::link('<i class="bi-printer"></i> Print Tanda Terima', array("pdfPayment", "id" => $model->id), array(
+            'class' => 'btn btn-success btn-sm',
+            'target' => '_blank'
+        )); ?>
+    <?php endif; ?>
+
 <?php echo CHtml::endForm(); ?>

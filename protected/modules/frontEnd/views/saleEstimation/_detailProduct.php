@@ -2,10 +2,12 @@
     <table class="table table-bordered">
         <thead class="table-secondary">
             <tr>
-                <th style="width:15%">Code</th>
+                <th style="width: 15%">Code</th>
                 <th>Product</th>
                 <th style="width: 10%">Quantity</th>
                 <th style="width: 15%">Harga Satuan</th>
+                <th style="width: 10%">Disc Type</th>
+                <th style="width: 10%">Discount</th>
                 <th style="width: 15%">Total</th>
                 <th style="width: 5%">Action</th>
             </tr>
@@ -62,6 +64,30 @@
                             'class' => "form-control",
                         )); ?>
                     </td>
+                    <td>
+                        <?php echo CHtml::activeDropDownList($productDetail, "[$i]discount_type", array(
+                            'Nominal' => 'Nominal',
+                            'Percent' => '%'
+                        ), array('prompt' => '[--Select Discount Type --]')); ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::activeTextField($productDetail, "[$i]discount_value", array(
+                            'onchange' => CHtml::ajax(array(
+                                'type' => 'POST',
+                                'dataType' => 'JSON',
+                                'url' => CController::createUrl('ajaxJsonTotalProduct', array('id' => $saleEstimation->header->id, 'index' => $i)),
+                                'success' => 'function(data) {
+                                    $("#total_price_product_' . $i . '").html(data.totalPriceProduct);
+                                    $("#total_quantity_product").html(data.totalQuantityProduct);
+                                    $("#sub_total_product").html(data.subTotalProduct);
+                                    $("#sub_total_transaction").html(data.subTotalTransaction);
+                                    $("#tax_total_transaction").html(data.taxTotalTransaction);
+                                    $("#grand_total_transaction").html(data.grandTotalTransaction);
+                                }',
+                            )),
+                            'class' => "form-control",
+                        )); ?>
+                    </td>
                     <td class="text-end">
                         <span id="total_price_product_<?php echo $i; ?>">
                             <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($productDetail, 'total_price'))); ?>
@@ -99,7 +125,7 @@
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0", CHtml::value($saleEstimation->header,'total_quantity_product'))); ?>                                                
                     </span>
                 </td>
-                <td class="text-end fw-bold">Total Produk</td>
+                <td class="text-end fw-bold" colspan="3">Total Produk</td>
                 <td class="text-end fw-bold">
                     <span id="sub_total_product">
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format("#,##0", CHtml::value($saleEstimation->header, 'sub_total_product'))); ?>                                                

@@ -16,59 +16,22 @@ $this->breadcrumbs = array(
         <div class="d-gap">
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
-            <?php if (empty($model->sales_order_number)): ?>
-                <?php echo CHtml::button('Generate Sales Order', array(
-                    'id' => 'detail-button',
-                    'name' => 'Detail',
-                    'class' => 'button cbutton left',
-                    'style' => 'margin-right:10px',
-                    'disabled' => $model->sales_order_number == null ? false : true,
-                    'onclick' => ' 
-                        $.ajax({
-                            type: "POST",
-                            //dataType: "JSON",
-                            url: "' . CController::createUrl('generateSalesOrder', array('id' => $model->id)) . '",
-                            data: $("form").serialize(),
-                            success: function(html) {
-                                alert("Sales Order Succesfully Generated");
-                                location.reload();
-                            },
-                        })
-                    '
-                )); ?>
-            <?php endif; ?>
+            <?php //if (empty($model->sales_order_number)): ?>
+                <?php echo CHtml::link('<i class="bi-plus"></i> Generate Sales Order', array("generateSalesOrder", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+            <?php //endif; ?>
 
-            <?php if (count($model->registrationServices) > 0 && empty($model->work_order_number)): ?>
-                <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Work Order', Yii::app()->baseUrl . '/frontEnd/registrationTransaction/generateWorkOrder?id=' . $model->id, array(
-                    'class' => 'button success left', 
-                    'style' => 'margin-right:10px'
-                )); ?>
-            <?php endif; ?>
+            <?php //if (count($model->registrationServices) > 0 && empty($model->work_order_number)): ?>
+                <?php echo CHtml::link('<i class="bi-plus"></i> Generate Work Order', array("generateWorkOrder", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+            <?php //endif; ?>
 
             <?php if (empty($invoices)): ?>
                 <?php if (!empty($model->registrationServices) && (!empty($model->registrationProducts) && $model->getTotalQuantityMovementLeft() == 0)): ?>
-                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/frontEnd/invoice/create?registrationId=' . $model->id, array(
-                        'class' => 'button success left', 
-                        'style' => 'margin-right:10px'
-                    )); ?>
+                    <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
                 <?php elseif (!empty($model->registrationServices) && empty($model->registrationProducts)): ?>
-                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/frontEnd/invoice/create?registrationId=' . $model->id, array(
-                        'class' => 'button success left', 
-                        'style' => 'margin-right:10px'
-                    )); ?>
+                    <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
                 <?php elseif (empty($model->registrationServices) && !empty($model->registrationProducts) && $model->getTotalQuantityMovementLeft() == 0): ?>
-                    <?php echo CHtml::link('<span class="fa fa-plus"></span>Generate Invoice', Yii::app()->baseUrl . '/frontEnd/invoice/create?registrationId=' . $model->id, array(
-                        'class' => 'button success left', 
-                        'style' => 'margin-right:10px'
-                    )); ?>
+                    <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
                 <?php endif; ?>
-            <?php endif; ?>
-
-            <?php if (!empty($model->work_order_number) && $model->total_service > 0): ?>
-                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Work Order', Yii::app()->baseUrl.'/frontEnd/registrationTransaction/pdfWorkOrder?id=' . $model->id, array('class'=>'button warning right', 'style' => 'margin-right:10px', 'target' =>'_blank')) ?>
-            <?php endif; ?>
-            <?php if (!empty($model->sales_order_number) && $model->status !== 'Finished'): ?>
-                <?php echo CHtml::link('<span class="fa fa-print"></span>Print Sales Order', Yii::app()->baseUrl.'/frontEnd/registrationTransaction/pdfSaleOrder?id=' . $model->id, array('class'=>'button warning right', 'style' => 'margin-right:10px', 'target' =>'_blank')) ?>
             <?php endif; ?>
         </div>
     </div>
@@ -104,21 +67,21 @@ $this->breadcrumbs = array(
                 <td><?php echo CHtml::encode(CHtml::value($model, 'customer.mobile_phone')); ?></td>
             </tr>
             <tr>
-                <td>Payment Status</td>
-                <td><?php echo CHtml::encode(CHtml::value($model, 'payment_status')); ?></td>
+                <td>Insurance Company</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'insuranceCompany.name')); ?></td>
                 <td>Email</td>
                 <td><?php echo CHtml::encode(CHtml::value($model, 'customer.email')); ?></td>
             </tr>
             <tr>
                 <td>Vehicle Status</td>
-                <td><?php echo CHtml::encode(CHtml::value($model, 'vehicle_status')); ?></td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'vehicle.status_location')); ?></td>
                 <td>Plate #</td>
                 <td><?php echo CHtml::encode(CHtml::value($model, 'vehicle.plate_number')); ?></td>
             </tr>
             <tr>
                 <td>Problem</td>
                 <td><?php echo CHtml::encode(CHtml::value($model, 'problem')); ?></td>
-                <td>Car Model</td>
+                <td>Vehicle</td>
                 <td>
                     <?php echo CHtml::encode(CHtml::value($model, 'vehicle.carMake.name')); ?> -
                     <?php echo CHtml::encode(CHtml::value($model, 'vehicle.carModel.name')); ?> -
@@ -130,6 +93,27 @@ $this->breadcrumbs = array(
                 <td><?php echo CHtml::encode(CHtml::value($model, 'employeeIdSalesPerson.name')); ?></td>
                 <td>Mileage (KM)</td>
                 <td><?php echo CHtml::encode(CHtml::value($model, 'vehicle_mileage')); ?></td>
+            </tr>
+            <tr>
+                <td>Assigned Mechanic</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'employeeIdAssignMechanic.name')); ?></td>
+                <td>WO #</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'work_order_number')); ?></td>
+            </tr>
+            <tr>
+                <td>Status Service</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'service_status')); ?></td>
+                <td>SO #</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'sales_order_number')); ?></td>
+            </tr>
+            <tr>
+                <td>Status Barang</td>
+                <td><?php echo ($model->totalQuantityMovementLeft > 0) ? 'Pending' : 'Completed'; ?></td>
+                <td>Invoice #</td>
+                <td>
+                    <?php $invoice = InvoiceHeader::model()->findByAttributes(array('registration_transaction_id' => $model->id, 'user_id_cancelled' => null)) ?>
+                    <?php echo CHtml::encode(CHtml::value($invoice, 'invoice_number')); ?>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -209,6 +193,20 @@ $this->breadcrumbs = array(
             )); ?>
         </fieldset>
     </div>
+
+    <br />
+    <?php if (!empty($model->work_order_number) && $model->total_service > 0): ?>
+        <?php echo CHtml::link('<i class="bi-printer"></i> Print Work Order', array("pdfWorkOrder", "id" => $model->id), array(
+            'class' => 'btn btn-secondary btn-sm',
+            'target' => '_blank'
+        )); ?>
+    <?php endif; ?>
+    <?php if (!empty($model->sales_order_number) && $model->status !== 'Finished'): ?>
+        <?php echo CHtml::link('<i class="bi-printer"></i> Print Sales Order', array("pdfSaleOrder", "id" => $model->id), array(
+            'class' => 'btn btn-secondary btn-sm',
+            'target' => '_blank'
+        )); ?>
+    <?php endif; ?>
 <?php echo CHtml::endForm(); ?>
 
 <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(

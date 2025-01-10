@@ -81,6 +81,8 @@ class RegistrationTransactionComponent extends CComponent {
                 $detailProduct = new RegistrationProduct();
                 $detailProduct->product_id = $productDetail->product_id;
                 $detailProduct->quantity = $productDetail->quantity;
+                $detailProduct->discount = $productDetail->discount_value;
+                $detailProduct->discount_type = $productDetail->discount_type;
                 $detailProduct->sale_price = $productDetail->sale_price;
                 $detailProduct->total_price = $productDetail->total_price;
                 $detailProduct->sale_estimation_product_detail_id = $productDetail->id;
@@ -90,6 +92,9 @@ class RegistrationTransactionComponent extends CComponent {
                 $detailService = new RegistrationService();
                 $detailService->service_id = $serviceDetail->service_id;
                 $detailService->price = $serviceDetail->price;
+                $detailService->discount_price = $serviceDetail->discount_value;
+                $detailService->discount_type = $serviceDetail->discount_type;
+                $detailService->total_price = $serviceDetail->total_price;
                 $detailService->service_type_id = $serviceDetail->service_type_id;
                 $detailService->sale_estimation_service_detail_id = $serviceDetail->id;
                 $this->serviceDetails[] = $detailService;
@@ -215,7 +220,7 @@ class RegistrationTransactionComponent extends CComponent {
         $total = 0.00;
 
         foreach ($this->serviceDetails as $detail) {
-            $total += $detail->price;
+            $total += $detail->totalAmount;
         }
 
         return $total;
@@ -231,8 +236,14 @@ class RegistrationTransactionComponent extends CComponent {
         return $total;
     }
 
-    public function getGrandTotalService() {
-        return $this->subTotalService;
+    public function getSubTotalServiceBeforeDiscount() {
+        $total = 0.00;
+
+        foreach ($this->serviceDetails as $detail) {
+            $total += $detail->price;
+        }
+
+        return $total;
     }
 
     public function getTotalQuantityProduct() {
@@ -249,7 +260,7 @@ class RegistrationTransactionComponent extends CComponent {
         $total = 0.00;
 
         foreach ($this->productDetails as $detail) {
-            $total += $detail->total_price;
+            $total += $detail->totalPrice;
         }
 
         return $total;
@@ -265,12 +276,24 @@ class RegistrationTransactionComponent extends CComponent {
         return $total;
     }
 
-    public function getGrandTotalProduct() {
-        return $this->subTotalProduct;
+    public function getTotalDiscount() {
+       
+        return $this->totalDiscountService + $this->totalDiscountProduct;        
+    }
+
+    public function getSubTotalProductBeforeDiscount() {
+        $total = 0.00;
+
+        foreach ($this->productDetails as $detail) {
+            $total += $detail->totalBeforeDiscount;
+        }
+
+        return $total;
     }
 
     public function getSubTotalTransaction() {
-        return $this->grandTotalService + $this->grandTotalProduct;
+        
+        return $this->subTotalServiceBeforeDiscount + $this->subTotalProductBeforeDiscount;
     }
 
     public function getTaxItemAmount() {
@@ -278,6 +301,6 @@ class RegistrationTransactionComponent extends CComponent {
     }
 
     public function getGrandTotalTransaction() {
-        return $this->subTotalTransaction + $this->taxItemAmount;
+        return $this->subTotalTransaction - $this->totalDiscount + $this->taxItemAmount;
     }
 }
