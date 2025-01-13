@@ -20,7 +20,7 @@
             <?php foreach ($saleEstimationHeaderDataProvider->data as $saleEstimationHeader): ?>
                 <tr data-sale-estimation-id="<?php echo CHtml::value($saleEstimationHeader, 'id'); ?>">
                     <td><?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'transaction_number')); ?></td>
-                    <td><?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'transaction_date')); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($saleEstimationHeader, 'transaction_date'))); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'customer.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'vehicle.plate_number')); ?></td>
                     <td>

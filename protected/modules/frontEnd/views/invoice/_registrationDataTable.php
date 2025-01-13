@@ -110,7 +110,7 @@
             <?php foreach ($registrationTransactionDataProvider->data as $data): ?>
                 <tr>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'transaction_number')); ?></td>
-                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMMM yyyy", CHtml::value($data, 'transaction_date'))); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($data, 'transaction_date'))); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'vehicle.plate_number')); ?></td>
                     <td>

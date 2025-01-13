@@ -3,7 +3,7 @@
         <div class="card border-secondary text-bg-light">
             <div class="card-body">
                 <div class="text-center">
-                    <img src="<?php echo Yii::app()->baseUrl . '/images/logo.jpg' ?>" width="250px" />
+                    <img src="<?php echo Yii::app()->baseUrl . '/images/rap-logo.png' ?>" width="150px" />
                 </div>
                 <br />
                 <h5 class="card-title text-center text-primary mb-4">USER LOGIN</h5>

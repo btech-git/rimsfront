@@ -6,7 +6,7 @@
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <a href="<?php echo Yii::app()->createUrl('site/index'); ?>" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-5 d-none d-sm-inline">
-                            <img src="<?php echo Yii::app()->baseUrl . '/images/logo.jpg' ?>" width="250px" />
+                            <img src="<?php echo Yii::app()->baseUrl . '/images/rap-logo.png' ?>" width="150px" />
                         </span>
                     </a>
                     <?php $activeClass = 'bg-light border border-3 border-primary rounded'; ?>

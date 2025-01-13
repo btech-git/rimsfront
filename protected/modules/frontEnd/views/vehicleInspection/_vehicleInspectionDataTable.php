@@ -10,13 +10,13 @@
                 <th style="width: 10%">
                     Plat #
                 </th>
-                <th style="width: 15%">
+                <th style="width: 20%">
                     Mobil Tipe
                 </th>
                 <th style="width: 15%">
                     Registration #
                 </th>
-                <th style="width: 15%" >
+                <th style="width: 10%" >
                     Tanggal
                 </th>
                 <th>
@@ -91,7 +91,7 @@
                         <?php echo CHtml::encode(CHtml::value($data, 'vehicle.carSubModel.name')); ?>
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'transaction_number')); ?></td>
-                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMMM yyyy", CHtml::value($data, 'transaction_date'))); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($data, 'transaction_date'))); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'repair_type')); ?></td>
                     <td>

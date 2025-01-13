@@ -86,8 +86,8 @@
             <?php foreach ($dataProvider->data as $data): ?>
                 <tr id="sale_estimation_data_container">
                     <td><?php echo CHtml::encode(CHtml::value($data, 'invoice_number')); ?></td>
-                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMMM yyyy", CHtml::value($data, 'invoice_date'))); ?></td>
-                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMMM yyyy", CHtml::value($data, 'due_date'))); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($data, 'invoice_date'))); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($data, 'due_date'))); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'vehicle.plate_number')); ?></td>
                     <td>
