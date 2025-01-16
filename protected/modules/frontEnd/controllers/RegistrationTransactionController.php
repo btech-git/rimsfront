@@ -173,6 +173,31 @@ class RegistrationTransactionController extends Controller {
         ));
     }
 
+    public function actionUpdateApproval($id) {
+        $registrationTransaction = $this->loadModel($id);
+        $historis = RegistrationApproval::model()->findAllByAttributes(array('registration_transaction_id' => $id));
+        $model = new RegistrationApproval;
+        $model->date = date('Y-m-d H:i:s');
+        
+        if (isset($_POST['RegistrationApproval'])) {
+            $model->attributes = $_POST['RegistrationApproval'];
+            if ($model->save()) {
+                $registrationTransaction->status = $model->approval_type;
+                $registrationTransaction->save(false);
+
+                $this->saveTransactionLog('approval', $registrationTransaction);
+        
+                $this->redirect(array('view', 'id' => $id));
+            }
+        }
+
+        $this->render('updateApproval', array(
+            'model' => $model,
+            'registrationTransaction' => $registrationTransaction,
+            'historis' => $historis,
+        ));
+    }
+
     public function actionGenerateSalesOrder($id) {
         $model = $this->instantiate($id);
 

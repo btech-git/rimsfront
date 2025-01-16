@@ -16,23 +16,28 @@ $this->breadcrumbs = array(
         <div class="d-gap">
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
-            <?php //if (empty($model->sales_order_number)): ?>
+            <?php if (empty($model->sales_order_number)): ?>
                 <?php echo CHtml::link('<i class="bi-plus"></i> Generate Sales Order', array("generateSalesOrder", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
-            <?php //endif; ?>
+            <?php endif; ?>
 
-            <?php //if (count($model->registrationServices) > 0 && empty($model->work_order_number)): ?>
+            <?php if (count($model->registrationServices) > 0 && empty($model->work_order_number)): ?>
                 <?php echo CHtml::link('<i class="bi-plus"></i> Generate Work Order', array("generateWorkOrder", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
-            <?php //endif; ?>
+            <?php endif; ?>
 
             <?php if (empty($invoices)): ?>
                 <?php if (!empty($model->registrationServices) && (!empty($model->registrationProducts) && $model->getTotalQuantityMovementLeft() == 0)): ?>
-                    <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+                    <?php echo CHtml::link('<i class="bi-check"></i> Approval', array("updateApproval", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
                 <?php elseif (!empty($model->registrationServices) && empty($model->registrationProducts)): ?>
-                    <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+                    <?php echo CHtml::link('<i class="bi-check"></i> Approval', array("updateApproval", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
                 <?php elseif (empty($model->registrationServices) && !empty($model->registrationProducts) && $model->getTotalQuantityMovementLeft() == 0): ?>
-                    <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+                    <?php echo CHtml::link('<i class="bi-check"></i> Approval', array("updateApproval", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
                 <?php endif; ?>
             <?php endif; ?>
+            
+            <?php if ($model->status == "Approved" && $model->status !== 'CANCELLED!!!'): ?>
+                <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+            <?php endif; ?>
+
         </div>
     </div>
 </div>
