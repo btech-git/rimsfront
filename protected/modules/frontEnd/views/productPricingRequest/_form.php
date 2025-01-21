@@ -38,9 +38,9 @@
             
             <div class="row">
                 <div class="col">
-                    <?php //echo CHtml::label('New Image: ', FALSE); ?>
-                    <?php //echo CHtml::fileField('extension'); ?>
-                    <?php //echo CHtml::error($model, 'extension'); ?>
+                    <?php echo CHtml::label('New Image: ', FALSE); ?>
+                    <?php echo CHtml::fileField('file'); ?>
+                    <?php echo CHtml::error($model, 'file'); ?>
                 </div>
             </div>
         </fieldset>
