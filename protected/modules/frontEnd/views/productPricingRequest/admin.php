@@ -112,9 +112,9 @@
                             <td><?php //echo CHtml::encode(CHtml::value($model, 'branchIdRequest.code')); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($model, 'reply_date')); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($model, 'recommended_price')); ?></td>
-                            <td><?php echo CHtml::encode(CHtml::value($model, 'userIdReply.username')); ?></td>
+                            <td><?php //echo CHtml::encode(CHtml::value($model, 'userIdReply.username')); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($model, 'reply_note')); ?></td>
-                            <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdReply.code')); ?></td>
+                            <td><?php //echo CHtml::encode(CHtml::value($model, 'branchIdReply.code')); ?></td>
                             <td>
                                 <?php echo CHtml::link('<i class="bi-search"></i>', array("view", "id" => $model->id), array('class' => 'btn btn-info btn-sm')); ?>
                                 <?php echo CHtml::link('<i class="bi-pencil"></i>', array("update", "id" => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
