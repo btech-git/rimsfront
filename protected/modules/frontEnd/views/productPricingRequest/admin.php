@@ -109,7 +109,7 @@
                             <td><?php echo CHtml::encode(CHtml::value($model, 'quantity')); ?></td>
                             <td><?php //echo CHtml::encode(CHtml::value($model, 'userIdRequest.username')); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($model, 'request_note')); ?></td>
-                            <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdRequest.code')); ?></td>
+                            <td><?php //echo CHtml::encode(CHtml::value($model, 'branchIdRequest.code')); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($model, 'reply_date')); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($model, 'recommended_price')); ?></td>
                             <td><?php echo CHtml::encode(CHtml::value($model, 'userIdReply.username')); ?></td>
