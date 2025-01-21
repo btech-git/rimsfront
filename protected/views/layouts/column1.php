@@ -25,6 +25,25 @@
                                 </a>
                             </li>
                                 
+                            <?php /*$isAuthorized = Yii::app()->user->checkAccess('saleEstimationCreate') || 
+                                    Yii::app()->user->checkAccess('saleEstimationEdit')
+                            ; ?>
+                            <?php if ($isAuthorized): ?>
+                                <?php $isActive = Yii::app()->controller->id === 'saleEstimation' && (
+                                        Yii::app()->controller->action->id === 'admin' ||
+                                        Yii::app()->controller->action->id === 'view' ||
+                                        Yii::app()->controller->action->id === 'update' ||
+                                        Yii::app()->controller->action->id === 'create'
+                                );*/ ?>
+                                <li class="w-100 <?php //if ($isActive): ?><?php //echo $activeClass; ?><?php //endif ;?>">
+                                    <a href="<?php echo Yii::app()->createUrl('frontEnd/productPricingRequest/admin'); ?>" class="nav-link px-0 align-middle">
+                                        <span class="ps-1 d-none d-sm-inline <?php if ($isActive): ?><?php echo $activeTextClass; ?><?php else: ?><?php echo $inactiveTextClass; ?><?php endif ;?>">
+                                            Permintaan Harga
+                                        </span>
+                                    </a>
+                                </li>
+                            <?php //endif; ?>
+                                
                             <?php $isAuthorized = Yii::app()->user->checkAccess('saleEstimationCreate') || 
                                     Yii::app()->user->checkAccess('saleEstimationEdit')
                             ; ?>
