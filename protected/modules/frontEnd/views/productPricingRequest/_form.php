@@ -14,13 +14,36 @@
             <legend class="float-none w-auto text-dark px-1">FORM PERMINTAAN HARGA</legend>
             <div class="row">
                 <div class="col">
-                    <?php echo CHtml::activeLabelEx($model, 'product_name', array('class' => 'form-label')); ?>
+                    <?php echo CHtml::activeLabelEx($model, 'Nama Barang', array('class' => 'form-label')); ?>
                     <?php echo CHtml::activeTextField($model, "product_name", array('class' => 'form-control',)); ?>
                     <?php echo CHtml::error($model, 'product_name'); ?>
+                </div>
+                <div class="col">
+                    <?php echo CHtml::activeLabelEx($model, 'Untuk Kendaraan', array('class' => 'form-label')); ?>
+                    <?php echo CHtml::activeTextField($model, "vehicle_name", array('class' => 'form-control',)); ?>
+                    <?php echo CHtml::error($model, 'vehicle_name'); ?>
                 </div>
             </div>
 
             <div class="row">
+                <div class="col">
+                    <?php echo CHtml::activeLabelEx($model, 'Merk', array('class' => 'form-label')); ?>
+                    <?php echo CHtml::activeTextField($model, "brand_name", array('class' => 'form-control',)); ?>
+                    <?php echo CHtml::error($model,'brand_name'); ?>
+                </div>
+                <div class="col">
+                    <?php echo CHtml::activeLabelEx($model, 'Tahun Produksi', array('class' => 'form-label')); ?>
+                    <?php echo CHtml::activeTextField($model, "production_year", array('class' => 'form-control',)); ?>
+                    <?php echo CHtml::error($model,'production_year'); ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <?php echo CHtml::activeLabelEx($model, 'Kategori', array('class' => 'form-label')); ?>
+                    <?php echo CHtml::activeTextField($model, "category_name", array('class' => 'form-control',)); ?>
+                    <?php echo CHtml::error($model,'category_name'); ?>
+                </div>
                 <div class="col">
                     <?php echo CHtml::activeLabelEx($model, 'quantity', array('class' => 'form-label')); ?>
                     <?php echo CHtml::activeTextField($model, "quantity", array('class' => 'form-control',)); ?>
@@ -30,15 +53,17 @@
 
             <div class="row">
                 <div class="col">
-                    <?php echo CHtml::activeLabelEx($model, 'request_note', array('class' => 'form-label')); ?>
+                    <?php echo CHtml::activeLabelEx($model, 'Catatan', array('class' => 'form-label')); ?>
                     <?php echo CHtml::activeTextArea($model, "request_note", array('class' => 'form-control',)); ?>
                     <?php echo CHtml::error($model, 'request_note'); ?>
                 </div>
             </div>
             
+            <hr />
+            
             <div class="row">
                 <div class="col">
-                    <?php echo CHtml::label('New Image: ', FALSE); ?>
+                    <?php echo CHtml::label('Foto Barang: ', FALSE); ?>
                     <?php echo CHtml::fileField('file'); ?>
                     <?php echo CHtml::error($model, 'file'); ?>
                 </div>

@@ -83,7 +83,7 @@ class ProductPricingRequestController extends Controller {
             $model->extension = $fileName;
 
             if ($model->save(Yii::app()->db)) {
-//                $this->saveImageFile($model);
+                $this->saveImageFile($model);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -104,12 +104,12 @@ class ProductPricingRequestController extends Controller {
 
             $model->attributes = $_POST['ProductPricingRequest'];
             
-            $fileName = CUploadedFile::getInstanceByName('file');
-            $model->file = $fileName;
-            $model->extension = $fileName;
+            $file = CUploadedFile::getInstanceByName('file');
+            $model->file = $file;
+            $model->extension = $file->extensionName;
 
             if ($model->save(Yii::app()->db)) {
-//                $this->saveImageFile($model);
+                $this->saveImageFile($model);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -120,13 +120,8 @@ class ProductPricingRequestController extends Controller {
     }
 
     public function saveImageFile($model) {
-        $originalPath = dirname(Yii::app()->request->scriptFile) . '/images/' . $model->extension;
+        $originalPath = dirname(Yii::app()->request->scriptFile) . '/images/product_pricing_request/' . $model->id . '.' . $model->extension;
         $model->file->saveAs($originalPath);
-
-        require_once( dirname(Yii::app()->request->scriptFile) . '/protected/extensions/phpthumb/ThumbLib.inc.php' );
-
-        $image = PhpThumbFactory::create($originalPath);
-        $image->resize(1024, 768)->save($originalPath);
     }
 
     /**

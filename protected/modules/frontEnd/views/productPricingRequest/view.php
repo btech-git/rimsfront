@@ -27,42 +27,54 @@ $this->breadcrumbs=array(
         <tr>
             <th>Nama Produk</th>
             <td><?php echo CHtml::encode(CHtml::value($model, 'product_name')); ?></td>
+            <th>Quantity</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'quantity')); ?></td>
+        </tr>
+        <tr>
+            <th>Untuk Kendaraan</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'vehicle_name')); ?></td>
+            <th>Produksi Tahun</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'production_year')); ?></td>
+        </tr>
+        <tr>
+            <th>Merk</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'brand_name')); ?></td>
+            <th>Kategori</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'category_name')); ?></td>
+        </tr>
+        <tr>
             <th>Tanggal Request</th>
             <td>
                 <?php echo CHtml::encode(CHtml::value($model, 'request_date')); ?>
                 <?php echo CHtml::encode(CHtml::value($model, 'request_time')); ?>
             </td>
-        </tr>
-        <tr>
-            <th>Requested User</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'userIdRequest.username')); ?></td>
-            <th>Note</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'request_note')); ?></td>
-        </tr>
-        <tr>
-            <th>Branch</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdRequest.name')); ?></td>
-            <th>Quantity</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'quantity')); ?></td>
-        </tr>
-        <tr>
-            <th>Harga</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'recommended_price')); ?></td>
-            <th>Replied User</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'userIdReplyeply.username')); ?></td>
-        </tr>
-        <tr>
             <th>Tanggal Reply</th>
             <td>
                 <?php echo CHtml::encode(CHtml::value($model, 'reply_date')); ?>
                 <?php echo CHtml::encode(CHtml::value($model, 'reply_time')); ?>
             </td>
+        </tr>
+        <tr>
+            <th>Requested User</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'userIdRequest.username')); ?></td>
+            <th>Replied User</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'userIdReplyeply.username')); ?></td>
+        </tr>
+        <tr>
+            <th>Branch Request</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdRequest.name')); ?></td>
+            <th>Branch Reply</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdReply.name')); ?></td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'request_note')); ?></td>
             <th>Note</th>
             <td><?php echo CHtml::encode(CHtml::value($model, 'reply_note')); ?></td>
         </tr>
         <tr>
-            <th>Branch</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdReply.name')); ?></td>
+            <th>Harga</th>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'recommended_price')); ?></td>
         </tr>
     </tbody>
 </table>
