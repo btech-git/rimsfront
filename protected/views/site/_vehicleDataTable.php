@@ -8,12 +8,12 @@
             <tr class="table-primary">
                 <th style="text-align: center">ID</th>
                 <th style="text-align: center">Plat #</th>
-                <th style="text-align: center">Customer</th>
-                <th style="text-align: center">Phone</th>
-                <th style="text-align: center">Merk</th>
-                <th style="text-align: center">Model</th>
-                <th style="text-align: center">Tipe</th>
+                <th style="text-align: center">Kendaraan</th>
                 <th style="text-align: center">Warna</th>
+                <th style="text-align: center">KM</th>
+                <th style="text-align: center">Customer</th>
+                <th style="text-align: center">Tipe</th>
+                <th style="text-align: center">Status</th>
             </tr>
         </thead>
 
@@ -22,12 +22,19 @@
                 <tr>
                     <td><?php echo CHtml::encode(CHtml::value($vehicle, 'id')); ?></td>
                     <td><?php echo CHtml::link($vehicle->plate_number, array("/master/vehicle/view", "id"=>$vehicle->id), array("target" => "_blank")); ?></td>
-                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'customer.name')); ?></td>
-                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'customer.mobilePhone')); ?></td>
-                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'carMake.name')); ?></td>
-                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'carModel.name')); ?></td>
-                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'carSubModel.name')); ?></td>
+                    <td>
+                        <?php echo CHtml::encode(CHtml::value($vehicle, 'carMake.name')); ?> -
+                        <?php echo CHtml::encode(CHtml::value($vehicle, 'carModel.name')); ?> -
+                        <?php echo CHtml::encode(CHtml::value($vehicle, 'carSubModel.name')); ?>
+                    </td>
                     <td><?php echo CHtml::encode(CHtml::value($vehicle, 'color.name')); ?></td>
+                    <td class="text-end">
+                        <?php $registrationTransaction = RegistrationTransaction::model()->findByAttributes(array('vehicle_id' => $vehicle->id), array('order' => 'id DESC')); ?>
+                        <?php echo CHtml::encode(CHtml::value($registrationTransaction, 'vehicle_mileage')); ?>
+                    </td>
+                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'customer.name')); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'customer.customer_type')); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($vehicle, 'status_location')); ?></td>
 
                 </tr>
             <?php endforeach; ?>

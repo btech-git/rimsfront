@@ -83,6 +83,7 @@
                 <th></th>
                 <th>
                     <?php echo CHtml::activeDropDownList($model, 'repair_type', array(
+                        '' => '-- All --',
                         'GR' => 'GR',
                         'BR' => 'BR',
                     ), array(
