@@ -10,7 +10,7 @@
                 <th class="text-center" style="min-width: 100px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
                 <th class="text-center" style="min-width: 100px">Registration #</th>
-                <th class="text-center" style="min-width: 100px">Tanggal</th>
+                <th class="text-center" style="min-width: 200px">Tanggal</th>
                 <th class="text-center" style="min-width: 100px">KM</th>
                 <th class="text-center" style="min-width: 100px">Customer</th>
                 <th class="text-center" style="min-width: 200px">Status</th>
