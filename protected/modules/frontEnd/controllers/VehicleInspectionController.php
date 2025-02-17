@@ -173,7 +173,7 @@ class VehicleInspectionController extends Controller {
         if (isset($_GET['RegistrationTransaction'])) {
             $registrationTransaction->attributes = $_GET['RegistrationTransaction'];
         }
-        $registrationTransactionDataProvider = $registrationTransaction->searchAdmin();
+        $registrationTransactionDataProvider = $registrationTransaction->search();
 //        $vehicleDataProvider->criteria->addCondition('t.branch_id = :branch_id');
 //        $vehicleDataProvider->criteria->params[':branch_id'] = Yii::app()->user->branch_id;
 

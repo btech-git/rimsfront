@@ -27,7 +27,7 @@
     </table>
 </div>
 
-<div class="text-end">
+<div class="text-end" id="service-data-pager">
     <?php $this->widget('system.web.widgets.pagers.CLinkPager', array(
         'pages' => $serviceDataProvider->pagination,
     )); ?>
@@ -48,12 +48,12 @@
                 }
             });
         });
-        $('#service-data-grid ul.yiiPager > li > a').on('click', function(e) {
+        $('#service-data-pager ul.yiiPager > li > a').on('click', function(e) {
             e.preventDefault();
             $.ajax({
-                type: "POST",
+                type: "GET",
                 dataType: "HTML",
-                url: "<?php echo CController::createUrl('ajaxHtmlUpdateServiceDataTable'); ?>?service_page=" + $(this).attr('href').match(/[?&]service_page=([0-9]+)/)[1],
+                url: "<?php echo CController::createUrl('ajaxHtmlUpdateServiceDataTable'); ?>&service_page=" + $(this).attr('href').match(/[?&]service_page=([0-9]+)/)[1],
                 data: $("form").serialize(),
                 success: function(data) {
                     $("#service_data_container").html(data);
