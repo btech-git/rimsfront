@@ -4,48 +4,22 @@
 
 <div class="table-responsive">
     <?php echo CHtml::beginForm(); ?>
-    <table class="table table-bordered table-striped">
+    <table class="table table-sm table-bordered table-striped">
         <thead>
             <tr class="table-primary">
-                <th style="min-width: 200px">
-                    Transaction #
-                </th>
-                <th style="min-width: 150px">
-                    Tanggal
-                </th>
-                <th style="min-width: 250px">
-                    Customer
-                </th>
-                <th style="min-width: 150px" >
-                    Plat #
-                </th>
-                <th style="min-width: 250px">
-                    Mobil Tipe
-                </th>
-                <th style="min-width: 100px">
-                    GR/BR
-                </th>
-                <th style="min-width: 150px">
-                    Asuransi
-                </th>
-                <th style="min-width: 150px">
-                    WO #
-                </th>
-                <th style="min-width: 150px">
-                    SO #
-                </th>
-                <th style="min-width: 150px">
-                    Invoice
-                </th>
-                <th style="min-width: 150px">
-                    Problem
-                </th>
-                <th style="min-width: 150px">
-                    Sales
-                </th>
-                <th style="min-width: 100px">
-                    Status
-                </th>
+                <th style="min-width: 200px">Transaction #</th>
+                <th style="min-width: 150px">Tanggal</th>
+                <th style="min-width: 250px">Customer</th>
+                <th style="min-width: 150px">Plat #</th>
+                <th style="min-width: 250px">Mobil Tipe</th>
+                <th style="min-width: 100px">GR/BR</th>
+                <th style="min-width: 150px">Asuransi</th>
+                <th style="min-width: 150px">WO #</th>
+                <th style="min-width: 150px">SO #</th>
+                <th style="min-width: 150px">Invoice</th>
+                <th style="min-width: 150px">Problem</th>
+                <th style="min-width: 150px">Sales</th>
+                <th style="min-width: 100px">Status</th>
                 <th style="min-width: 90px"></th>
             </tr>
             <tr class="table-light">
