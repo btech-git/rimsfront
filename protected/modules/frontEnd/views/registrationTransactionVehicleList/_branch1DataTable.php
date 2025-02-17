@@ -6,14 +6,14 @@
     <table class="table table-sm table-bordered table-hover">
         <thead>
             <tr class="table-primary">
-                <th style="text-align: center">Plat #</th>
-                <th style="text-align: center">Kendaraan</th>
-                <th style="text-align: center">Warna</th>
-                <th style="text-align: center">Registration #</th>
-                <th style="text-align: center">Tanggal</th>
-                <th style="text-align: center">KM</th>
-                <th style="text-align: center">Customer</th>
-                <th style="text-align: center">Status</th>
+                <th class="text-center" style="min-width: 100px">Plat #</th>
+                <th class="text-center" style="min-width: 100px">Kendaraan</th>
+                <th class="text-center" style="min-width: 100px">Warna</th>
+                <th class="text-center" style="min-width: 100px">Registration #</th>
+                <th class="text-center" style="min-width: 100px">Tanggal</th>
+                <th class="text-center" style="min-width: 100px">KM</th>
+                <th class="text-center" style="min-width: 100px">Customer</th>
+                <th class="text-center" style="min-width: 100px">Status</th>
             </tr>
         </thead>
 
