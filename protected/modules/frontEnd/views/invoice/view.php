@@ -95,8 +95,12 @@ $this->breadcrumbs = array(
                                 <?php echo CHtml::encode(CHtml::value($detail, 'service.name')); ?>
                             </td>
                             <td class="text-center"><?php echo CHtml::encode(CHtml::value($detail, "quantity")); ?></td>
-                            <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($detail, "unit_price"))); ?></td>
-                            <td class="text-end"><?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($detail, "total_price"))); ?></td>
+                            <td class="text-end">
+                                <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($detail, "unit_price"))); ?>
+                            </td>
+                            <td class="text-end">
+                                <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($detail, "total_price"))); ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

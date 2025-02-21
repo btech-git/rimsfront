@@ -53,13 +53,13 @@ class RegistrationTransactionVehicleList extends CComponent {
         $this->dataProviderBranch6->pagination->pageVar = 'page_branch_6';
         $this->dataProviderBranch7->pagination->pageVar = 'page_branch_7';
         
-        $this->dataProviderBranch1->pagination->pageSize = 50;
-        $this->dataProviderBranch2->pagination->pageSize = 50;
-        $this->dataProviderBranch3->pagination->pageSize = 50;
-        $this->dataProviderBranch4->pagination->pageSize = 50;
-        $this->dataProviderBranch5->pagination->pageSize = 50;
-        $this->dataProviderBranch6->pagination->pageSize = 50;
-        $this->dataProviderBranch7->pagination->pageSize = 50;
+        $this->dataProviderBranch1->pagination->pageSize = 20;
+        $this->dataProviderBranch2->pagination->pageSize = 20;
+        $this->dataProviderBranch3->pagination->pageSize = 20;
+        $this->dataProviderBranch4->pagination->pageSize = 20;
+        $this->dataProviderBranch5->pagination->pageSize = 20;
+        $this->dataProviderBranch6->pagination->pageSize = 20;
+        $this->dataProviderBranch7->pagination->pageSize = 20;
 
         $currentPage1 = (empty($currentPage1)) ? 0 : $currentPage1 - 1;
         $currentPage2 = (empty($currentPage2)) ? 0 : $currentPage2 - 1;

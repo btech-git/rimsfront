@@ -6,14 +6,20 @@
     <table class="table table-sm table-bordered table-hover">
         <thead>
             <tr class="table-primary">
-                <th class="text-center" style="min-width: 100px">Plat #</th>
-                <th class="text-center" style="min-width: 100px">Kendaraan</th>
+                <th class="text-center" style="min-width: 150px">Plat #</th>
+                <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
-                <th class="text-center" style="min-width: 100px">Registration #</th>
-                <th class="text-center" style="min-width: 200px">Tanggal</th>
                 <th class="text-center" style="min-width: 100px">KM</th>
-                <th class="text-center" style="min-width: 100px">Customer</th>
+                <th class="text-center" style="min-width: 200px">Customer</th>
+                <th class="text-center" style="min-width: 100px">Registration #</th>
+                <th class="text-center" style="min-width: 150px">Tanggal</th>
+                <th class="text-center" style="min-width: 100px">WO #</th>
+                <th class="text-center" style="min-width: 100px">SL #</th>
+                <th class="text-center" style="min-width: 100px">Invoice #</th>
+                <th class="text-center" style="min-width: 100px">Payment #</th>
                 <th class="text-center" style="min-width: 200px">Status</th>
+                <th class="text-center" style="min-width: 200px">Lokasi</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -27,14 +33,29 @@
                         <?php echo CHtml::encode(CHtml::value($registrationTransaction, 'vehicle.carSubModel.name')); ?>
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'vehicle.color.name')); ?></td>
-                    <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'transaction_number')); ?></td>
-                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($registrationTransaction, 'transaction_date'))); ?></td>
                     <td class="text-end">
-                        <?php echo CHtml::encode(CHtml::value($registrationTransaction, 'vehicle_mileage')); ?>
+                        <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'customer.name')); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'transaction_number')); ?></td>
+                    <td>
+                        <?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($registrationTransaction, 'transaction_date'))); ?>
+                    </td>
+                    <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'work_order_number')); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'sales_order_number')); ?></td>
+                    <td>
+                        <?php $invoiceHeader = InvoiceHeader::model()->findByAttributes(array('registration_transaction_id' => $registrationTransaction->id)); ?>
+                        <?php echo CHtml::encode(CHtml::value($invoiceHeader, 'invoice_number')); ?>
+                    </td>
+                    <td>
+                        <?php $paymentInDetail = PaymentInDetail::model()->findByAttributes(array('invoice_header_id' => $invoiceHeader->id)); ?>
+                        <?php echo CHtml::encode(CHtml::value($paymentInDetail, 'paymentIn.payment_number')); ?>
+                    </td>
+                    <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'status')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'vehicle.status_location')); ?></td>
-
+                    <td>
+                        <?php echo CHtml::link('status', array("updateLocation", "id" => $registrationTransaction->id, "vehicleId" => $registrationTransaction->vehicle_id), array('class' => 'btn btn-info btn-sm')); ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
