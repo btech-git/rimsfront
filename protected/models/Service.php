@@ -293,7 +293,7 @@ class Service extends CActiveRecord {
                 ),
             ),
             'pagination' => array(
-                'pageSize' => 50,
+                'pageSize' => 25,
             ),
         ));
     }

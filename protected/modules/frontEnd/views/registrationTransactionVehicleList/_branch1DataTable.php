@@ -54,7 +54,7 @@
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'status')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'vehicle.status_location')); ?></td>
                     <td>
-                        <?php echo CHtml::link('status', array("updateLocation", "id" => $registrationTransaction->id, "vehicleId" => $registrationTransaction->vehicle_id), array('class' => 'btn btn-info btn-sm')); ?>
+                        <?php echo CHtml::link('update', array("updateLocation", "id" => $registrationTransaction->id, "vehicleId" => $registrationTransaction->vehicle_id), array('class' => 'btn btn-warning btn-sm')); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

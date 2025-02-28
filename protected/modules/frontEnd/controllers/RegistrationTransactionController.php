@@ -41,6 +41,33 @@ class RegistrationTransactionController extends Controller {
         $filterChain->run();
     }
 
+    public function actionVehicleList() {
+        $vehicle = Search::bind(new Vehicle('search'), isset($_GET['Vehicle']) ? $_GET['Vehicle'] : '');
+        $vehicleDataProvider = $vehicle->searchByDashboard();
+        $vehicleDataProvider->criteria->addCondition('t.status_location = "Keluar Bengkel"');
+        if (isset($_GET['Vehicle'])) {
+            $vehicle->attributes = $_GET['Vehicle'];
+        }
+
+        $this->render('vehicleList', array(
+            'vehicle' => $vehicle,
+            'vehicleDataProvider' => $vehicleDataProvider,
+        ));
+    }
+    
+    public function actionEntryVehicle($vehicleId) {
+        $vehicle = Vehicle::model()->findByPk($vehicleId);
+        $vehicle->status_location = 'Masuk Bengkel';
+        $vehicle->entry_datetime = date('Y-m-d H:i:s');
+        
+        if ($vehicle->save(Yii::app()->db)) {
+            $this->redirect(array('saleEstimationList'));
+        } else {
+            $this->redirect(array('vehicleList'));
+        }
+        
+    }
+    
     public function actionSaleEstimationList() {
         $registrationTransactionHeader = Search::bind(new SaleEstimationHeader('search'), isset($_GET['SaleEstimationHeader']) ? $_GET['SaleEstimationHeader'] : '');
         $registrationTransactionHeaderDataProvider = $registrationTransactionHeader->searchByRegistration();

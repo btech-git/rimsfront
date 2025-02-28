@@ -72,8 +72,10 @@ $this->breadcrumbs=array(
                 <td><?php echo CHtml::encode(CHtml::value($model, 'drivetrain')); ?></td>
             </tr>
             <tr>
+                <th>Lokasi</th>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'status_location')); ?></td>
                 <th>Note</th>
-                <td colspan="3"><?php echo CHtml::encode(CHtml::value($model, 'notes')); ?></td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'notes')); ?></td>
             </tr>
         </tbody>
     </table>

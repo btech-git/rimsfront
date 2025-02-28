@@ -10,11 +10,6 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/vendor/jquery.js"></script>
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/memo.css" />
-        <style>
-            [readonly]:not(.readonly-form-input), [readonly]:not(.readonly-form-input):focus {
-                background-color: #CFD8DC;
-            }
-        </style>
     </head>
 
     <body>

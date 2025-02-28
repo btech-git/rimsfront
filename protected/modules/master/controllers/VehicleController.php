@@ -91,11 +91,43 @@ class VehicleController extends Controller {
 
         if (isset($_POST['Vehicle'])) {
             $model->attributes = $_POST['Vehicle'];
-            if ($model->save())
+            if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionUpdateLocation($id) {
+        $model = $this->loadModel($id);
+
+        if (isset($_POST['Vehicle'])) {
+            $model->attributes = $_POST['Vehicle'];
+            
+            if ($model->status_location == 'Masuk Bengkel') {
+                $model->entry_datetime = date('Y-m-d H:i:s');
+            } elseif ($model->status_location == 'Mulai Service') {
+                $model->start_service_datetime = date('Y-m-d H:i:s');
+            } elseif ($model->status_location == 'Selesai Service') {
+                $model->finish_service_datetime = date('Y-m-d H:i:s');
+            } elseif ($model->status_location == 'Keluar Bengkel') {
+                $model->exit_datetime = date('Y-m-d H:i:s');
+            } else {
+                $model->entry_datetime = null;
+                $model->start_service_datetime = null;
+                $model->finish_service_datetime = null;
+                $model->exit_datetime = null;
+            }
+            
+            if ($model->save()) {
+                $this->redirect(array('view', 'id' => $model->id));
+            }
+        }
+
+        $this->render('updateLocation', array(
             'model' => $model,
         ));
     }
@@ -109,8 +141,9 @@ class VehicleController extends Controller {
         $this->loadModel($id)->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
+        if (!isset($_GET['ajax'])) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
     }
 
     /**
@@ -118,6 +151,7 @@ class VehicleController extends Controller {
      */
     public function actionIndex() {
         $dataProvider = new CActiveDataProvider('Vehicle');
+        
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -127,29 +161,29 @@ class VehicleController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $vehicle = new Vehicle('search');
-        $vehicle->unsetAttributes();  // clear any default values
+        $model = new Vehicle('search');
+        $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Vehicle'])) {
-            $vehicle->attributes = $_GET['Vehicle'];
+            $model->attributes = $_GET['Vehicle'];
         }
 
-        $vehicleDataProvider = $vehicle->search();
+        $modelDataProvider = $model->search();
         
         $this->render('admin', array(
-            'vehicle' => $vehicle,
-            'vehicleDataProvider' => $vehicleDataProvider,
+            'vehicle' => $model,
+            'vehicleDataProvider' => $modelDataProvider,
         ));
     }
 
     public function actionAjaxHtmlUpdateVehicleDataTable() {
         if (Yii::app()->request->isAjaxRequest) {
             
-            $vehicle = Search::bind(new Vehicle('search'), isset($_GET['Vehicle']) ? $_GET['Vehicle'] : '');
-            $vehicleDataProvider = $vehicle->search();
-            $vehicleDataProvider->pagination->pageSize = 50;
+            $model = Search::bind(new Vehicle('search'), isset($_GET['Vehicle']) ? $_GET['Vehicle'] : '');
+            $modelDataProvider = $model->search();
+            $modelDataProvider->pagination->pageSize = 50;
 
             $this->renderPartial('_vehicleDataTable', array(
-                'vehicleDataProvider' => $vehicleDataProvider,
+                'vehicleDataProvider' => $modelDataProvider,
             ));
         }
     }
@@ -163,8 +197,9 @@ class VehicleController extends Controller {
      */
     public function loadModel($id) {
         $model = Vehicle::model()->findByPk($id);
-        if ($model === null)
+        if ($model === null) {
             throw new CHttpException(404, 'The requested page does not exist.');
+        }
         return $model;
     }
 

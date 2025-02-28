@@ -30,7 +30,7 @@
     <div class="d-grid">
         <div class="row">
             <div class="col text-center">
-                <?php echo CHtml::htmlButton('Next', array('id' => 'next-button', 'class'=>'btn btn-success')); ?>
+                <?php echo CHtml::htmlButton('Next', array('id' => 'next-button', 'class'=>'btn btn-success btn-sm')); ?>
             </div>
         </div>
     </div>

@@ -231,7 +231,7 @@ class Vehicle extends CActiveRecord {
                 'defaultOrder' => 't.plate_number ASC',
             ),
             'pagination' => array(
-                'pageSize' => 100,
+                'pageSize' => 25,
             ),
         ));
     }

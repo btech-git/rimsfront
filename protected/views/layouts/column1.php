@@ -52,11 +52,12 @@
                                     Yii::app()->controller->action->id === 'admin' || 
                                     Yii::app()->controller->action->id === 'view' || 
                                     Yii::app()->controller->action->id === 'saleEstimationList' || 
+                                    Yii::app()->controller->action->id === 'vehicleList' || 
                                     Yii::app()->controller->action->id === 'create' || 
                                     Yii::app()->controller->action->id === 'update'
                                 ); ?>
                                 <li class="w-100 <?php if ($isActive): ?><?php echo $activeClass; ?><?php endif ;?>">
-                                    <a href="<?php echo Yii::app()->createUrl('frontEnd/registrationTransaction/saleEstimationList'); ?>" class="nav-link px-0 align-middle">
+                                    <a href="<?php echo Yii::app()->createUrl('frontEnd/registrationTransaction/vehicleList'); ?>" class="nav-link px-0 align-middle">
                                         <span class="ps-1 d-none d-sm-inline <?php if ($isActive): ?><?php echo $activeTextClass; ?><?php else: ?><?php echo $inactiveTextClass; ?><?php endif ;?>">
                                             GR/BR Registration
                                         </span>
@@ -201,7 +202,7 @@
                 </div>
             </div>
             <div class="col-auto col-md-9 col-xl-10 py-3">
-                <div class="container-fluid">
+                <div class="container-fluid" style="font-size: 12px">
                     <?php echo $content; ?>
                 </div>
             </div>

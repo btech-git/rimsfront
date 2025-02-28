@@ -60,16 +60,25 @@ class SaleEstimationController extends Controller {
         $productDataProvider = $product->searchBySaleEstimation($endDate);
         $serviceDataProvider = $service->searchBySaleEstimation();
         $vehicleDataProvider = $vehicle->search();
+        $vehicleDataProvider->criteria->with = array(
+            'customer',
+        );
         
         $productPageNumber = isset($_GET['product_page']) ? $_GET['product_page'] : 1;
         $servicePageNumber = isset($_GET['service_page']) ? $_GET['service_page'] : 1;
         $productDataProvider->pagination->pageVar = 'product_page';
-        $productDataProvider->pagination->pageSize = 50;
+        $productDataProvider->pagination->pageSize = 20;
         $productDataProvider->pagination->currentPage = $productPageNumber - 1;
         $serviceDataProvider->pagination->pageVar = 'service_page';
-        $serviceDataProvider->pagination->pageSize = 50;
+        $serviceDataProvider->pagination->pageSize = 20;
         $serviceDataProvider->pagination->currentPage = $servicePageNumber - 1;
         
+        $customerName = isset($_GET['CustomerName']) ? $_GET['CustomerName'] : '';
+        if (!empty($customerName)) {
+            $vehicleDataProvider->criteria->addCondition('customer.name LIKE :customer_name');
+            $vehicleDataProvider->criteria->params[':customer_name'] = "%{$customerName}%";
+        }
+
         $branches = Branch::model()->findAll();
         
         if (isset($_POST['Submit']) && IdempotentManager::check()) {
@@ -91,6 +100,7 @@ class SaleEstimationController extends Controller {
             'vehicleDataProvider' => $vehicleDataProvider,
             'branches' => $branches,
             'endDate' => $endDate,
+            'customerName' => $customerName,
             'isSubmitted' => isset($_POST['Submit']),
         ));
     }
@@ -458,7 +468,7 @@ class SaleEstimationController extends Controller {
             $productPageNumber = isset($_GET['product_page']) ? $_GET['product_page'] : 1;
             $productDataProvider = $product->searchBySaleEstimation($endDate);
             $productDataProvider->pagination->pageVar = 'product_page';
-            $productDataProvider->pagination->pageSize = 50;
+            $productDataProvider->pagination->pageSize = 20;
             $productDataProvider->pagination->currentPage = $productPageNumber - 1;
 
             $branches = Branch::model()->findAll();
@@ -517,7 +527,7 @@ class SaleEstimationController extends Controller {
             $servicePageNumber = isset($_GET['service_page']) ? $_GET['service_page'] : 1;
             $serviceDataProvider = $service->searchBySaleEstimation();
             $serviceDataProvider->pagination->pageVar = 'service_page';
-            $serviceDataProvider->pagination->pageSize = 50;
+            $serviceDataProvider->pagination->pageSize = 20;
             $serviceDataProvider->pagination->currentPage = $servicePageNumber - 1;
 
             $this->renderPartial('_serviceDataTable', array(

@@ -2,7 +2,7 @@
     <?php echo ReportHelper::summaryText($registrationTransactionDataProvider); ?>
 </div>
 
-<div class="table-responsive">
+<div>
     <?php echo CHtml::beginForm(); ?>
     <table class="table table-bordered table-striped">
         <thead>
@@ -135,4 +135,5 @@
         )); ?>
     </div>
     <?php echo CHtml::endForm(); ?>
+    <br /> 
 </div>

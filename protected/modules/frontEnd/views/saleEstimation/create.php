@@ -33,6 +33,7 @@ $this->breadcrumbs=array(
     
     <?php echo $this->renderPartial('_form', array(
         'saleEstimation' => $saleEstimation,
+        'customerName' => $customerName,
         'branches' => $branches,
         'isSubmitted' => $isSubmitted,
         'vehicle' => $vehicle,

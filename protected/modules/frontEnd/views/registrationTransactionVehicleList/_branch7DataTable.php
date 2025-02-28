@@ -1,4 +1,4 @@
-<div style="text-align: right">
+update<div style="text-align: right">
     <?php echo ReportHelper::summaryText($registrationTransactionVehicleList->dataProviderBranch7); ?>
 </div>
 
@@ -14,6 +14,7 @@
                 <th style="text-align: center">KM</th>
                 <th style="text-align: center">Customer</th>
                 <th style="text-align: center">Status</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -34,7 +35,9 @@
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'customer.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'vehicle.status_location')); ?></td>
-
+                    <td>
+                        <?php echo CHtml::link('update', array("updateLocation", "id" => $registrationTransaction->id, "vehicleId" => $registrationTransaction->vehicle_id), array('class' => 'btn btn-warning btn-sm')); ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

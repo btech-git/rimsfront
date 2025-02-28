@@ -122,9 +122,9 @@
         <div class="d-grid">
             <div class="row">
                 <div class="col text-center">
-                    <?php echo CHtml::htmlButton('Back', array('id' => 'back-button', 'class'=>'btn btn-warning')); ?>
-                    <?php echo CHtml::submitButton('Cancel', array('name' => 'Cancel', 'confirm' => 'Are you sure you want to cancel?', 'class'=>'btn btn-danger')); ?>
-                    <?php echo CHtml::submitButton('Submit', array('name' => 'Submit', 'confirm' => 'Are you sure you want to save?', 'class'=>'btn btn-success')); ?>
+                    <?php echo CHtml::htmlButton('Back', array('id' => 'back-button', 'class'=>'btn btn-warning btn-sm')); ?>
+                    <?php echo CHtml::submitButton('Cancel', array('name' => 'Cancel', 'confirm' => 'Are you sure you want to cancel?', 'class'=>'btn btn-danger btn-sm')); ?>
+                    <?php echo CHtml::submitButton('Submit', array('name' => 'Submit', 'confirm' => 'Are you sure you want to save?', 'class'=>'btn btn-success btn-sm')); ?>
                 </div>
             </div>
             <?php echo IdempotentManager::generate(); ?>
@@ -176,12 +176,13 @@
     }',
     'columns' => array(
         array(
-            'header' => 'Kendaraan',
-            'value' => 'CHtml::encode(CHtml::value($data, "carMakeModelSubCombination"))',
+            'header' => 'Nomor Polisi',
+            'filter' => CHtml::activeTextField($vehicle, 'plate_number'),
+            'value' => 'CHtml::encode(CHtml::value($data, "plate_number"))',
         ),
         array(
-            'header' => 'Nomor Polisi',
-            'value' => 'CHtml::encode(CHtml::value($data, "plate_number"))',
+            'header' => 'Kendaraan',
+            'value' => 'CHtml::encode(CHtml::value($data, "carMakeModelSubCombination"))',
         ),
         array(
             'header' => 'Nomor Rangka',
@@ -189,6 +190,7 @@
         ),
         array(
             'header' => 'Customer',
+            'filter' => CHtml::textField('CustomerName', $customerName),
             'value' => 'empty($data->customer_id) ? "" : $data->customer->name',
         ),
     )

@@ -14,7 +14,7 @@
                 <th style="text-align: center">Customer</th>
                 <th style="text-align: center">Tipe</th>
                 <th style="text-align: center">Status</th>
-                <th></th>
+                <th style="width: 6%"></th>
             </tr>
         </thead>
 
@@ -36,9 +36,8 @@
                     <td><?php echo CHtml::encode(CHtml::value($vehicle, 'customer.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($vehicle, 'customer.customer_type')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($vehicle, 'status_location')); ?></td>
-                    <td>
-                        <?php echo CHtml::link('update', array("/master/vehicle/updateLocation", "id" => $vehicle->id), array('class' => 'btn btn-warning btn-sm')); ?>
-                    </td>
+                    <td><?php echo CHtml::link('<i class="bi-plus"></i> Masuk', array("entryVehicle", "vehicleId" => $vehicle->id), array('class' => 'btn btn-success btn-sm')); ?></td>
+
                 </tr>
             <?php endforeach; ?>
         </tbody>

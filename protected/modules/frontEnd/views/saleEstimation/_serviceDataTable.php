@@ -11,6 +11,7 @@
                 <th>Name</th>
                 <th>Category</th>
                 <th>Type</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,9 @@
                     <td><?php echo CHtml::encode(CHtml::value($service, 'name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($service, 'serviceCategory.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($service, 'serviceType.name')); ?></td>
+                    <td>
+                        <span><?php echo CHtml::button('+', array('class' => 'btn btn-sm btn-success')); ?></span>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -38,6 +42,7 @@
     $(document).ready(function() {
         $('#service-data-table > tbody > tr').on('click', function() {
             $(this).addClass('table-active');
+            $('td > span > input[type=button]', this).addClass('d-none');
             $.ajax({
                 type: "POST",
                 dataType: "HTML",

@@ -150,7 +150,7 @@ class Customer extends CActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 50,
+                'pageSize' => 25,
             ),
         ));
     }
@@ -198,7 +198,7 @@ class Customer extends CActiveRecord {
                 'defaultOrder' => 't.name ASC',
             ),
             'pagination' => array(
-                'pageSize' => 50,
+                'pageSize' => 25,
             ),
         ));
     }

@@ -17,6 +17,7 @@
                 <?php endforeach; ?>
                 <th>Total</th>
                 <th>Sell Price</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +49,9 @@
                         <?php $registrationProduct = RegistrationProduct::model()->findByAttributes(array('product_id' => $product->id), array('order' => 't.id DESC')); ?>
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0.00', CHtml::value($registrationProduct, 'sale_price'))); ?>
                     </td>
+                    <td>
+                        <span><?php echo CHtml::button('+', array('class' => 'btn btn-sm btn-success')); ?></span>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -65,6 +69,7 @@
     $(document).ready(function() {
         $('#product-data-table > tbody > tr').on('click', function() {
             $(this).addClass('table-active');
+            $('td > span > input[type=button]', this).addClass('d-none');
             $.ajax({
                 type: "POST",
                 dataType: "HTML",

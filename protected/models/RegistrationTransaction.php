@@ -328,6 +328,9 @@ class RegistrationTransaction extends CActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
         ));
     }
 
@@ -425,7 +428,7 @@ class RegistrationTransaction extends CActiveRecord {
                 'defaultOrder' => 'transaction_date DESC',
             ),
             'pagination' => array(
-                'pageSize' => 500,
+                'pageSize' => 50,
             ),
         ));
     }

@@ -197,6 +197,6 @@ class SaleEstimation extends CComponent {
     }
     
     public function getGrandTotalTransaction() {
-        return $this->subTotalProduct + $this->subTotalServicedet + $this->taxItemAmount;
+        return $this->subTotalProduct + $this->subTotalService + $this->taxItemAmount;
     }
 }
