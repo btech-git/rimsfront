@@ -10,6 +10,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Permintaan Harga</h1>
+<h2>Create Permintaan Harga</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

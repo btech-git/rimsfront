@@ -1,6 +1,6 @@
 <div>
     <?php $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'employee-form',
+        'id' => 'product-pricing-request-form',
         'enableAjaxValidation' => false,
         'htmlOptions' => array(
             'enctype' => 'multipart/form-data'
