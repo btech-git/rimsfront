@@ -12,69 +12,6 @@
 
     <hr />
 
-<!--    <div class="row">
-        <div class="col">
-            <div class="my-2 row">
-                <label class="col col-form-label">Nama</label>
-                <div class="col">
-                    <?php /*echo CHtml::activeTextField($model, 'product_name', array(
-                        'class' => 'form-select',
-                        'onchange' => CHtml::ajax(array(
-                            'type' => 'GET',
-                            'url' => CController::createUrl('ajaxHtmlUpdateCustomerDataTable'),
-                            'update' => '#customer_data_container',
-                        )),
-                    )); ?>
-                </div>
-                <label class="col col-form-label">Type</label>
-                <div class="col">
-                    <?php echo CHtml::activeDropDownList($model, 'customer_type', array(
-                        'Individual' => 'Individual', 
-                        'Company' => 'Company',
-                    ), array(
-                        'class' => 'form-select',
-                        'empty' => '-- All --',
-                        'onchange' => CHtml::ajax(array(
-                            'type' => 'GET',
-                            'url' => CController::createUrl('ajaxHtmlUpdateCustomerDataTable'),
-                            'update' => '#customer_data_container',
-                        )),
-                    )); ?>
-                </div>
-            </div>
-            <div class="my-2 row">
-                <label class="col col-form-label">HP #</label>
-                <div class="col">
-                    <?php echo CHtml::activeTextField($model, 'mobile_phone', array(
-                        'class' => 'form-select',
-                        'onchange' => CHtml::ajax(array(
-                            'type' => 'GET',
-                            'url' => CController::createUrl('ajaxHtmlUpdateCustomerDataTable'),
-                            'update' => '#customer_data_container',
-                        )),
-                    )); ?>
-                </div>
-                <label class="col col-form-label">Email</label>
-                <div class="col">
-                    <?php echo CHtml::activeTextField($model, 'email', array(
-                        'class' => 'form-select',
-                        'onchange' => CHtml::ajax(array(
-                            'type' => 'GET',
-                            'url' => CController::createUrl('ajaxHtmlUpdateCustomerDataTable'),
-                            'update' => '#customer_data_container',
-                        )),
-                    )); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center">
-        <?php echo CHtml::submitButton('Hapus', array('name' => 'ResetFilter', 'class' => 'btn btn-danger'));*/  ?>
-    </div>-->
-
-    <hr />
-
     <div id="customer_data_container">
         <div style="text-align: right">
             <?php echo ReportHelper::summaryText($dataProvider); ?>

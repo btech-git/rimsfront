@@ -25,56 +25,70 @@ $this->breadcrumbs=array(
 <table class="table table-bordered table-striped">
     <tbody>
         <tr>
-            <th>Nama Produk</th>
+            <td>Nama Produk</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'product_name')); ?></td>
-            <th>Quantity</th>
+            <td>Quantity</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'quantity')); ?></td>
         </tr>
         <tr>
-            <th>Untuk Kendaraan</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'vehicle_name')); ?></td>
-            <th>Produksi Tahun</th>
+            <td>Car Make</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'vehicleCarMake.name')); ?></td>
+            <td>Car Model</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'vehicleCarModel.name')); ?></td>
+        </tr>
+        <tr>
+            <td>Merk</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'brand.name')); ?></td>
+            <td>Sub Brand</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'subBrand.name')); ?></td>
+        </tr>
+        <tr>
+            <td>Sub Brand Series</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'subBrandSeries.name')); ?></td>
+            <td>Kategori</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'productMasterCategory.name')); ?></td>
+        </tr>
+        <tr>
+            <td>Sub Master Kategori</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'productSubMasterCategory.name')); ?></td>
+            <td>Sub Kategori</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'productSubCategory.name')); ?></td>
+        </tr>
+        <tr>
+            <td>Produksi Tahun</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'production_year')); ?></td>
+            <td>Harga</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'recommended_price')); ?></td>
         </tr>
         <tr>
-            <th>Merk</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'brand_name')); ?></td>
-            <th>Kategori</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'category_name')); ?></td>
-        </tr>
-        <tr>
-            <th>Tanggal Request</th>
+            <td>Tanggal Request</td>
             <td>
                 <?php echo CHtml::encode(CHtml::value($model, 'request_date')); ?>
                 <?php echo CHtml::encode(CHtml::value($model, 'request_time')); ?>
             </td>
-            <th>Tanggal Reply</th>
+            <td>Tanggal Reply</td>
             <td>
                 <?php echo CHtml::encode(CHtml::value($model, 'reply_date')); ?>
                 <?php echo CHtml::encode(CHtml::value($model, 'reply_time')); ?>
             </td>
         </tr>
         <tr>
-            <th>Requested User</th>
+            <td>Requested User</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'userIdRequest.username')); ?></td>
-            <th>Replied User</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'userIdReplyeply.username')); ?></td>
+            <td>Replied User</td>
+            <td><?php echo CHtml::encode(CHtml::value($model, 'userIdReply.username')); ?></td>
         </tr>
         <tr>
-            <th>Branch Request</th>
+            <td>Branch Request</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdRequest.name')); ?></td>
-            <th>Branch Reply</th>
+            <td>Branch Reply</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'branchIdReply.name')); ?></td>
         </tr>
         <tr>
-            <th>Note</th>
+            <td>Note</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'request_note')); ?></td>
-            <th>Note</th>
+            <td>Note</td>
             <td><?php echo CHtml::encode(CHtml::value($model, 'reply_note')); ?></td>
-        </tr>
-        <tr>
-            <th>Harga</th>
-            <td><?php echo CHtml::encode(CHtml::value($model, 'recommended_price')); ?></td>
         </tr>
     </tbody>
 </table>
