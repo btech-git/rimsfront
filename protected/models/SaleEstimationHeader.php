@@ -188,7 +188,7 @@ class SaleEstimationHeader extends MonthlyTransactionActiveRecord {
                 'defaultOrder' => 'transaction_date DESC',
             ),
             'pagination' => array(
-                'pageSize' => 50,
+                'pageSize' => 25,
             ),
         ));
     }
@@ -245,7 +245,7 @@ class SaleEstimationHeader extends MonthlyTransactionActiveRecord {
                 'defaultOrder' => 'transaction_date DESC',
             ),
             'pagination' => array(
-                'pageSize' => 50,
+                'pageSize' => 25,
             ),
         ));
     }

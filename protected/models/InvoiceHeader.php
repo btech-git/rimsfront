@@ -214,7 +214,7 @@ class InvoiceHeader extends MonthlyTransactionActiveRecord {
                 'defaultOrder' => 'invoice_date DESC',
             ),
             'pagination' => array(
-                'pageSize' => 50,
+                'pageSize' => 25,
             ),
         ));
     }
@@ -268,7 +268,7 @@ class InvoiceHeader extends MonthlyTransactionActiveRecord {
                 'defaultOrder' => 'invoice_date DESC',
             ),
             'pagination' => array(
-                'pageSize' => 100,
+                'pageSize' => 25,
             ),
         ));
     }
@@ -320,7 +320,7 @@ class InvoiceHeader extends MonthlyTransactionActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'Pagination' => array(
-                'PageSize' => 50
+                'PageSize' => 25
             ),
             'sort' => array(
                 'defaultOrder' => 't.invoice_date DESC',
