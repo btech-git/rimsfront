@@ -25,8 +25,8 @@
                                 </a>
                             </li>
                                
-                            <?php $isAuthorized = Yii::app()->user->checkAccess('saleEstimationCreate') || 
-                                    Yii::app()->user->checkAccess('saleEstimationEdit')
+                            <?php $isAuthorized = Yii::app()->user->checkAccess('saleEstimationFrontCreate') || 
+                                    Yii::app()->user->checkAccess('saleEstimationFrontEdit')
                             ; ?>
                             <?php if ($isAuthorized): ?>
                                 <?php $isActive = Yii::app()->controller->id === 'saleEstimation' && (
@@ -44,10 +44,10 @@
                                 </li>
                             <?php endif; ?>
                                 
-                            <?php /*$isAuthorized = Yii::app()->user->checkAccess('registrationTransactionCreate') || 
-                                    Yii::app()->user->checkAccess('registrationTransactionEdit')
+                            <?php $isAuthorized = Yii::app()->user->checkAccess('registrationTransactionFrontCreate') || 
+                                    Yii::app()->user->checkAccess('registrationTransactionFrontEdit')
                             ; ?>
-                            <?php if ($isAuthorized):*/ ?>
+                            <?php if ($isAuthorized): ?>
                                 <?php $isActive = Yii::app()->controller->id === 'registrationTransaction' && (
                                     Yii::app()->controller->action->id === 'admin' || 
                                     Yii::app()->controller->action->id === 'view' || 
@@ -63,10 +63,10 @@
                                         </span>
                                     </a>
                                 </li>
-                            <?php //endif; ?>
+                            <?php endif; ?>
                                 
-                            <?php $isAuthorized = Yii::app()->user->checkAccess('registrationTransactionCreate') || 
-                                    Yii::app()->user->checkAccess('registrationTransactionEdit')
+                            <?php $isAuthorized = Yii::app()->user->checkAccess('registrationTransactionFrontCreate') || 
+                                    Yii::app()->user->checkAccess('registrationTransactionFrontEdit')
                             ; ?>
                             <?php if ($isAuthorized): ?>
                                 <?php $isActive = Yii::app()->controller->id === 'vehicleInspection' && (
@@ -82,8 +82,8 @@
                                 </li>
                             <?php endif; ?>
                                 
-                            <?php $isAuthorized = Yii::app()->user->checkAccess('saleInvoiceCreate') || 
-                                    Yii::app()->user->checkAccess('saleInvoiceEdit')
+                            <?php $isAuthorized = Yii::app()->user->checkAccess('saleInvoiceFrontCreate') || 
+                                    Yii::app()->user->checkAccess('saleInvoiceFrontEdit')
                             ; ?>
                             <?php if ($isAuthorized): ?>
                                 <?php $isActive = Yii::app()->controller->id === 'invoice' && (
@@ -102,8 +102,8 @@
                                 </li>
                             <?php endif; ?>
                                 
-                            <?php $isAuthorized = Yii::app()->user->checkAccess('cashierCreate') || 
-                                    Yii::app()->user->checkAccess('cashierEdit')
+                            <?php $isAuthorized = Yii::app()->user->checkAccess('cashierFrontCreate') || 
+                                    Yii::app()->user->checkAccess('cashierFrontEdit')
                             ; ?>
                             <?php if ($isAuthorized): ?>
                                 <?php $isActive = Yii::app()->controller->id === 'cashier' && (
