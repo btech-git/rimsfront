@@ -53,7 +53,7 @@ class CashierController extends Controller {
                 'defaultOrder' => 'invoice_date DESC',
             ),
             'pagination' => array(
-                'pageSize' => 50,
+                'pageSize' => 25,
             )
         ));
 
