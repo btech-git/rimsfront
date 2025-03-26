@@ -35,8 +35,8 @@
                         <?php echo CHtml::encode(CHtml::value($data, 'carModel.name')); ?> -
                         <?php echo CHtml::encode(CHtml::value($data, 'carSubModel.name')); ?>
                     </td>
-                    <td><?php echo CHtml::encode(CHtml::value($data, 'color.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($data, 'color.name')); ?></td>
                     <td class="text-end">
                         <?php $registrationTransaction = RegistrationTransaction::model()->findByAttributes(array('vehicle_id' => $data->id)); ?>
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>

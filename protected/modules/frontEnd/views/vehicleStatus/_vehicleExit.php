@@ -14,8 +14,8 @@
                 <th class="text-center" style="min-width: 150px">Plat #</th>
                 <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
-                <th class="text-center" style="min-width: 100px">KM</th>
                 <th class="text-center" style="min-width: 200px">Customer</th>
+                <th class="text-center" style="min-width: 100px">KM</th>
                 <th class="text-center" style="min-width: 100px">Registration #</th>
                 <th class="text-center" style="min-width: 150px">Tanggal</th>
                 <th class="text-center" style="min-width: 100px">WO #</th>
