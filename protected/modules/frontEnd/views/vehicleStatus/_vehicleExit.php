@@ -11,20 +11,20 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr class="table-primary">
-                <th class="text-center" style="min-width: 150px">Plat #</th>
+                <th class="text-center" style="min-width: 100px">Plat #</th>
                 <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
                 <th class="text-center" style="min-width: 200px">Customer</th>
-                <th class="text-center" style="min-width: 100px">KM</th>
+                <th class="text-center" style="min-width: 50px">KM</th>
                 <th class="text-center" style="min-width: 100px">Registration #</th>
-                <th class="text-center" style="min-width: 150px">Tanggal</th>
+                <th class="text-center" style="min-width: 100px">Tanggal</th>
                 <th class="text-center" style="min-width: 100px">WO #</th>
                 <th class="text-center" style="min-width: 100px">SL #</th>
                 <th class="text-center" style="min-width: 100px">Invoice #</th>
                 <th class="text-center" style="min-width: 100px">Payment #</th>
                 <th class="text-center" style="min-width: 200px">Status</th>
-                <th class="text-center" style="min-width: 200px">Lokasi</th>
-                <th class="text-center" style="min-width: 200px">Keluar Tanggal</th>
+                <th class="text-center" style="min-width: 100px">Lokasi</th>
+                <th class="text-center" style="min-width: 150px">Keluar Tanggal</th>
             </tr>
         </thead>
         <tbody>
