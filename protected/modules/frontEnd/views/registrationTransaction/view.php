@@ -37,13 +37,13 @@ $this->breadcrumbs = array(
             <?php if ($model->status == "Approved" && $model->status !== 'CANCELLED!!!'): ?>
                 <?php echo CHtml::link('<i class="bi-plus"></i> Generate Invoice', array("/frontEnd/invoice/create", "registrationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
             <?php endif; ?>
-
         </div>
     </div>
 </div>
 
 <hr />
 
+<div>
 <?php echo CHtml::beginForm(); ?>
     <table class="table table-bordered table-striped">
         <tbody>
@@ -120,6 +120,18 @@ $this->breadcrumbs = array(
                     <?php echo CHtml::encode(CHtml::value($invoice, 'invoice_number')); ?>
                 </td>
             </tr>
+            <tr>
+                <td>Kondisi Awal</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'initial_condition_memo')); ?></td>
+                <td>Rekomendasi Awal</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'initial_recommendation')); ?></td>
+            </tr>
+            <tr>
+                <td>Kondisi Akhir</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'final_condition_memo')); ?></td>
+                <td>Rekomendasi Akhir</td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'final_recommendation')); ?></td>
+            </tr>
         </tbody>
     </table>
 
@@ -147,71 +159,67 @@ $this->breadcrumbs = array(
                     <td colspan="3" class="text-center">No Messages!</td>
                 </tr>
             <?php endif; ?>
-            <tr>
-                <td colspan="3">
-                    Tambah Memo: 
-                    <?php echo CHtml::textField('Memo', $memo, array(
-                        'class' => 'form-control',
-                        'size' => 10, 
-                        'maxLength' => 100
-                    )); ?> <br />
-                    <?php //echo CHtml::hiddenField('_FormSubmit_', ''); ?>
-                    <?php echo CHtml::submitButton('Submit', array('name' => 'SubmitMemo', 'confirm' => 'Are you sure you want to save?', 'class' => 'btn btn-success')); ?>
-                </td>
-            </tr>
         </tbody>
     </table>
-
-    <hr />
-
-    <div class="detail">
-        <fieldset>
-            <legend>Details</legend>
-            <?php
-            $tabsArray = array();
-            $tabsArray['Billing'] = array(
-                'id' => 'billing',
-                'content' => $this->renderPartial('_viewBilling', array(
-                    'model' => $model,
-                    'products' => $products,
-                    'services' => $services,
-                ), TRUE)
-            );
-            $tabsArray['Movement'] = array(
-                'id' => 'movement',
-                'content' => $this->renderPartial('_viewMovement', array(
-                    'model' => $model,
-                    'products' => $products,
-                ), TRUE)
-            );
-            $tabsArray['History'] = array(
-                'id' => 'history',
-                'content' => $this->renderPartial('_viewHistory', array(
-                    'model' => $model
-                ), TRUE)
-            );
-            ?>
-            <?php $this->widget('zii.widgets.jui.CJuiTabs', array(
-                'tabs' => $tabsArray,
-                // additional javascript options for the tabs plugin
-                'options' => array('collapsible' => true),
-            )); ?>
-        </fieldset>
+    <div class="col d-flex justify-content-end">
+        <div class="d-gap">
+            <?php echo CHtml::link('<i class="bi-plus"></i> Memo', array("addMemo", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+            <?php echo CHtml::link('<i class="bi-plus"></i> Kondisi & Rekomendasi', array("addRecommendation", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+        </div>
     </div>
+</div>
 
-    <br />
-    <?php if (!empty($model->work_order_number) && $model->total_service > 0): ?>
-        <?php echo CHtml::link('<i class="bi-printer"></i> Print Work Order', array("pdfWorkOrder", "id" => $model->id), array(
-            'class' => 'btn btn-secondary btn-sm',
-            'target' => '_blank'
+<hr />
+
+<div class="detail">
+    <fieldset>
+        <legend>Details</legend>
+        <?php
+        $tabsArray = array();
+        $tabsArray['Billing'] = array(
+            'id' => 'billing',
+            'content' => $this->renderPartial('_viewBilling', array(
+                'model' => $model,
+                'products' => $products,
+                'services' => $services,
+            ), TRUE)
+        );
+        $tabsArray['Movement'] = array(
+            'id' => 'movement',
+            'content' => $this->renderPartial('_viewMovement', array(
+                'model' => $model,
+                'products' => $products,
+            ), TRUE)
+        );
+        $tabsArray['History'] = array(
+            'id' => 'history',
+            'content' => $this->renderPartial('_viewHistory', array(
+                'model' => $model
+            ), TRUE)
+        );
+        ?>
+        <?php $this->widget('zii.widgets.jui.CJuiTabs', array(
+            'tabs' => $tabsArray,
+            // additional javascript options for the tabs plugin
+            'options' => array('collapsible' => true),
         )); ?>
-    <?php endif; ?>
-    <?php if (!empty($model->sales_order_number) && $model->status !== 'Finished'): ?>
-        <?php echo CHtml::link('<i class="bi-printer"></i> Print Sales Order', array("pdfSaleOrder", "id" => $model->id), array(
-            'class' => 'btn btn-secondary btn-sm',
-            'target' => '_blank'
-        )); ?>
-    <?php endif; ?>
+    </fieldset>
+</div>
+
+<br />
+
+<?php if (!empty($model->work_order_number) && $model->total_service > 0): ?>
+    <?php echo CHtml::link('<i class="bi-printer"></i> Print Work Order', array("pdfWorkOrder", "id" => $model->id), array(
+        'class' => 'btn btn-secondary btn-sm',
+        'target' => '_blank'
+    )); ?>
+<?php endif; ?>
+<?php if (!empty($model->sales_order_number) && $model->status !== 'Finished'): ?>
+    <?php echo CHtml::link('<i class="bi-printer"></i> Print Sales Order', array("pdfSaleOrder", "id" => $model->id), array(
+        'class' => 'btn btn-secondary btn-sm',
+        'target' => '_blank'
+    )); ?>
+<?php endif; ?>
 <?php echo CHtml::endForm(); ?>
 
 <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(

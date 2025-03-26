@@ -240,4 +240,42 @@ class Vehicle extends CActiveRecord {
         return $this->carMake->name . ' ' . $this->carModel->name . ' ' . $this->carSubModel->name;
     }
 
+    public function searchByEntryStatusLocation() {
+        $criteria = new CDbCriteria;
+
+        $criteria->with = array(
+            'customer',
+            'carMake',
+            'carModel',
+            'carSubModel',
+        );
+
+        $criteria->compare('id', $this->id);
+        $criteria->compare('t.plate_number', $this->plate_number, true);
+        $criteria->compare('t.machine_number', $this->machine_number, true);
+        $criteria->compare('frame_number', $this->frame_number, true);
+        $criteria->compare('t.car_make_id', $this->car_make_id);
+        $criteria->compare('t.car_model_id', $this->car_model_id);
+        $criteria->compare('t.car_sub_model_id', $this->car_sub_model_id);
+        $criteria->compare('t.car_sub_model_detail_id', $this->car_sub_model_detail_id);
+        $criteria->compare('t.color_id', $this->color_id);
+        $criteria->compare('year', $this->year, true);
+        $criteria->compare('customer_pic_id', $this->customer_pic_id);
+        $criteria->compare('chasis_code', $this->chasis_code, true);
+        $criteria->compare('transmission', $this->transmission, true);
+        $criteria->compare('fuel_type', $this->fuel_type, true);
+        $criteria->compare('power', $this->power);
+        $criteria->compare('drivetrain', $this->drivetrain, true);
+        $criteria->compare('notes', $this->notes, true);
+
+        $criteria->order = 't.plate_number ASC';
+        $criteria->addCondition("t.status_location NOT LIKE '%Keluar Bengkel%'");
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
+        ));
+    }
 }

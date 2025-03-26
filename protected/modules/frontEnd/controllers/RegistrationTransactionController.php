@@ -141,6 +141,52 @@ class RegistrationTransactionController extends Controller {
         ));
     }
 
+    public function actionAddRecommendation($id) {
+        $registrationTransaction = $this->instantiate($id);
+        $vehicle = Vehicle::model()->findByPk($registrationTransaction->header->vehicle_id);
+        $customer = Customer::model()->findByPk($vehicle->customer_id);
+
+        if (isset($_POST['RegistrationTransaction'])) {
+            $this->loadState($registrationTransaction);
+            
+            if ($registrationTransaction->save(Yii::app()->db)) {
+                $this->redirect(array('view', 'id' => $registrationTransaction->header->id));
+            }
+        }
+
+        $this->render('addRecommendation', array(
+            'registrationTransaction' => $registrationTransaction,
+            'vehicle' => $vehicle,
+            'customer' => $customer,
+        ));
+    }
+
+    public function actionAddMemo($id) {
+        $registrationTransaction = $this->instantiate($id);
+        $vehicle = Vehicle::model()->findByPk($registrationTransaction->header->vehicle_id);
+        $customer = Customer::model()->findByPk($vehicle->customer_id);
+        
+        $memo = isset($_GET['Memo']) ? $_GET['Memo'] : '';
+
+        if (isset($_POST['Submit']) && !empty($_POST['Memo'])) {
+            $registrationMemo = new RegistrationMemo();
+            $registrationMemo->registration_transaction_id = $id;
+            $registrationMemo->memo = $_POST['Memo'];
+            $registrationMemo->date_time = date('Y-m-d H:i:s');
+            $registrationMemo->user_id = Yii::app()->user->id;
+            $registrationMemo->save();
+
+            $this->redirect(array('view', 'id' => $registrationTransaction->header->id));
+        }
+
+        $this->render('addMemo', array(
+            'registrationTransaction' => $registrationTransaction,
+            'vehicle' => $vehicle,
+            'customer' => $customer,
+            'memo' => $memo,
+        ));
+    }
+
     public function actionView($id) {
         
         $model = $this->loadModel($id);
@@ -152,15 +198,6 @@ class RegistrationTransactionController extends Controller {
         $products = RegistrationProduct::model()->findAllByAttributes(array('registration_transaction_id' => $id));
         $registrationMemos = RegistrationMemo::model()->findAllByAttributes(array('registration_transaction_id' => $id));
         $registrationBodyRepairDetails = RegistrationBodyRepairDetail::model()->findAllByAttributes(array('registration_transaction_id' => $id));
-
-        if (isset($_POST['SubmitMemo']) && !empty($_POST['Memo'])) {
-            $registrationMemo = new RegistrationMemo();
-            $registrationMemo->registration_transaction_id = $id;
-            $registrationMemo->memo = $_POST['Memo'];
-            $registrationMemo->date_time = date('Y-m-d H:i:s');
-            $registrationMemo->user_id = Yii::app()->user->id;
-            $registrationMemo->save();
-        }
 
         $this->render('view', array(
             'model' => $model,

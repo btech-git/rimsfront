@@ -25,6 +25,22 @@
                                 </a>
                             </li>
                                
+                            <?php /*$isAuthorized = Yii::app()->user->checkAccess('saleEstimationCreate') || 
+                                    Yii::app()->user->checkAccess('saleEstimationEdit')
+                            ; ?>
+                            <?php if ($isAuthorized):*/ ?>
+                                <?php $isActive = Yii::app()->controller->id === 'vehicleStatus' && (
+                                        Yii::app()->controller->action->id === 'index'
+                                ); ?>
+                                <li class="w-100 <?php if ($isActive): ?><?php echo $activeClass; ?><?php endif ;?>">
+                                    <a href="<?php echo Yii::app()->createUrl('frontEnd/vehicleStatus/index'); ?>" class="nav-link px-0 align-middle">
+                                        <span class="ps-1 d-none d-sm-inline <?php if ($isActive): ?><?php echo $activeTextClass; ?><?php else: ?><?php echo $inactiveTextClass; ?><?php endif ;?>">
+                                            Status Kendaraan
+                                        </span>
+                                    </a>
+                                </li>
+                            <?php //endif; ?>
+                                 
                             <?php $isAuthorized = Yii::app()->user->checkAccess('saleEstimationFrontCreate') || 
                                     Yii::app()->user->checkAccess('saleEstimationFrontEdit')
                             ; ?>
@@ -144,22 +160,6 @@
                                 </a>
                             </li>
                             
-                            <?php /*$isAuthorized = Yii::app()->user->checkAccess('saleEstimationCreate') || 
-                                    Yii::app()->user->checkAccess('saleEstimationEdit')
-                            ; ?>
-                            <?php if ($isAuthorized):*/ ?>
-                                <?php $isActive = Yii::app()->controller->id === 'registrationTransactionVehicleList' && (
-                                        Yii::app()->controller->action->id === 'index'
-                                ); ?>
-                                <li class="w-100 <?php if ($isActive): ?><?php echo $activeClass; ?><?php endif ;?>">
-                                    <a href="<?php echo Yii::app()->createUrl('frontEnd/registrationTransactionVehicleList/index'); ?>" class="nav-link px-0 align-middle">
-                                        <span class="ps-1 d-none d-sm-inline <?php if ($isActive): ?><?php echo $activeTextClass; ?><?php else: ?><?php echo $inactiveTextClass; ?><?php endif ;?>">
-                                            Lokasi Kendaraan
-                                        </span>
-                                    </a>
-                                </li>
-                            <?php //endif; ?>
-                                 
                             <?php /*$isAuthorized = Yii::app()->user->checkAccess('saleEstimationCreate') || 
                                     Yii::app()->user->checkAccess('saleEstimationEdit')
                             ; ?>
