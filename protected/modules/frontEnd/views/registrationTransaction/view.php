@@ -164,7 +164,7 @@ $this->breadcrumbs = array(
     <div class="col d-flex justify-content-end">
         <div class="d-gap">
             <?php echo CHtml::link('<i class="bi-plus"></i> Memo', array("addMemo", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
-            <?php echo CHtml::link('<i class="bi-plus"></i> Kondisi & Rekomendasi', array("addRecommendation", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+            <?php //echo CHtml::link('<i class="bi-plus"></i> Kondisi & Rekomendasi', array("addRecommendation", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
         </div>
     </div>
 </div>

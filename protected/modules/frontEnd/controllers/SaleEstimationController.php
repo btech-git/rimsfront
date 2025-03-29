@@ -43,6 +43,7 @@ class SaleEstimationController extends Controller {
 
     public function actionCreate() {
         $saleEstimation = $this->instantiate(null);
+        $branch = Branch::model()->model()->findByPk(Yii::app()->user->branch_id);
 
         $saleEstimation->header->transaction_date = date('Y-m-d');
         $saleEstimation->header->transaction_time = date('H:i:s');
@@ -102,6 +103,67 @@ class SaleEstimationController extends Controller {
             'endDate' => $endDate,
             'customerName' => $customerName,
             'isSubmitted' => isset($_POST['Submit']),
+            'vehicleId' => null,
+            'branch' => $branch,
+        ));
+    }
+
+    public function actionCreateWithVehicle($vehicleId) {
+        $saleEstimation = $this->instantiate(null);
+        $vehicle = Vehicle::model()->findByPk($vehicleId);
+        $customer = Customer::model()->findByPk($vehicle->customer_id);
+        $branch = Branch::model()->model()->findByPk(Yii::app()->user->branch_id);
+
+        $saleEstimation->header->transaction_date = date('Y-m-d');
+        $saleEstimation->header->transaction_time = date('H:i:s');
+        $saleEstimation->header->created_datetime = date('Y-m-d H:i:s');
+        $saleEstimation->header->user_id_created = Yii::app()->user->id;
+        $saleEstimation->header->branch_id = Yii::app()->user->branch_id;
+        $saleEstimation->header->status = 'Draft';
+        $saleEstimation->header->repair_type = 'GR/BR';
+        $saleEstimation->header->vehicle_id = $vehicleId;
+        $saleEstimation->header->customer_id = $vehicle->customer_id;
+
+        $endDate = date('Y-m-d');
+                
+        $product = Search::bind(new Product('search'), isset($_GET['Product']) ? $_GET['Product'] : '');
+        $service = Search::bind(new Service('search'), isset($_GET['Service']) ? $_GET['Service'] : '');
+        $productDataProvider = $product->searchBySaleEstimation($endDate);
+        $serviceDataProvider = $service->searchBySaleEstimation();
+        
+        $productPageNumber = isset($_GET['product_page']) ? $_GET['product_page'] : 1;
+        $servicePageNumber = isset($_GET['service_page']) ? $_GET['service_page'] : 1;
+        $productDataProvider->pagination->pageVar = 'product_page';
+        $productDataProvider->pagination->pageSize = 20;
+        $productDataProvider->pagination->currentPage = $productPageNumber - 1;
+        $serviceDataProvider->pagination->pageVar = 'service_page';
+        $serviceDataProvider->pagination->pageSize = 20;
+        $serviceDataProvider->pagination->currentPage = $servicePageNumber - 1;
+        
+        $branches = Branch::model()->findAll();
+        
+        if (isset($_POST['Submit']) && IdempotentManager::check()) {
+            $this->loadState($saleEstimation);
+            $saleEstimation->generateCodeNumber(Yii::app()->dateFormatter->format('M', strtotime($saleEstimation->header->transaction_date)), Yii::app()->dateFormatter->format('yyyy', strtotime($saleEstimation->header->transaction_date)), $saleEstimation->header->branch_id);
+
+            if ($saleEstimation->save(Yii::app()->db)) {
+                $this->redirect(array('view', 'id' => $saleEstimation->header->id));
+            }
+        }
+
+        $this->render('createWithVehicle', array(
+            'saleEstimation' => $saleEstimation,
+            'product' => $product, 
+            'productDataProvider' => $productDataProvider, 
+            'service' => $service,
+            'serviceDataProvider' => $serviceDataProvider,
+            'branches' => $branches,
+            'endDate' => $endDate,
+            'isSubmitted' => isset($_POST['Submit']),
+            'vehicleId' => $vehicleId,
+            'vehicle' => $vehicle,
+            'customer' => $customer,
+            'branch' => $branch,
         ));
     }
 

@@ -1,10 +1,7 @@
 <?php
-/* @var $this VehicleController */
-/* @var $model Vehicle */
-
-$this->breadcrumbs=array(
-	'Vehicles'=>array('index'),
-	$model->id,
+$this->breadcrumbs = array(
+    'Vehicle' => array('admin'),
+    $model->id,
 );
 ?>
 
@@ -12,17 +9,10 @@ $this->breadcrumbs=array(
     <div class="col d-flex justify-content-start">
         <h4>Show Vehicle #<?php echo CHtml::encode(CHtml::value($model, 'id')); ?></h4>
     </div>
-    <div class="col d-flex justify-content-end">
-        <div class="d-gap">
-            <?php echo CHtml::link('<i class="bi-plus"></i> Kondisi & Rekomendasi', array("addRecommendation", "id" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
-            <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
-            <?php echo CHtml::link('Edit', array("update", 'id' => $model->id), array('class' => 'btn btn-warning btn-sm')); ?>
-        </div>
-    </div>
 </div>
 
 <hr />
-
+<div>
 <?php echo CHtml::beginForm(); ?>
     <table class="table table-bordered table-striped">
         <tbody>
@@ -80,26 +70,38 @@ $this->breadcrumbs=array(
             </tr>
         </tbody>
     </table>
-<?php echo CHtml::endForm(); ?>
 
-<fieldset class="border border-secondary rounded mb-3 p-3">
-    <legend class="float-none w-auto text-dark px-1">Data History</legend>
-    <div class="row">
-        <div class="col">
-            <?php $this->renderPartial('_infoHistory', array(
-                'model' => $model,
-            )); ?>  
-        </div>
-    </div>
-</fieldset>
+    <hr />
 
-<fieldset class="border border-secondary rounded mb-3 p-3">
-    <legend class="float-none w-auto text-dark px-1">Data Kondisi & Rekomendasi</legend>
-    <div class="row">
-        <div class="col">
-            <?php $this->renderPartial('_infoCondition', array(
-                'model' => $model,
-            )); ?>  
-        </div>
-    </div>
-</fieldset>
+    <table class="table table-bordered table-responsive">
+        <tbody>
+            <tr>
+                <td>Kondisi Awal</td>
+                <td>Rekomendasi Awal</td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo CHtml::textArea('InitialCondition', $initialCondition, array(
+                        'class' => 'form-control',
+                    )); ?>
+                </td>
+                <td>
+                    <?php echo CHtml::textArea('InitialRecommendation', $initialRecommendation, array(
+                        'class' => 'form-control',
+                    )); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Catatan</td>
+                <td>
+                    <?php echo CHtml::textArea('Note', $note, array(
+                        'class' => 'form-control',
+                    )); ?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <?php echo CHtml::submitButton('Submit', array('name' => 'Submit', 'confirm' => 'Are you sure you want to save?', 'class' => 'btn btn-success')); ?>
+    <?php echo IdempotentManager::generate(); ?>
+</div>

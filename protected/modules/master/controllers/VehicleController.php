@@ -132,6 +132,67 @@ class VehicleController extends Controller {
         ));
     }
 
+    public function actionAddRecommendation($id) {
+        $model = $this->loadModel($id);
+
+        $initialCondition = isset($_GET['InitialCondition']) ? $_GET['InitialCondition'] : '';
+        $initialRecommendation = isset($_GET['InitialRecommendation']) ? $_GET['InitialRecommendation'] : '';
+        $note = isset($_GET['Note']) ? $_GET['Note'] : '';
+
+        if (isset($_POST['Submit'])) {
+
+            $conditionRecommendation = new VehicleConditionRecommendation();
+            $conditionRecommendation->vehicle_id = $id;
+            $conditionRecommendation->initial_condition = $initialCondition;
+            $conditionRecommendation->initial_recommendation = $initialRecommendation;
+            $conditionRecommendation->final_condition = null;
+            $conditionRecommendation->final_recommendation = null;
+            $conditionRecommendation->note = $_POST['Note'];
+            $conditionRecommendation->initial_date = date('Y-m-d');
+            $conditionRecommendation->initial_time = date('H:i:s');
+            $conditionRecommendation->user_id = Yii::app()->user->id;
+            $conditionRecommendation->save();
+            
+            $this->redirect(array('view', 'id' => $model->id));
+        }
+
+        $this->render('addRecommendation', array(
+            'model' => $model,
+            'initialCondition' => $initialCondition,
+            'initialRecommendation' => $initialRecommendation,
+            'note' => $note,
+        ));
+    }
+
+    public function actionUpdateRecommendation($id) {
+        $conditionRecommendation = VehicleConditionRecommendation::model()->findByPk($id);
+        $model = $this->loadModel($conditionRecommendation->vehicle_id);
+
+        $finalCondition = isset($_GET['FinalCondition']) ? $_GET['FinalCondition'] : '';
+        $finalRecommendation = isset($_GET['FinalRecommendation']) ? $_GET['FinalRecommendation'] : '';
+        $note = isset($_GET['Note']) ? $_GET['Note'] : '';
+
+        if (isset($_POST['Submit'])) {
+
+            $conditionRecommendation->final_condition = $_POST['FinalCondition'];
+            $conditionRecommendation->final_recommendation = $_POST['FinalRecommendation'];
+            $conditionRecommendation->note = $_POST['Note'];
+            $conditionRecommendation->final_date = date('Y-m-d');
+            $conditionRecommendation->final_time = date('H:i:s');
+            $conditionRecommendation->save();
+            
+            $this->redirect(array('view', 'id' => $model->id));
+        }
+
+        $this->render('updateRecommendation', array(
+            'model' => $model,
+            'conditionRecommendation' => $conditionRecommendation,
+            'finalCondition' => $finalCondition,
+            'finalRecommendation' => $finalRecommendation,
+            'note' => $note,
+        ));
+    }
+
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
