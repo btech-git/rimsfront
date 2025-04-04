@@ -59,6 +59,8 @@ class CustomerController extends Controller {
      */
     public function actionCreate() {
         $model = new Customer;
+        $model->user_id = Yii::app()->user->id;
+        $model->date_created = date('Y-m-d H:i:s');
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
