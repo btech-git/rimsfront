@@ -86,6 +86,9 @@ class VehicleController extends Controller {
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
 
+        $customer = Search::bind(new Customer('search'), isset($_GET['Customer']) ? $_GET['Customer'] : '');
+        $customerDataProvider = $customer->search();
+        
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -98,6 +101,8 @@ class VehicleController extends Controller {
 
         $this->render('update', array(
             'model' => $model,
+            'customer' => $customer,
+            'customerDataProvider' => $customerDataProvider,
         ));
     }
 
