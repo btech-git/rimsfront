@@ -240,6 +240,13 @@ class Vehicle extends CActiveRecord {
         return $this->carMake->name . ' ' . $this->carModel->name . ' ' . $this->carSubModel->name;
     }
 
+    public function getPlateNumberCombination() {
+        $vehiclePlateNumberPrefix = VehiclePlateNumberPrefix::model()->findByPk($this->plate_number_prefix_id);
+        $code = empty($vehiclePlateNumberPrefix) ? '' : $vehiclePlateNumberPrefix->code;
+        
+        return $code . " " .$this->plate_number_ordinal . " " . $this->plate_number_suffix; 
+    }
+    
     public function searchByEntryStatusLocation() {
         $criteria = new CDbCriteria;
 
