@@ -38,11 +38,12 @@
                 <div class="col">
                     <?php echo CHtml::activeLabelEx($model, 'customer_id', array('class' => 'form-label', 'label' => 'Customer')); ?>
                     <?php echo CHtml::activeHiddenField($model, 'customer_id'); ?>
-                    <?php echo CHtml::textField('CustomerName', '', array(
+                    <?php echo CHtml::activeTextField($model, 'customer_name', array(
                         'class' => 'form-control readonly-form-input', 
                         'readonly' => true,
                         'onclick' => '$("#customer-dialog").dialog("open"); return false;',
                         'onkeypress' => 'if (event.keyCode == 13) { $("#customer-dialog").dialog("open"); return false; }',
+                        'value' => $model->customer_id != Null ? $model->customer->name : '',
                     )); ?>
                     <?php echo CHtml::error($model,'customer_id'); ?>
                 </div>
@@ -57,9 +58,9 @@
             </div>
             
             <div class="row">
-                <div class="col">
+                <div class="col" id="customer_pic">
                     <?php echo CHtml::label('PIC', false, array('class' => 'form-label')); ?>
-                    <?php echo CHtml::activeDropDownlist($model, 'customer_pic_id', CHtml::listData(CustomerPic::model()->findAllByAttributes(array('customer_id' => $model->customer_id), array('order' => 'name')), 'id', 'name'), array(
+                    <?php echo CHtml::activeDropDownlist($model, 'customer_pic_id', CHtml::listData(CustomerPic::model()->findAll(array('condition' => 'status = "Active"', 'order' => 'name ASC')), 'id', 'name'), array(
                         'prompt' => '[--Select PIC--]',
                         'class' => 'form-control',
                     )); ?>
@@ -205,17 +206,15 @@
         $("#' . CHtml::activeId($model, 'customer_id') . '").val($.fn.yiiGridView.getSelection(id));
         $("#customer-dialog").dialog("close");
         if ($.fn.yiiGridView.getSelection(id) == "") {
-            $("#CustomerName").val("");
-            $("#' . CHtml::activeId($model, 'customer_id') . '").val("");
+            $("#' . CHtml::activeId($model, 'customer_name') . '").val("");
         } else {
             $.ajax({
                 type: "POST",
                 dataType: "JSON",
-                url: "' . CController::createUrl('ajaxJsonCustomer', array('id' => $model->id)) . '",
+                url: "' . CController::createUrl('ajaxJsonCustomer', array('id' => '')) . '" + $.fn.yiiGridView.getSelection(id),
                 data: $("form").serialize(),
                 success: function(data) {
-                    $("#CustomerName").val(data.customer_name);
-                    $("#' . CHtml::activeId($model, 'customer_id') . '").val(data.customer_id);
+                    $("#' . CHtml::activeId($model, 'customer_name') . '").val(data.customer_name);
                 },
             });
         }

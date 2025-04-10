@@ -27,7 +27,7 @@
                 <div class="col">
                     <?php echo CHtml::label('Customer', false, array('class' => 'form-label')); ?>
                     <?php echo CHtml::activeHiddenField($saleEstimation->header, 'customer_id', array('value' => $saleEstimation->header->customer_id)); ?>
-                        <?php echo CHtml::textField('CustomerName', empty($vehicleId) ? '' : $customer->name, array('class' => 'form-control', 'readonly' => true)); ?>
+                    <?php echo CHtml::textField('CustomerName', empty($vehicleId) ? '' : $customer->name, array('class' => 'form-control', 'readonly' => true)); ?>
                 </div>
             </div>
 
@@ -36,12 +36,12 @@
                     <?php echo CHtml::label('Kendaraan', false, array('class' => 'form-label')); ?>
                     <?php echo CHtml::activeHiddenField($saleEstimation->header, 'vehicle_id', array('value' => $saleEstimation->header->vehicle_id)); ?>
                     <?php if (empty($vehicleId)): ?>
-                    <?php echo CHtml::textField('VehicleName', '', array(
-                        'class' => 'form-control readonly-form-input', 
-                        'readonly' => true,
-                        'onclick' => '$("#vehicle-dialog").dialog("open"); return false;',
-                        'onkeypress' => 'if (event.keyCode == 13) { $("#vehicle-dialog").dialog("open"); return false; }',
-                    )); ?>
+                        <?php echo CHtml::textField('VehicleName', '', array(
+                            'class' => 'form-control readonly-form-input', 
+                            'readonly' => true,
+                            'onclick' => '$("#vehicle-dialog").dialog("open"); return false;',
+                            'onkeypress' => 'if (event.keyCode == 13) { $("#vehicle-dialog").dialog("open"); return false; }',
+                        )); ?>
                     <?php else: ?>
                         <?php echo CHtml::textField('VehicleName', $vehicle->carMakeModelSubCombination, array('class' => 'form-control', 'readonly' => true)); ?>
                     <?php endif; ?>

@@ -254,6 +254,29 @@ class VehicleController extends Controller {
         }
     }
     
+    public function actionAjaxJsonCustomer($id) {
+
+        if (Yii::app()->request->isAjaxRequest) {
+            $customer = Customer::model()->findByPk($id);
+
+            $object = array(
+                'customer_name' => $customer->name,
+            );
+
+            echo CJSON::encode($object);
+        }
+    }
+
+    public function actionAjaxHtmlUpdateCustomerPicSelect() {
+        if (Yii::app()->request->isAjaxRequest) {
+            $model = $this->loadModel($id);
+
+            $this->renderPartial('_customerPicSelect', array(
+                'model' => $model,
+            ));
+        }
+    }
+
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
