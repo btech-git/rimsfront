@@ -274,6 +274,7 @@ class SaleEstimationController extends Controller {
         $saleEstimation = $this->instantiate($id);
         $saleEstimation->header->edited_datetime = date('Y-m-d H:i:s');
         $saleEstimation->header->user_id_edited = Yii::app()->user->id;
+        $branch = Branch::model()->model()->findByPk($saleEstimation->header->branch_id);
 
         $endDate = date('Y-m-d');
                 
@@ -313,6 +314,7 @@ class SaleEstimationController extends Controller {
             'vehicleDataProvider' => $vehicleDataProvider,
             'branches' => $branches,
             'endDate' => $endDate,
+            'branch' => $branch,
             'isSubmitted' => isset($_POST['Submit']),
         ));
     }
