@@ -296,6 +296,12 @@ class SaleEstimationController extends Controller {
         
         $branches = Branch::model()->findAll();
         
+        $customerName = isset($_GET['CustomerName']) ? $_GET['CustomerName'] : '';
+        if (!empty($customerName)) {
+            $vehicleDataProvider->criteria->addCondition('customer.name LIKE :customer_name');
+            $vehicleDataProvider->criteria->params[':customer_name'] = "%{$customerName}%";
+        }
+
         if (isset($_POST['Submit']) && IdempotentManager::check()) {
             $this->loadState($saleEstimation);
             
@@ -315,6 +321,7 @@ class SaleEstimationController extends Controller {
             'branches' => $branches,
             'endDate' => $endDate,
             'branch' => $branch,
+            'customerName' => $customerName,
             'isSubmitted' => isset($_POST['Submit']),
         ));
     }
