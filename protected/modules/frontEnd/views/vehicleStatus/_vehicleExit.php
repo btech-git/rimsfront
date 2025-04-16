@@ -11,6 +11,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr class="table-primary">
+                <th class="text-center" style="min-width: 50px">#</th>
                 <th class="text-center" style="min-width: 100px">Plat #</th>
                 <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
@@ -28,8 +29,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($vehicleTransactionListSummary->dataProvider->data as $data): ?>
+            <?php foreach ($vehicleTransactionListSummary->dataProvider->data as $i => $data): ?>
                 <tr>
+                    <td class="text-center"><?php echo CHtml::encode($i + 1); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'plate_number')); ?></td>
                     <td>
                         <?php echo CHtml::encode(CHtml::value($data, 'carMake.name')); ?> -

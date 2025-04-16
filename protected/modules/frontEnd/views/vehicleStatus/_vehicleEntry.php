@@ -11,6 +11,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr class="table-primary">
+                <th class="text-center" style="min-width: 50px">#</th>
                 <th class="text-center" style="min-width: 100px">Plat #</th>
                 <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
@@ -26,12 +27,13 @@
                 <th class="text-center" style="min-width: 100px">Payment #</th>
                 <th class="text-center" style="min-width: 100px">Status</th>
                 <th class="text-center" style="min-width: 150px">Lokasi</th>
-                <th style="min-width: 110px"></th>
+                <th style="min-width: 180px"></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($vehicleEntryDataprovider->data as $data): ?>
+            <?php foreach ($vehicleEntryDataprovider->data as $i => $data): ?>
                 <tr>
+                    <td class="text-center"><?php echo CHtml::encode($i + 1); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'plate_number')); ?></td>
                     <td>
                         <?php echo CHtml::encode(CHtml::value($data, 'carMake.name')); ?> -
@@ -75,6 +77,7 @@
                         <?php if (empty($saleEstimationHeader)): ?>
                             <?php echo CHtml::link('<i class="bi-plus"></i> Estimasi', array("/frontEnd/saleEstimation/createWithVehicle", "vehicleId" => $data->id), array('class' => 'btn btn-success btn-sm')); ?>
                         <?php endif; ?>
+                        <?php echo CHtml::link('advance', array("/master/vehicle/updateLocation", "id" => $data->id), array('class' => 'btn btn-warning btn-sm')); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
