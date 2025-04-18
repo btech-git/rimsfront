@@ -269,7 +269,7 @@ class Vehicle extends CActiveRecord {
         $criteria->compare('t.notes', $this->notes, true);
 
         $criteria->order = 't.plate_number ASC';
-        $criteria->addCondition("t.status_location NOT LIKE '%Keluar Bengkel%'");
+        $criteria->addCondition("t.status_location NOT LIKE '%Keluar%'");
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

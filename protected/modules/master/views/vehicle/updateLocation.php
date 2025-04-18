@@ -110,10 +110,9 @@ $this->menu=array(
         <div class="row">
             Status Location
             <?php echo CHtml::activeDropDownList($model, 'status_location', array(
-                'Masuk Bengkel' => 'Masuk Bengkel',
-                'Mulai Service' => 'Mulai Service',
-                'Selesai Service' => 'Selesai Service',
-                'Keluar Bengkel' => 'Keluar Bengkel',
+                'Masuk Lokasi' => 'Masuk Lokasi',
+                'On-Progress' => 'On-Progress',
+                'Keluar Lokasi' => 'Keluar Lokasi',
             ), array('empty' => '-- Pilih Status --')); ?>
             <?php echo CHtml::error($model, 'status_location'); ?>
         </div>
