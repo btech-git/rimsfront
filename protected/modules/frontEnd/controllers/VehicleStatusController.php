@@ -24,13 +24,16 @@ class VehicleStatusController extends Controller {
         $vehicle = new Vehicle('search');
         $vehicle->unsetAttributes();  // clear any default values
 
-        $vehicleEntryDataprovider = $vehicle->searchByEntryStatusLocation();
-        
         $pageSize = (isset($_GET['PageSize'])) ? $_GET['PageSize'] : '';
         $currentPage = (isset($_GET['page'])) ? $_GET['page'] : '';
         $branchId = (isset($_GET['BranchId'])) ? $_GET['BranchId'] : '';
         $startDate = (isset($_GET['StartDate'])) ? $_GET['StartDate'] : date('Y-m-d');
         $endDate = (isset($_GET['EndDate'])) ? $_GET['EndDate'] : date('Y-m-d');
+        $plateNumber = (isset($_GET['PlateNumber'])) ? $_GET['PlateNumber'] : '';
+        
+        $vehicleEntryDataprovider = $vehicle->searchByEntryStatusLocation();
+        $vehicleEntryDataprovider->pagination->pageVar = 'page_dialog';
+        $vehicleEntryDataprovider->criteria->compare('t.plate_number', $plateNumber, true);
         
         $vehicleTransactionListSummary = new VehicleTransactionList($vehicle->search());
         $vehicleTransactionListSummary->setupLoading();
@@ -46,11 +49,30 @@ class VehicleStatusController extends Controller {
         $this->render('index', array(
             'startDate' => $startDate,
             'endDate' => $endDate,
+            'vehicle' => $vehicle,
+            'plateNumber' => $plateNumber,
             'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
             'vehicleTransactionListSummary' => $vehicleTransactionListSummary,
         ));
     }
     
+    public function actionAjaxHtmlUpdateVehicleEntryDataTable() {
+        if (Yii::app()->request->isAjaxRequest) {
+            
+            $plateNumber = (isset($_GET['PlateNumber'])) ? $_GET['PlateNumber'] : '';
+            $vehicle = new Vehicle('search');
+            $vehicle->unsetAttributes();  // clear any default values
+
+            $vehicleEntryDataprovider = $vehicle->searchByEntryStatusLocation();
+            $vehicleEntryDataprovider->pagination->pageVar = 'page_dialog';
+            $vehicleEntryDataprovider->criteria->compare('t.plate_number', $plateNumber, true);
+        
+            $this->renderPartial('_vehicleEntry', array(
+                'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
+            ));
+        }
+    }
+
     public function actionAjaxHtmlUpdateVehicleStatusDataTable() {
         if (Yii::app()->request->isAjaxRequest) {
 

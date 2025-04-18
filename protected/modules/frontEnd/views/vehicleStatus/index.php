@@ -22,48 +22,63 @@ $this->breadcrumbs = array(
 <hr />
 <?php echo CHtml::beginForm(); ?>
     <div class="row">
-        <div class="col">Tanggal</div>
         <div class="col">
-            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'name'=>'StartDate',
-                'value' => $startDate,
-                'options'=>array(
-                    'dateFormat'=>'yy-mm-dd',
-                ),
-                'htmlOptions'=>array(
-                    'class' => 'form-select',
-                    'style'=>'margin-bottom:0px;',
-                    'placeholder'=>'Date From',
-                    'onchange' => CHtml::ajax(array(
-                        'type' => 'GET',
-                        'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
-                        'update' => '#vehicle_status_data_container',
-                    )),
-                ),
-            )); ?>
-        </div>
-        <div class="col">
-            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'name'=>'EndDate',
-                'value' => $endDate,
-                'options'=>array(
-                    'dateFormat'=>'yy-mm-dd',
-                ),
-                'htmlOptions'=>array(
-                    'class' => 'form-select',
-                    'style'=>'margin-bottom:0px;',
-                    'placeholder'=>'Date To',
-                    'onchange' => CHtml::ajax(array(
-                        'type' => 'GET',
-                        'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
-                        'update' => '#vehicle_status_data_container',
-                    )),
-                ),
-            )); ?>
+            <div class="my-2 row">
+                <label class="col col-form-label">Tanggal</label>
+                <div class="col">
+                    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'name'=>'StartDate',
+                        'value' => $startDate,
+                        'options'=>array(
+                            'dateFormat'=>'yy-mm-dd',
+                        ),
+                        'htmlOptions'=>array(
+                            'class' => 'form-select',
+                            'style'=>'margin-bottom:0px;',
+                            'placeholder'=>'Date From',
+                            'onchange' => CHtml::ajax(array(
+                                'type' => 'GET',
+                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
+                                'update' => '#vehicle_status_data_container',
+                            )),
+                        ),
+                    )); ?>
+                </div>
+                <div class="col">
+                    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'name'=>'EndDate',
+                        'value' => $endDate,
+                        'options'=>array(
+                            'dateFormat'=>'yy-mm-dd',
+                        ),
+                        'htmlOptions'=>array(
+                            'class' => 'form-select',
+                            'style'=>'margin-bottom:0px;',
+                            'placeholder'=>'Date To',
+                            'onchange' => CHtml::ajax(array(
+                                'type' => 'GET',
+                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
+                                'update' => '#vehicle_status_data_container',
+                            )),
+                        ),
+                    )); ?>
+                </div>
+                <label class="col col-form-label">Plat #</label>
+                <div class="col">
+                    <?php echo CHtml::textField('PlateNumber', $plateNumber, array(
+                        'class' => 'form-select',
+                        'onchange' => CHtml::ajax(array(
+                            'type' => 'GET',
+                            'url' => CController::createUrl('ajaxHtmlUpdateVehicleEntryDataTable'),
+                            'update' => '#vehicle_entry_status_data_container',
+                        )),
+                    )); ?>
+                </div>
+            </div>
         </div>
     </div>
 
-<br /> 
+    <br /> 
 
     <div class="text-center">
         <?php echo CHtml::submitButton('Hapus', array('name' => 'ResetFilter', 'class' => 'btn btn-danger'));  ?>
@@ -71,7 +86,7 @@ $this->breadcrumbs = array(
 
     <hr />
 
-    <div>
+    <div id="vehicle_entry_status_data_container">
         <?php $this->renderPartial('_vehicleEntry', array(
             'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
         )); ?>

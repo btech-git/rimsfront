@@ -30,7 +30,7 @@ $this->breadcrumbs=array(
                 <th>Mesin #</th>
                 <td><?php echo CHtml::encode(CHtml::value($model, 'machine_number')); ?></td>
                 <th>Plat #</th>
-                <td><?php echo CHtml::encode(CHtml::value($model, 'vehicle.plate_number')); ?></td>
+                <td><?php echo CHtml::encode(CHtml::value($model, 'plate_number')); ?></td>
             </tr>
             <tr>
                 <th>Rangka #</th>
