@@ -113,13 +113,11 @@ class VehicleController extends Controller {
         if (isset($_POST['Vehicle'])) {
             $model->attributes = $_POST['Vehicle'];
             
-            if ($model->status_location == 'Masuk Bengkel') {
+            if ($model->status_location == 'Masuk Lokasi') {
                 $model->entry_datetime = date('Y-m-d H:i:s');
-            } elseif ($model->status_location == 'Mulai Service') {
+            } elseif ($model->status_location == 'On-Progress') {
                 $model->start_service_datetime = date('Y-m-d H:i:s');
-            } elseif ($model->status_location == 'Selesai Service') {
-                $model->finish_service_datetime = date('Y-m-d H:i:s');
-            } elseif ($model->status_location == 'Keluar Bengkel') {
+            } elseif ($model->status_location == 'Keluar Lokasi') {
                 $model->exit_datetime = date('Y-m-d H:i:s');
             } else {
                 $model->entry_datetime = null;
