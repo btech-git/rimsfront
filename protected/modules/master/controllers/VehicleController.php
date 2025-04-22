@@ -95,6 +95,8 @@ class VehicleController extends Controller {
 
         if (isset($_POST['Vehicle'])) {
             $model->attributes = $_POST['Vehicle'];
+            $model->plate_number = $model->getPlateNumberCombination();
+            
             if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->id));
             }
