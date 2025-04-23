@@ -43,11 +43,11 @@
                     <td><?php echo CHtml::encode(CHtml::value($data, 'color.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td class="text-end">
-                        <?php $registrationTransaction = RegistrationTransaction::model()->findByAttributes(array('vehicle_id' => $data->id)); ?>
+                        <?php $registrationTransaction = RegistrationTransaction::model()->find(array('condition' => "vehicle_id = $data->id AND DATE(transaction_date) BETWEEN $startDate AND $endDate")); ?>
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>
                     </td>
                     <td>
-                        <?php $saleEstimationHeader = SaleEstimationHeader::model()->findByAttributes(array('vehicle_id' => $data->id)); ?>
+                        <?php $saleEstimationHeader = SaleEstimationHeader::model()->find(array('condition' => "vehicle_id = $data->id AND DATE(transaction_date) BETWEEN $startDate AND $endDate")); ?>
                             <?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'transaction_number')); ?>
                     </td>
                     <td>

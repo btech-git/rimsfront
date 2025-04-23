@@ -38,7 +38,7 @@ class VehicleTransactionList extends CComponent {
             $this->dataProvider->criteria->params[':branch_id'] = $branchId;
         }
         
-        $this->dataProvider->criteria->addCondition("t.status_location = 'Keluar Bengkel' AND t.exit_datetime BETWEEN :start_date AND :end_date" . $branchConditionSql);
+        $this->dataProvider->criteria->addCondition("t.status_location LIKE '%Keluar%' AND DATE(t.exit_datetime) BETWEEN :start_date AND :end_date" . $branchConditionSql);
         
         $this->dataProvider->criteria->params[':start_date'] = $startDate;
         $this->dataProvider->criteria->params[':end_date'] = $endDate;

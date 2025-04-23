@@ -88,6 +88,8 @@ $this->breadcrumbs = array(
 
     <div id="vehicle_entry_status_data_container">
         <?php $this->renderPartial('_vehicleEntry', array(
+            'startDate' => $startDate,
+            'endDate' => $endDate,
             'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
         )); ?>
     </div>
