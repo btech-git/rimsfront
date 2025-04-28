@@ -27,6 +27,10 @@
                 <th class="text-center" style="min-width: 100px">Payment #</th>
                 <th class="text-center" style="min-width: 100px">Status</th>
                 <th class="text-center" style="min-width: 150px">Lokasi</th>
+                <th class="text-center" style="min-width: 150px">User Entry</th>
+                <th class="text-center" style="min-width: 150px">Tanggal Masuk</th>
+                <th class="text-center" style="min-width: 150px">User Proses</th>
+                <th class="text-center" style="min-width: 150px">Tanggal Proses</th>
                 <th style="min-width: 180px"></th>
             </tr>
         </thead>
@@ -48,7 +52,7 @@
                     </td>
                     <td>
                         <?php $saleEstimationHeader = SaleEstimationHeader::model()->find(array('condition' => "vehicle_id = $data->id AND DATE(transaction_date) BETWEEN $startDate AND $endDate")); ?>
-                            <?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'transaction_number')); ?>
+                        <?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'transaction_number')); ?>
                     </td>
                     <td>
                         <?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($saleEstimationHeader, 'transaction_date'))); ?>
@@ -73,6 +77,10 @@
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'status')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'status_location')); ?></td>
+                    <td><?php //echo CHtml::encode(CHtml::value($data, 'entryUser.username')); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy H:m:s", CHtml::value($data, 'entry_datetime'))); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($data, 'startServiceUser.username')); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy H:m:s", CHtml::value($data, 'start_service_datetime'))); ?></td>
                     <td>
                         <?php if (empty($saleEstimationHeader)): ?>
                             <?php echo CHtml::link('<i class="bi-plus"></i> Estimasi', array("/frontEnd/saleEstimation/createWithVehicle", "vehicleId" => $data->id), array('class' => 'btn btn-success btn-sm')); ?>

@@ -25,6 +25,7 @@
                 <th class="text-center" style="min-width: 100px">Payment #</th>
                 <th class="text-center" style="min-width: 200px">Status</th>
                 <th class="text-center" style="min-width: 100px">Lokasi</th>
+                <th class="text-center" style="min-width: 100px">User Keluar</th>
                 <th class="text-center" style="min-width: 150px">Keluar Tanggal</th>
             </tr>
         </thead>
@@ -41,7 +42,7 @@
                     <td><?php echo CHtml::encode(CHtml::value($data, 'color.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td class="text-end">
-                        <?php $registrationTransaction = RegistrationTransaction::model()->findByAttributes(array('vehicle_id' => $data->id)); ?>
+                        <?php $registrationTransaction = RegistrationTransaction::model()->find(array('condition' => "vehicle_id = $data->id AND DATE(transaction_date) BETWEEN $startDate AND $endDate")); ?>
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'transaction_number')); ?></td>
@@ -51,19 +52,22 @@
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'work_order_number')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'sales_order_number')); ?></td>
                     <td>
-                        <?php $invoiceHeader = InvoiceHeader::model()->findByAttributes(array('registration_transaction_id' => $registrationTransaction->id)); ?>
-                        <?php echo CHtml::encode(CHtml::value($invoiceHeader, 'invoice_number')); ?>
+                        <?php if(!empty($registrationTransaction)): ?>
+                            <?php $invoiceHeader = InvoiceHeader::model()->findByAttributes(array('registration_transaction_id' => $registrationTransaction->id)); ?>
+                            <?php echo CHtml::encode(CHtml::value($invoiceHeader, 'invoice_number')); ?>
+                        <?php endif; ?>
                     </td>
                     <td>
-                        <?php if(!empty($invoiceHeader)): ?>
+                        <?php if(!empty($invoiceHeader) && !empty($registrationTransaction)): ?>
                             <?php $paymentInDetail = PaymentInDetail::model()->findByAttributes(array('invoice_header_id' => $invoiceHeader->id)); ?>
                             <?php echo CHtml::encode(CHtml::value($paymentInDetail, 'paymentIn.payment_number')); ?>
                         <?php endif; ?>
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'status')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'status_location')); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($data, 'exitUser.username')); ?></td>
                     <td>
-                        <?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($data, 'exit_datetime'))); ?>
+                        <?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy H:m:s", CHtml::value($data, 'exit_datetime'))); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -116,12 +116,19 @@ class VehicleController extends Controller {
             $model->attributes = $_POST['Vehicle'];
             
             if ($model->status_location == 'Masuk Lokasi') {
+                $model->entry_user_id = Yii::app()->user->id;
                 $model->entry_datetime = date('Y-m-d H:i:s');
             } elseif ($model->status_location == 'On-Progress') {
+                $model->start_service_user_id = Yii::app()->user->id;
                 $model->start_service_datetime = date('Y-m-d H:i:s');
             } elseif ($model->status_location == 'Keluar Lokasi') {
+                $model->exit_user_id = Yii::app()->user->id;
                 $model->exit_datetime = date('Y-m-d H:i:s');
             } else {
+                $model->entry_user_id = null;
+                $model->start_service_user_id = null;
+                $model->finish_service_user_id = null;
+                $model->exit_user_id = null;
                 $model->entry_datetime = null;
                 $model->start_service_datetime = null;
                 $model->finish_service_datetime = null;

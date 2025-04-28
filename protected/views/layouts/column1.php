@@ -46,19 +46,36 @@
                             ; ?>
                             <?php if ($isAuthorized): ?>
                                 <?php $isActive = Yii::app()->controller->id === 'saleEstimation' && (
-                                        Yii::app()->controller->action->id === 'admin' ||
-                                        Yii::app()->controller->action->id === 'view' ||
-                                        Yii::app()->controller->action->id === 'update' ||
                                         Yii::app()->controller->action->id === 'create'
                                 ); ?>
                                 <li class="w-100 <?php if ($isActive): ?><?php echo $activeClass; ?><?php endif ;?>">
                                     <a href="<?php echo Yii::app()->createUrl('frontEnd/saleEstimation/create'); ?>" class="nav-link px-0 align-middle">
                                         <span class="ps-1 d-none d-sm-inline <?php if ($isActive): ?><?php echo $activeTextClass; ?><?php else: ?><?php echo $inactiveTextClass; ?><?php endif ;?>">
-                                            Estimasi
+                                            Estimasi New
                                         </span>
                                     </a>
                                 </li>
                             <?php endif; ?>
+                                
+                            <?php $isAuthorized = Yii::app()->user->checkAccess('saleEstimationFrontCreate') || 
+                                    Yii::app()->user->checkAccess('saleEstimationFrontEdit')
+                            ; ?>
+                            <?php if ($isAuthorized): ?>
+                                <?php $isActive = Yii::app()->controller->id === 'saleEstimation' && (
+                                        Yii::app()->controller->action->id === 'admin' ||
+                                        Yii::app()->controller->action->id === 'view' ||
+                                        Yii::app()->controller->action->id === 'update'
+                                ); ?>
+                                <li class="w-100 <?php if ($isActive): ?><?php echo $activeClass; ?><?php endif ;?>">
+                                    <a href="<?php echo Yii::app()->createUrl('frontEnd/saleEstimation/admin'); ?>" class="nav-link px-0 align-middle">
+                                        <span class="ps-1 d-none d-sm-inline <?php if ($isActive): ?><?php echo $activeTextClass; ?><?php else: ?><?php echo $inactiveTextClass; ?><?php endif ;?>">
+                                            Estimasi List
+                                        </span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                                
+                            <li>----------------------------------------</li>
                                 
                             <?php $isAuthorized = Yii::app()->user->checkAccess('registrationTransactionFrontCreate') || 
                                     Yii::app()->user->checkAccess('registrationTransactionFrontEdit')

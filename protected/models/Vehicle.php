@@ -31,6 +31,9 @@
  * @property string $start_service_datetime
  * @property string $finish_service_datetime
  * @property string $exit_datetime
+ * @property integer $entry_user_id
+ * @property integer $start_service_user_id
+ * @property integer $exit_user_id
  *
  * The followings are the available model relations:
  * @property InvoiceHeader[] $invoiceHeaders
@@ -44,6 +47,9 @@
  * @property VehicleCarMake $carMake
  * @property VehicleCarModel $carModel
  * @property VehicleCarSubModel $carSubModel
+ * @property Users $entryUser
+ * @property Users $startServiceUser
+ * @property Users $exitUser
  * @property Customer $customer
  * @property Colors $color
  * @property VehicleInspection[] $vehicleInspections
@@ -65,7 +71,7 @@ class Vehicle extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('plate_number, car_make_id, car_model_id, car_sub_model_id, color_id, customer_id', 'required'),
-            array('plate_number_prefix_id, car_make_id, car_model_id, car_sub_model_id, car_sub_model_detail_id, color_id, customer_id, customer_pic_id, insurance_company_id, power', 'numerical', 'integerOnly' => true),
+            array('plate_number_prefix_id, car_make_id, car_model_id, car_sub_model_id, car_sub_model_detail_id, color_id, customer_id, customer_pic_id, insurance_company_id, power, entry_user_id, exit_user_id, start_service_user_id', 'numerical', 'integerOnly' => true),
             array('plate_number', 'length', 'max' => 15),
             array('plate_number_ordinal, fuel_type', 'length', 'max' => 20),
             array('plate_number_suffix, year, drivetrain', 'length', 'max' => 10),
@@ -74,7 +80,7 @@ class Vehicle extends CActiveRecord {
             array('notes, entry_datetime, start_service_datetime, finish_service_datetime, exit_datetime', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, plate_number, plate_number_prefix_id, plate_number_ordinal, plate_number_suffix, machine_number, frame_number, car_make_id, car_model_id, car_sub_model_id, car_sub_model_detail_id, color_id, year, customer_id, customer_pic_id, insurance_company_id, chasis_code, transmission, fuel_type, power, drivetrain, notes, status_location, entry_datetime, start_service_datetime, finish_service_datetime, exit_datetime', 'safe', 'on' => 'search'),
+            array('id, plate_number, plate_number_prefix_id, plate_number_ordinal, plate_number_suffix, machine_number, frame_number, car_make_id, car_model_id, car_sub_model_id, car_sub_model_detail_id, color_id, year, customer_id, customer_pic_id, insurance_company_id, chasis_code, transmission, fuel_type, power, drivetrain, notes, status_location, entry_datetime, start_service_datetime, finish_service_datetime, exit_datetime, entry_user_id, exit_user_id, start_service_user_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -98,6 +104,9 @@ class Vehicle extends CActiveRecord {
             'carSubModel' => array(self::BELONGS_TO, 'VehicleCarSubModel', 'car_sub_model_id'),
             'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
             'color' => array(self::BELONGS_TO, 'Colors', 'color_id'),
+            'entryUser' => array(self::BELONGS_TO, 'Users', 'entry_user_id'),
+            'startServiceUser' => array(self::BELONGS_TO, 'Users', 'start_service_user_id'),
+            'exitUser' => array(self::BELONGS_TO, 'Users', 'exit_user_id'),
             'vehicleInspections' => array(self::HAS_MANY, 'VehicleInspection', 'vehicle_id'),
         );
     }
@@ -268,7 +277,7 @@ class Vehicle extends CActiveRecord {
         $criteria->compare('t.year', $this->year, true);
         $criteria->compare('t.notes', $this->notes, true);
 
-        $criteria->order = 't.plate_number ASC';
+        $criteria->order = 't.entry_datetime ASC';
         $criteria->addCondition("t.status_location NOT LIKE '%Keluar%'");
 
         return new CActiveDataProvider($this, array(
