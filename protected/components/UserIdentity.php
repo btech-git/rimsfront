@@ -21,7 +21,7 @@ class UserIdentity extends CUserIdentity {
     public function authenticate() {
         $user = Users::model()->findByAttributes(array('username' => $this->username));
 
-        if ($user === null || !$this->checkRoles(RoleItem::all(), $user)) {
+        if ($user === null || !$user->is_front_access) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         } else if ($user->password !== md5($this->password)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
@@ -45,8 +45,8 @@ class UserIdentity extends CUserIdentity {
 //        $this->_branchId = $branchId;
 //    }
 
-    private function checkRoles($roles, $user) {
-        $rolesValid = array_map(function($userRole) use ($roles) { return in_array($userRole, $roles); }, $user->roles);
-        return array_reduce($rolesValid, function($leftValid, $rightValid) { return $leftValid || $rightValid; }, false);
-    }
+//    private function checkRoles($roles, $user) {
+//        $rolesValid = array_map(function($userRole) use ($roles) { return in_array($userRole, $roles); }, $user->roles);
+//        return array_reduce($rolesValid, function($leftValid, $rightValid) { return $leftValid || $rightValid; }, false);
+//    }
 }

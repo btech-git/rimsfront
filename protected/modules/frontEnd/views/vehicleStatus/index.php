@@ -40,6 +40,11 @@ $this->breadcrumbs = array(
                                 'type' => 'GET',
                                 'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
                                 'update' => '#vehicle_status_data_container',
+                            )) . 
+                            CHtml::ajax(array(
+                                'type' => 'GET',
+                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleEntryDataTable'),
+                                'update' => '#vehicle_entry_status_data_container',
                             )),
                         ),
                     )); ?>
@@ -59,6 +64,11 @@ $this->breadcrumbs = array(
                                 'type' => 'GET',
                                 'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
                                 'update' => '#vehicle_status_data_container',
+                            )) . 
+                            CHtml::ajax(array(
+                                'type' => 'GET',
+                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleEntryDataTable'),
+                                'update' => '#vehicle_entry_status_data_container',
                             )),
                         ),
                     )); ?>

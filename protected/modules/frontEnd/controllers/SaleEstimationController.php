@@ -270,20 +270,23 @@ class SaleEstimationController extends Controller {
         ));
     }
 
-    public function actionUpdate($id) {
+    public function actionUpdate($id, $vehicleId) {
         $saleEstimation = $this->instantiate($id);
+        $vehicle = Vehicle::model()->findByPk($vehicleId); 
+        $customer = Customer::model()->findByPk($vehicle->customer_id);
+        
         $saleEstimation->header->edited_datetime = date('Y-m-d H:i:s');
         $saleEstimation->header->user_id_edited = Yii::app()->user->id;
+        $saleEstimation->header->vehicle_id = $vehicleId;
+        $saleEstimation->header->customer_id = $vehicle->customer_id;
         $branch = Branch::model()->model()->findByPk($saleEstimation->header->branch_id);
 
         $endDate = date('Y-m-d');
                 
         $product = Search::bind(new Product('search'), isset($_GET['Product']) ? $_GET['Product'] : '');
         $service = Search::bind(new Service('search'), isset($_GET['Service']) ? $_GET['Service'] : '');
-        $vehicle = Search::bind(new Vehicle('search'), isset($_GET['Vehicle']) ? $_GET['Vehicle'] : '');
         $productDataProvider = $product->searchBySaleEstimation($endDate);
         $serviceDataProvider = $service->searchBySaleEstimation();
-        $vehicleDataProvider = $vehicle->search();
         
         $productPageNumber = isset($_GET['product_page']) ? $_GET['product_page'] : 1;
         $servicePageNumber = isset($_GET['service_page']) ? $_GET['service_page'] : 1;
@@ -296,12 +299,6 @@ class SaleEstimationController extends Controller {
         
         $branches = Branch::model()->findAll();
         
-        $customerName = isset($_GET['CustomerName']) ? $_GET['CustomerName'] : '';
-        if (!empty($customerName)) {
-            $vehicleDataProvider->criteria->addCondition('customer.name LIKE :customer_name');
-            $vehicleDataProvider->criteria->params[':customer_name'] = "%{$customerName}%";
-        }
-
         if (isset($_POST['Submit']) && IdempotentManager::check()) {
             $this->loadState($saleEstimation);
             
@@ -316,12 +313,12 @@ class SaleEstimationController extends Controller {
             'productDataProvider' => $productDataProvider, 
             'service' => $service,
             'serviceDataProvider' => $serviceDataProvider,
+            'vehicleId' => $vehicleId,
             'vehicle' => $vehicle,
-            'vehicleDataProvider' => $vehicleDataProvider,
             'branches' => $branches,
             'endDate' => $endDate,
             'branch' => $branch,
-            'customerName' => $customerName,
+            'customer' => $customer,
             'isSubmitted' => isset($_POST['Submit']),
         ));
     }
@@ -391,6 +388,33 @@ class SaleEstimationController extends Controller {
             'endDate' => $endDate,
             'customerName' => $customerName,
             'plateNumber' => $plateNumber,
+        ));
+    }
+
+    public function actionOutstandingWithVehicle($vehicleId) {
+        $model = new SaleEstimationHeader('search');
+        $model->unsetAttributes();  // clear any default values
+
+        $customerName = (isset($_GET['CustomerName'])) ? $_GET['CustomerName'] : '';
+        $plateNumber = (isset($_GET['PlateNumber'])) ? $_GET['PlateNumber'] : '';
+
+        if (isset($_GET['SaleEstimationHeader'])) {
+            $model->attributes = $_GET['SaleEstimationHeader'];
+        }
+
+        $dataProvider = $model->searchByOutstanding();
+        $dataProvider->criteria->together = 'true';
+        $dataProvider->criteria->with = array(
+            'vehicle',
+            'customer',
+        );
+        
+        $this->render('outstandingWithVehicle', array(
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'customerName' => $customerName,
+            'plateNumber' => $plateNumber,
+            'vehicleId' => $vehicleId,
         ));
     }
 

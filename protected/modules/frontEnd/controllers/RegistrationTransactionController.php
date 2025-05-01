@@ -96,8 +96,18 @@ class RegistrationTransactionController extends Controller {
         $registrationTransaction->header->user_id = Yii::app()->user->id;
         $registrationTransaction->header->vehicle_id = empty($saleEstimationHeader->vehicle_id) ? null : $saleEstimationHeader->vehicle_id;
         $registrationTransaction->header->customer_id = empty($saleEstimationHeader->customer_id) ? null :$saleEstimationHeader->customer_id;
-        $registrationTransaction->header->branch_id = 1; //Yii::app()->user->branch_id;
+        $registrationTransaction->header->branch_id = Yii::app()->user->branch_id;
+        $registrationTransaction->header->status = 'Registration';
+        $registrationTransaction->header->vehicle_status = 'DI BENGKEL';
+        $registrationTransaction->header->repair_type = 'GR';
+        $registrationTransaction->header->service_status = 'Pending';
+        $registrationTransaction->header->product_status = 'Draft';
+        $registrationTransaction->header->priority_level = 2;
         $registrationTransaction->header->sale_estimation_header_id = $estimationId;
+        $registrationTransaction->header->vehicle_entry_datetime = null;
+        $registrationTransaction->header->vehicle_exit_datetime = null;
+        $registrationTransaction->header->vehicle_start_service_datetime = null;
+        $registrationTransaction->header->vehicle_finish_service_datetime = null;
         
         $registrationTransaction->addDetails($estimationId);
 
@@ -125,6 +135,7 @@ class RegistrationTransactionController extends Controller {
         $customer = Customer::model()->findByPk($vehicle->customer_id);
         $registrationTransaction->header->edited_datetime = date('Y-m-d H:i:s');
         $registrationTransaction->header->user_id_edited = Yii::app()->user->id;
+        $registrationTransaction->header->status = 'Update Registration';
 
         if (isset($_POST['RegistrationTransaction'])) {
             $this->loadState($registrationTransaction);

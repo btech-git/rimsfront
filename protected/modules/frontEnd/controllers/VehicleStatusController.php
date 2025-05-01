@@ -60,6 +60,8 @@ class VehicleStatusController extends Controller {
         if (Yii::app()->request->isAjaxRequest) {
             
             $plateNumber = (isset($_GET['PlateNumber'])) ? $_GET['PlateNumber'] : '';
+            $startDate = (isset($_GET['StartDate'])) ? $_GET['StartDate'] : date('Y-m-d');
+            $endDate = (isset($_GET['EndDate'])) ? $_GET['EndDate'] : date('Y-m-d');
             $vehicle = new Vehicle('search');
             $vehicle->unsetAttributes();  // clear any default values
 
@@ -69,6 +71,8 @@ class VehicleStatusController extends Controller {
         
             $this->renderPartial('_vehicleEntry', array(
                 'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ));
         }
     }

@@ -96,7 +96,9 @@
                     <td><?php echo CHtml::encode(CHtml::value($data, 'status')); ?></td>
                     <td>
                         <?php echo CHtml::link('<i class="bi-search"></i>', array("view", "id" => $data->id), array('class' => 'btn btn-info btn-sm')); ?>
-                        <?php //echo CHtml::link('<i class="bi-pencil"></i>', array("update", "id" => $data->id), array('class' => 'btn btn-warning btn-sm')); ?>
+                        <?php if (!empty($vehicleId)): ?>
+                            <?php echo CHtml::link('<i class="bi-pencil"></i>', array("update", "id" => $data->id, "vehicleId" => $vehicleId), array('class' => 'btn btn-warning btn-sm')); ?>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

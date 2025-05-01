@@ -22,11 +22,11 @@ $this->breadcrumbs=array(
     
     <?php echo $this->renderPartial('_form', array(
         'saleEstimation' => $saleEstimation,
-        'customerName' => $customerName,
+        'vehicle' => $vehicle,
+        'customer' => $customer,
         'branches' => $branches,
         'isSubmitted' => $isSubmitted,
-        'vehicle' => $vehicle,
-        'vehicleDataProvider' => $vehicleDataProvider,
+        'vehicleId' => $vehicleId,
         'branch' => $branch,
     )); ?>
 </div>

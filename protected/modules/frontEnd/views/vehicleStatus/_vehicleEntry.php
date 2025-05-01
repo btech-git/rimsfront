@@ -15,7 +15,7 @@
                 <th class="text-center" style="min-width: 100px">Plat #</th>
                 <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
-                <th class="text-center" style="min-width: 200px">Customer</th>
+                <th class="text-center" style="min-width: 250px">Customer</th>
                 <th class="text-center" style="min-width: 50px">KM</th>
                 <th class="text-center" style="min-width: 100px">Estimasi #</th>
                 <th class="text-center" style="min-width: 100px">Tanggal</th>
@@ -31,7 +31,8 @@
                 <th class="text-center" style="min-width: 150px">Tanggal Masuk</th>
                 <th class="text-center" style="min-width: 150px">User Proses</th>
                 <th class="text-center" style="min-width: 150px">Tanggal Proses</th>
-                <th style="min-width: 180px"></th>
+                <th class="text-center" style="min-width: 150px">Estimasi</th>
+                <th style="min-width: 50px"></th>
             </tr>
         </thead>
         <tbody>
@@ -47,11 +48,25 @@
                     <td><?php echo CHtml::encode(CHtml::value($data, 'color.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td class="text-end">
-                        <?php $registrationTransaction = RegistrationTransaction::model()->find(array('condition' => "vehicle_id = $data->id AND DATE(transaction_date) BETWEEN $startDate AND $endDate")); ?>
+                        <?php $registrationTransaction = RegistrationTransaction::model()->find(array(
+                            'condition' => 'vehicle_id = :vehicle_id AND DATE(transaction_date) BETWEEN :start_date AND :end_date', 
+                            'params' => array(
+                                ':vehicle_id' => $data->id,
+                                ':start_date' => $startDate,
+                                ':end_date' => $endDate,
+                            ),
+                        )); ?>
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>
                     </td>
                     <td>
-                        <?php $saleEstimationHeader = SaleEstimationHeader::model()->find(array('condition' => "vehicle_id = $data->id AND DATE(transaction_date) BETWEEN $startDate AND $endDate")); ?>
+                        <?php $saleEstimationHeader = SaleEstimationHeader::model()->find(array(
+                            'condition' => 'vehicle_id = :vehicle_id AND transaction_date BETWEEN :start_date AND :end_date', 
+                            'params' => array(
+                                ':vehicle_id' => $data->id,
+                                ':start_date' => $startDate,
+                                ':end_date' => $endDate,
+                            ),
+                        )); ?>
                         <?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'transaction_number')); ?>
                     </td>
                     <td>
@@ -83,9 +98,12 @@
                     <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy H:m:s", CHtml::value($data, 'start_service_datetime'))); ?></td>
                     <td>
                         <?php if (empty($saleEstimationHeader)): ?>
-                            <?php echo CHtml::link('<i class="bi-plus"></i> Estimasi', array("/frontEnd/saleEstimation/createWithVehicle", "vehicleId" => $data->id), array('class' => 'btn btn-success btn-sm')); ?>
+                            <?php echo CHtml::link('<i class="bi-plus"></i> New', array("/frontEnd/saleEstimation/createWithVehicle", "vehicleId" => $data->id), array('class' => 'btn btn-success btn-sm')); ?>
+                            <?php echo CHtml::link('<i class="bi-search"></i> Find', array("/frontEnd/saleEstimation/outstandingWithVehicle", "vehicleId" => $data->id), array('class' => 'btn btn-primary btn-sm')); ?>
                         <?php endif; ?>
-                        <?php echo CHtml::link('advance', array("/master/vehicle/updateLocation", "id" => $data->id), array('class' => 'btn btn-warning btn-sm')); ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::link('Adv', array("/master/vehicle/updateLocation", "id" => $data->id), array('class' => 'btn btn-warning btn-sm')); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

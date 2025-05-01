@@ -162,13 +162,6 @@ class RegistrationTransactionComponent extends CComponent {
     }
 
     public function flush() {
-        $isNewRecord = $this->header->isNewRecord;
-        if ($isNewRecord) {
-            $this->header->status = 'Registration';
-            $this->header->vehicle_status = 'DI BENGKEL';
-            $this->header->service_status = 'Bongkar - Pending';
-        }
-
         $this->header->total_product = $this->getTotalQuantityProduct();
         $this->header->subtotal_product = $this->getSubTotalProduct();
         $this->header->subtotal_service = $this->getSubTotalService();
@@ -181,7 +174,7 @@ class RegistrationTransactionComponent extends CComponent {
 
         $valid = $this->header->save();
 
-        if ($isNewRecord && $valid) {
+        if ($this->header->isNewRecord && $valid) {
             $serviceNames = array('Bongkar', 'Sparepart', 'KetokLas', 'Dempul', 'Epoxy', 'Cat', 'Pasang', 'Cuci', 'Poles');
             foreach ($serviceNames as $serviceName) {
                 $registrationBodyRepairDetail = new RegistrationBodyRepairDetail();
@@ -199,6 +192,12 @@ class RegistrationTransactionComponent extends CComponent {
         if (count($this->serviceDetails) > 0) {
             foreach ($this->serviceDetails as $serviceDetail) {
                 $serviceDetail->registration_transaction_id = $this->header->id;
+                $serviceDetail->service_type_id = $serviceDetail->service->service_type_id;
+                $serviceDetail->total_price = $serviceDetail->totalAmount;
+                $serviceDetail->start = NULL;
+                $serviceDetail->end = NULL;
+                $serviceDetail->pause = NULL;
+                $serviceDetail->resume = NULL;
                 $valid = $serviceDetail->save(false) && $valid;
             }
         }
@@ -208,6 +207,8 @@ class RegistrationTransactionComponent extends CComponent {
             foreach ($this->productDetails as $productDetail) {
                 $productDetail->registration_transaction_id = $this->header->id;
                 $productDetail->total_price = $productDetail->totalPrice;
+                $productDetail->quantity_movement_left = $productDetail->quantity - $productDetail->quantity_movement;
+                $productDetail->hpp = $productDetail->product->hpp;
 
                 $valid = $productDetail->save(false) && $valid;
             }

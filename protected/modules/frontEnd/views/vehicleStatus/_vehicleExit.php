@@ -15,7 +15,7 @@
                 <th class="text-center" style="min-width: 100px">Plat #</th>
                 <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
-                <th class="text-center" style="min-width: 200px">Customer</th>
+                <th class="text-center" style="min-width: 250px">Customer</th>
                 <th class="text-center" style="min-width: 50px">KM</th>
                 <th class="text-center" style="min-width: 100px">Registration #</th>
                 <th class="text-center" style="min-width: 100px">Tanggal</th>
@@ -42,7 +42,14 @@
                     <td><?php echo CHtml::encode(CHtml::value($data, 'color.name')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'customer.name')); ?></td>
                     <td class="text-end">
-                        <?php $registrationTransaction = RegistrationTransaction::model()->find(array('condition' => "vehicle_id = $data->id AND DATE(transaction_date) BETWEEN $startDate AND $endDate")); ?>
+                        <?php $registrationTransaction = RegistrationTransaction::model()->find(array(
+                            'condition' => 'vehicle_id = :vehicle_id AND DATE(transaction_date) BETWEEN :start_date AND :end_date', 
+                            'params' => array(
+                                ':vehicle_id' => $data->id,
+                                ':start_date' => $startDate,
+                                ':end_date' => $endDate,
+                            ),
+                        )); ?>
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'transaction_number')); ?></td>

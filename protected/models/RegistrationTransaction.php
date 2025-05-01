@@ -105,8 +105,9 @@
  * @property VehicleInspection[] $vehicleInspections
  * @property WorkOrderExpenseHeader[] $workOrderExpenseHeaders
  */
-class RegistrationTransaction extends CActiveRecord {
+class RegistrationTransaction extends MonthlyTransactionActiveRecord {
 
+    const CONSTANT = 'RG';
     /**
      * @return string the associated database table name
      */
