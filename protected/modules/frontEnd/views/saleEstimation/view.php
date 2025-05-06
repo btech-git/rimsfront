@@ -14,6 +14,10 @@ $this->breadcrumbs = array(
     </div>
     <div class="col d-flex justify-content-end">
         <div class="d-gap">
+            <?php $registrationTransaction = RegistrationTransaction::model()->findByAttributes(array('sale_estimation_header_id' => $model->id)); ?>
+            <?php if (empty($registrationTransaction)): ?>
+                <?php echo CHtml::link('<i class="bi-plus"></i> Registration', array("/frontEnd/registrationTransaction/create", "estimationId" => $model->id), array('class' => 'btn btn-success btn-sm')); ?>
+            <?php endif; ?>
             <?php echo CHtml::link('Manage', array("admin"), array('class' => 'btn btn-info btn-sm')); ?>
             <?php echo CHtml::link('Edit', array("update", 'id' => $model->id, 'vehicleId' => $model->vehicle_id), array('class' => 'btn btn-warning btn-sm')); ?>
         </div>

@@ -12,6 +12,7 @@
         <thead>
             <tr class="table-primary">
                 <th class="text-center" style="min-width: 50px">#</th>
+                <th class="text-center" style="min-width: 150px">Tanggal Masuk</th>
                 <th class="text-center" style="min-width: 100px">Plat #</th>
                 <th class="text-center" style="min-width: 200px">Kendaraan</th>
                 <th class="text-center" style="min-width: 100px">Warna</th>
@@ -28,7 +29,6 @@
                 <th class="text-center" style="min-width: 100px">Status</th>
                 <th class="text-center" style="min-width: 150px">Lokasi</th>
                 <th class="text-center" style="min-width: 150px">User Entry</th>
-                <th class="text-center" style="min-width: 150px">Tanggal Masuk</th>
                 <th class="text-center" style="min-width: 150px">User Proses</th>
                 <th class="text-center" style="min-width: 150px">Tanggal Proses</th>
                 <th class="text-center" style="min-width: 150px">Estimasi</th>
@@ -39,6 +39,7 @@
             <?php foreach ($vehicleEntryDataprovider->data as $i => $data): ?>
                 <tr>
                     <td class="text-center"><?php echo CHtml::encode($i + 1); ?></td>
+                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy H:m:s", CHtml::value($data, 'entry_datetime'))); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'plate_number')); ?></td>
                     <td>
                         <?php echo CHtml::encode(CHtml::value($data, 'carMake.name')); ?> -
@@ -67,7 +68,9 @@
                                 ':end_date' => $endDate,
                             ),
                         )); ?>
-                        <?php echo CHtml::encode(CHtml::value($saleEstimationHeader, 'transaction_number')); ?>
+                        <?php if (!empty($registrationTransaction)): ?>
+                            <?php echo CHtml::link(CHtml::value($saleEstimationHeader, 'transaction_number'), array("/frontEnd/saleEstimation/view", "id" => $saleEstimationHeader->id), array('target' => '_blank')); ?>
+                        <?php endif; ?>
                     </td>
                     <td>
                         <?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy", CHtml::value($saleEstimationHeader, 'transaction_date'))); ?>
@@ -92,8 +95,7 @@
                     </td>
                     <td><?php echo CHtml::encode(CHtml::value($registrationTransaction, 'status')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'status_location')); ?></td>
-                    <td><?php //echo CHtml::encode(CHtml::value($data, 'entryUser.username')); ?></td>
-                    <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy H:m:s", CHtml::value($data, 'entry_datetime'))); ?></td>
+                    <td><?php echo CHtml::encode(CHtml::value($data, 'entryUser.username')); ?></td>
                     <td><?php echo CHtml::encode(CHtml::value($data, 'startServiceUser.username')); ?></td>
                     <td><?php echo CHtml::encode(Yii::app()->dateFormatter->format("d MMM yyyy H:m:s", CHtml::value($data, 'start_service_datetime'))); ?></td>
                     <td>

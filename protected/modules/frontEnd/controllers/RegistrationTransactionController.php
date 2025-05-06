@@ -68,15 +68,15 @@ class RegistrationTransactionController extends Controller {
         
     }
     
-    public function actionSaleEstimationList() {
-        $registrationTransactionHeader = Search::bind(new SaleEstimationHeader('search'), isset($_GET['SaleEstimationHeader']) ? $_GET['SaleEstimationHeader'] : '');
-        $registrationTransactionHeaderDataProvider = $registrationTransactionHeader->searchByRegistration();
-
-        $this->render('saleEstimationList', array(
-            'saleEstimationHeader' => $registrationTransactionHeader,
-            'saleEstimationHeaderDataProvider' => $registrationTransactionHeaderDataProvider,
-        ));
-    }
+//    public function actionSaleEstimationList() {
+//        $registrationTransactionHeader = Search::bind(new SaleEstimationHeader('search'), isset($_GET['SaleEstimationHeader']) ? $_GET['SaleEstimationHeader'] : '');
+//        $registrationTransactionHeaderDataProvider = $registrationTransactionHeader->searchByRegistration();
+//
+//        $this->render('saleEstimationList', array(
+//            'saleEstimationHeader' => $registrationTransactionHeader,
+//            'saleEstimationHeaderDataProvider' => $registrationTransactionHeaderDataProvider,
+//        ));
+//    }
     
     public function actionCreate($estimationId) {
         $registrationTransaction = $this->instantiate(null);
