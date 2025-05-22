@@ -46,8 +46,8 @@
                             'condition' => 'vehicle_id = :vehicle_id AND DATE(transaction_date) BETWEEN :start_date AND :end_date', 
                             'params' => array(
                                 ':vehicle_id' => $data->id,
-                                ':start_date' => $startDate,
-                                ':end_date' => $endDate,
+                                ':start_date' => $startDateOut,
+                                ':end_date' => $endDateOut,
                             ),
                         )); ?>
                         <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>

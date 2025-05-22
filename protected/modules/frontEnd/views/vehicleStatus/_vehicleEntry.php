@@ -53,22 +53,24 @@
                             'condition' => 'vehicle_id = :vehicle_id AND DATE(transaction_date) BETWEEN :start_date AND :end_date', 
                             'params' => array(
                                 ':vehicle_id' => $data->id,
-                                ':start_date' => $startDate,
-                                ':end_date' => $endDate,
+                                ':start_date' => $startDateIn,
+                                ':end_date' => $endDateIn,
                             ),
                         )); ?>
-                        <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>
+                        <?php if (!empty($registrationTransaction)): ?>
+                            <?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', CHtml::value($registrationTransaction, 'vehicle_mileage'))); ?>
+                        <?php endif; ?>
                     </td>
                     <td>
                         <?php $saleEstimationHeader = SaleEstimationHeader::model()->find(array(
                             'condition' => 'vehicle_id = :vehicle_id AND transaction_date BETWEEN :start_date AND :end_date', 
                             'params' => array(
                                 ':vehicle_id' => $data->id,
-                                ':start_date' => $startDate,
-                                ':end_date' => $endDate,
+                                ':start_date' => $startDateIn,
+                                ':end_date' => $endDateIn,
                             ),
                         )); ?>
-                        <?php if (!empty($registrationTransaction)): ?>
+                        <?php if (!empty($saleEstimationHeader)): ?>
                             <?php echo CHtml::link(CHtml::value($saleEstimationHeader, 'transaction_number'), array("/frontEnd/saleEstimation/view", "id" => $saleEstimationHeader->id), array('target' => '_blank')); ?>
                         <?php endif; ?>
                     </td>

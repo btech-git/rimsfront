@@ -27,28 +27,33 @@ class VehicleStatusController extends Controller {
         $pageSize = (isset($_GET['PageSize'])) ? $_GET['PageSize'] : '';
         $currentPage = (isset($_GET['page'])) ? $_GET['page'] : '';
         $branchId = (isset($_GET['BranchId'])) ? $_GET['BranchId'] : '';
-        $startDate = (isset($_GET['StartDate'])) ? $_GET['StartDate'] : date('Y-m-d');
-        $endDate = (isset($_GET['EndDate'])) ? $_GET['EndDate'] : date('Y-m-d');
+        $startDateIn = (isset($_GET['StartDateIn'])) ? $_GET['StartDateIn'] : date('Y-m-d');
+        $endDateIn = (isset($_GET['EndDateIn'])) ? $_GET['EndDateIn'] : date('Y-m-d');
+        $startDateOut = (isset($_GET['StartDateOut'])) ? $_GET['StartDateOut'] : date('Y-m-d');
+        $endDateOut = (isset($_GET['EndDateOut'])) ? $_GET['EndDateOut'] : date('Y-m-d');
         $plateNumber = (isset($_GET['PlateNumber'])) ? $_GET['PlateNumber'] : '';
         
         $vehicleEntryDataprovider = $vehicle->searchByEntryStatusLocation();
         $vehicleEntryDataprovider->pagination->pageVar = 'page_dialog';
         $vehicleEntryDataprovider->criteria->compare('t.plate_number', $plateNumber, true);
+        $vehicleEntryDataprovider->criteria->addBetweenCondition('DATE(t.entry_datetime)', $startDateIn, $endDateIn);
         
         $vehicleTransactionListSummary = new VehicleTransactionList($vehicle->search());
         $vehicleTransactionListSummary->setupLoading();
         $vehicleTransactionListSummary->setupPaging($pageSize, $currentPage);
         $vehicleTransactionListSummary->setupSorting();
         $filters = array(
-            'startDate' => $startDate,
-            'endDate' => $endDate,
+            'startDateOut' => $startDateOut,
+            'endDateOut' => $endDateOut,
             'branchId' => $branchId,
         );
         $vehicleTransactionListSummary->setupFilter($filters);
 
         $this->render('index', array(
-            'startDate' => $startDate,
-            'endDate' => $endDate,
+            'startDateIn' => $startDateIn,
+            'endDateIn' => $endDateIn,
+            'startDateOut' => $startDateOut,
+            'endDateOut' => $endDateOut,
             'vehicle' => $vehicle,
             'plateNumber' => $plateNumber,
             'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
@@ -60,19 +65,20 @@ class VehicleStatusController extends Controller {
         if (Yii::app()->request->isAjaxRequest) {
             
             $plateNumber = (isset($_GET['PlateNumber'])) ? $_GET['PlateNumber'] : '';
-            $startDate = (isset($_GET['StartDate'])) ? $_GET['StartDate'] : date('Y-m-d');
-            $endDate = (isset($_GET['EndDate'])) ? $_GET['EndDate'] : date('Y-m-d');
+            $startDateIn = (isset($_GET['StartDateIn'])) ? $_GET['StartDateIn'] : date('Y-m-d');
+            $endDateIn = (isset($_GET['EndDateIn'])) ? $_GET['EndDateIn'] : date('Y-m-d');
             $vehicle = new Vehicle('search');
             $vehicle->unsetAttributes();  // clear any default values
 
             $vehicleEntryDataprovider = $vehicle->searchByEntryStatusLocation();
             $vehicleEntryDataprovider->pagination->pageVar = 'page_dialog';
             $vehicleEntryDataprovider->criteria->compare('t.plate_number', $plateNumber, true);
+            $vehicleEntryDataprovider->criteria->addBetweenCondition('t.entry_datetime', $startDateIn, $endDateIn);
         
             $this->renderPartial('_vehicleEntry', array(
                 'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
-                'startDate' => $startDate,
-                'endDate' => $endDate,
+                'startDateIn' => $startDateIn,
+                'endDateIn' => $endDateIn,
             ));
         }
     }
@@ -85,8 +91,8 @@ class VehicleStatusController extends Controller {
 
             $pageSize = (isset($_GET['PageSize'])) ? $_GET['PageSize'] : '';
             $currentPage = (isset($_GET['page'])) ? $_GET['page'] : '';
-            $startDate = (isset($_GET['StartDate'])) ? $_GET['StartDate'] : date('Y-m-d');
-            $endDate = (isset($_GET['EndDate'])) ? $_GET['EndDate'] : date('Y-m-d');
+            $startDateOut = (isset($_GET['StartDateOut'])) ? $_GET['StartDateOut'] : date('Y-m-d');
+            $endDateOut = (isset($_GET['EndDateOut'])) ? $_GET['EndDateOut'] : date('Y-m-d');
             $branchId = (isset($_GET['BranchId'])) ? $_GET['BranchId'] : '';
 
             $vehicleTransactionListSummary = new VehicleTransactionList($vehicle->search());
@@ -94,15 +100,15 @@ class VehicleStatusController extends Controller {
             $vehicleTransactionListSummary->setupPaging($pageSize, $currentPage);
             $vehicleTransactionListSummary->setupSorting();
             $filters = array(
-                'startDate' => $startDate,
-                'endDate' => $endDate,
+                'startDateOut' => $startDateOut,
+                'endDateOut' => $endDateOut,
                 'branchId' => $branchId,
             );
             $vehicleTransactionListSummary->setupFilter($filters);
 
             $this->renderPartial('_vehicleExit', array(
-                'startDate' => $startDate,
-                'endDate' => $endDate,
+                'startDateOut' => $startDateOut,
+                'endDateOut' => $endDateOut,
                 'vehicleTransactionListSummary' => $vehicleTransactionListSummary,
             ));
         }

@@ -24,11 +24,11 @@ $this->breadcrumbs = array(
     <div class="row">
         <div class="col">
             <div class="my-2 row">
-                <label class="col col-form-label">Tanggal</label>
+                <label class="col col-form-label">Tanggal Masuk</label>
                 <div class="col">
                     <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                        'name'=>'StartDate',
-                        'value' => $startDate,
+                        'name'=>'StartDateIn',
+                        'value' => $startDateIn,
                         'options'=>array(
                             'dateFormat'=>'yy-mm-dd',
                         ),
@@ -38,11 +38,6 @@ $this->breadcrumbs = array(
                             'placeholder'=>'Date From',
                             'onchange' => CHtml::ajax(array(
                                 'type' => 'GET',
-                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
-                                'update' => '#vehicle_status_data_container',
-                            )) . 
-                            CHtml::ajax(array(
-                                'type' => 'GET',
                                 'url' => CController::createUrl('ajaxHtmlUpdateVehicleEntryDataTable'),
                                 'update' => '#vehicle_entry_status_data_container',
                             )),
@@ -51,8 +46,8 @@ $this->breadcrumbs = array(
                 </div>
                 <div class="col">
                     <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                        'name'=>'EndDate',
-                        'value' => $endDate,
+                        'name'=>'EndDateIn',
+                        'value' => $endDateIn,
                         'options'=>array(
                             'dateFormat'=>'yy-mm-dd',
                         ),
@@ -61,11 +56,6 @@ $this->breadcrumbs = array(
                             'style'=>'margin-bottom:0px;',
                             'placeholder'=>'Date To',
                             'onchange' => CHtml::ajax(array(
-                                'type' => 'GET',
-                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
-                                'update' => '#vehicle_status_data_container',
-                            )) . 
-                            CHtml::ajax(array(
                                 'type' => 'GET',
                                 'url' => CController::createUrl('ajaxHtmlUpdateVehicleEntryDataTable'),
                                 'update' => '#vehicle_entry_status_data_container',
@@ -88,6 +78,63 @@ $this->breadcrumbs = array(
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <div class="my-2 row">
+                <label class="col col-form-label">Tanggal Keluar</label>
+                <div class="col">
+                    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'name'=>'StartDateOut',
+                        'value' => $startDateOut,
+                        'options'=>array(
+                            'dateFormat'=>'yy-mm-dd',
+                        ),
+                        'htmlOptions'=>array(
+                            'class' => 'form-select',
+                            'style'=>'margin-bottom:0px;',
+                            'placeholder'=>'Date From',
+                            'onchange' => CHtml::ajax(array(
+                                'type' => 'GET',
+                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
+                                'update' => '#vehicle_status_data_container',
+                            )),
+                        ),
+                    )); ?>
+                </div>
+                <div class="col">
+                    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'name'=>'EndDateOut',
+                        'value' => $endDateOut,
+                        'options'=>array(
+                            'dateFormat'=>'yy-mm-dd',
+                        ),
+                        'htmlOptions'=>array(
+                            'class' => 'form-select',
+                            'style'=>'margin-bottom:0px;',
+                            'placeholder'=>'Date To',
+                            'onchange' => CHtml::ajax(array(
+                                'type' => 'GET',
+                                'url' => CController::createUrl('ajaxHtmlUpdateVehicleStatusDataTable'),
+                                'update' => '#vehicle_status_data_container',
+                            )),
+                        ),
+                    )); ?>
+                </div>
+                <label class="col col-form-label"></label>
+                <div class="col">
+                    <?php /*echo CHtml::textField('PlateNumber', $plateNumber, array(
+                        'class' => 'form-select',
+                        'onchange' => CHtml::ajax(array(
+                            'type' => 'GET',
+                            'url' => CController::createUrl('ajaxHtmlUpdateVehicleEntryDataTable'),
+                            'update' => '#vehicle_entry_status_data_container',
+                        )),
+                    ));*/ ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <br /> 
 
     <div class="text-center">
@@ -98,8 +145,8 @@ $this->breadcrumbs = array(
 
     <div id="vehicle_entry_status_data_container">
         <?php $this->renderPartial('_vehicleEntry', array(
-            'startDate' => $startDate,
-            'endDate' => $endDate,
+            'startDateIn' => $startDateIn,
+            'endDateIn' => $endDateIn,
             'vehicleEntryDataprovider' => $vehicleEntryDataprovider,
         )); ?>
     </div>
@@ -108,8 +155,8 @@ $this->breadcrumbs = array(
 
     <div id="vehicle_status_data_container">
         <?php $this->renderPartial('_vehicleExit', array(
-            'startDate' => $startDate,
-            'endDate' => $endDate,
+            'startDateOut' => $startDateOut,
+            'endDateOut' => $endDateOut,
             'vehicleTransactionListSummary' => $vehicleTransactionListSummary,
         )); ?>
     </div>

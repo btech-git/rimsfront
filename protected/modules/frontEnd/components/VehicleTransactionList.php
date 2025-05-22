@@ -27,8 +27,8 @@ class VehicleTransactionList extends CComponent {
     }
 
     public function setupFilter($filters) {
-        $startDate = (empty($filters['startDate'])) ? date('Y-m-d') : $filters['startDate'];
-        $endDate = (empty($filters['endDate'])) ? date('Y-m-d') : $filters['endDate'];
+        $startDate = (empty($filters['startDateOut'])) ? date('Y-m-d') : $filters['startDateOut'];
+        $endDate = (empty($filters['endDateOut'])) ? date('Y-m-d') : $filters['endDateOut'];
         $branchId = (empty($filters['branchId'])) ? '' : $filters['branchId'];
         
         $branchConditionSql = '';

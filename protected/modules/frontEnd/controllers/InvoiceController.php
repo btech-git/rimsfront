@@ -185,11 +185,11 @@ class InvoiceController extends Controller {
         $plateNumber = (isset($_GET['PlateNumber'])) ? $_GET['PlateNumber'] : '';
 
         if (!empty($customerName)) {
-            $dataProvider->criteria->compare('customer.name', $customerName, true);
+            $registrationTransactionDataProvider->criteria->compare('customer.name', $customerName, true);
         }
         
         if (!empty($plateNumber)) {
-            $dataProvider->criteria->compare('vehicle.plate_number', $plateNumber, true);
+            $registrationTransactionDataProvider->criteria->compare('vehicle.plate_number', $plateNumber, true);
         }
         
         $this->render('registrationList', array(
