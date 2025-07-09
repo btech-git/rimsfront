@@ -24,26 +24,26 @@ $this->menu=array(
         <table class="table table-bordered table-striped">
             <tbody>
                 <tr>
-                    <th>Mesin #</th>
-                    <td><?php echo CHtml::encode(CHtml::value($model, 'machine_number')); ?></td>
-                    <th>Plat #</th>
-                    <td><?php echo CHtml::encode(CHtml::value($model, 'plate_number')); ?></td>
-                </tr>
-                <tr>
-                    <th>Rangka #</th>
-                    <td><?php echo CHtml::encode(CHtml::value($model, 'frame_number')); ?></td>
                     <th>Mobil Tipe</th>
                     <td>
                         <?php echo CHtml::encode(CHtml::value($model, 'carMake.name')); ?> -
                         <?php echo CHtml::encode(CHtml::value($model, 'carModel.name')); ?> -
                         <?php echo CHtml::encode(CHtml::value($model, 'carSubModel.name')); ?>
                     </td>
+                    <th>Plat #</th>
+                    <td><?php echo CHtml::encode(CHtml::value($model, 'plate_number')); ?></td>
+                </tr>
+                <tr>
+                    <th>Tahun</th>
+                    <td><?php echo CHtml::encode(CHtml::value($model, 'year')); ?></td>
+                    <th>Rangka #</th>
+                    <td><?php echo CHtml::encode(CHtml::value($model, 'frame_number')); ?></td>
                 </tr>
                 <tr>
                     <th>Warna</th>
                     <td><?php echo CHtml::encode(CHtml::value($model, 'colors.name')); ?></td>
-                    <th>Tahun</th>
-                    <td><?php echo CHtml::encode(CHtml::value($model, 'year')); ?></td>
+                    <th>Mesin #</th>
+                    <td><?php echo CHtml::encode(CHtml::value($model, 'machine_number')); ?></td>
                 </tr>
                 <tr>
                     <th>Transmisi</th>
@@ -107,6 +107,7 @@ $this->menu=array(
             'id' => 'vehicle-form',
             'enableAjaxValidation' => false,
         )); ?>
+        <div style="color: red; font-weight: bold"><?php echo CHtml::encode($statusErrorMessage); ?></div>
         <div class="row">
             Status Location
             <?php echo CHtml::activeDropDownList($model, 'status_location', array(

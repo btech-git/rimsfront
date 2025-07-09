@@ -94,12 +94,14 @@ class CustomerController extends Controller {
                     $coa->is_approved = 1;
                     $coa->user_id = Yii::app()->user->id;
                     $coa->save();
+                    $this->saveMasterLog($coa);
 
                     $model->coa_id = $coa->id;
                 }
             }
 
             if ($model->save()) {
+                $this->saveMasterLog($model);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -122,13 +124,33 @@ class CustomerController extends Controller {
 
         if (isset($_POST['Customer'])) {
             $model->attributes = $_POST['Customer'];
-            if ($model->save())
+            if ($model->save()) {
+                $this->saveMasterLog($model);
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array(
             'model' => $model,
         ));
+    }
+
+    public function saveMasterLog($model) {
+        $masterLog = new MasterLog();
+        $masterLog->name = $model->name;
+        $masterLog->log_date = date('Y-m-d');
+        $masterLog->log_time = date('H:i:s');
+        $masterLog->table_name = $model->tableName();
+        $masterLog->table_id = $model->id;
+        $masterLog->user_id = Yii::app()->user->id;
+        $masterLog->username = Yii::app()->user->username;
+        $masterLog->controller_class = Yii::app()->controller->module->id  . '/' . Yii::app()->controller->id;
+        $masterLog->action_name = Yii::app()->controller->action->id;
+        
+        $newData = $model->attributes;
+        $masterLog->new_data = json_encode($newData);
+
+        $masterLog->save();
     }
 
     /**
